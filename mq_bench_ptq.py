@@ -6,7 +6,7 @@ import logging
 import warnings
 from contextlib import contextmanager
 from typing import Callable, Iterable, Optional, Tuple
-from types import SimpleNamespace
+
 
 import torch
 import torchvision as tv
@@ -29,6 +29,24 @@ try:
 except Exception:
     tqdm = None
 
+class ConfigNamespace:
+    """A namespace object that supports both attribute access and dict-like operations."""
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+    
+    def __contains__(self, key):
+        return hasattr(self, key)
+    
+    def get(self, key, default=None):
+        return getattr(self, key, default)
+    
+    def __getitem__(self, key):
+        return getattr(self, key)
+    
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+
 def make_adv_cfg(user_cfg=None):
     # defaults work for BRECQ/QDrop-style reconstruction
     defaults = dict(
@@ -47,7 +65,7 @@ def make_adv_cfg(user_cfg=None):
     elif user_cfg is not None:
         # already a namespace/object; return as-is
         return user_cfg
-    return SimpleNamespace(**defaults)
+    return ConfigNamespace(**defaults)
 
 
 # =========================
@@ -294,9 +312,7 @@ def run_ptq(
         logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
 
         if profile_mem: log_cuda_mem("before ptq_reconstruction")
-        # Convert SimpleNamespace to dict for ptq_reconstruction compatibility
-        adv_dict = vars(adv_ns)
-        model = ptq_reconstruction(model, stacked, adv_dict)  # <-- pass dict instead of namespace
+        model = ptq_reconstruction(model, stacked, adv_ns)  # <-- pass namespace
         # ensure model is on the right device after reconstruction
         model = model.to(device).eval()
         if profile_mem: log_cuda_mem("after ptq_reconstruction")
