@@ -6,6 +6,7 @@ import logging
 import warnings
 from contextlib import contextmanager
 from typing import Callable, Iterable, Optional, Tuple
+from types import SimpleNamespace
 
 import torch
 import torchvision as tv
@@ -27,6 +28,26 @@ try:
     from tqdm import tqdm
 except Exception:
     tqdm = None
+
+def make_adv_cfg(user_cfg=None):
+    # defaults work for BRECQ/QDrop-style reconstruction
+    defaults = dict(
+        pattern="block",                 # "layer" -> AdaRound, "block" -> BRECQ/QDrop
+        scale_lr=4e-5,
+        warm_up=0.2,
+        weight=0.01,
+        max_count=20000,
+        b_range=[20, 2],
+        keep_gpu=True,                   # keep stacked calibration tensors on GPU
+        round_mode="learned_hard_sigmoid",
+        prob=1.0,                        # 1.0 => BRECQ/AdaRound; <1.0 => QDrop
+    )
+    if isinstance(user_cfg, dict):
+        defaults.update(user_cfg)
+    elif user_cfg is not None:
+        # already a namespace/object; return as-is
+        return user_cfg
+    return SimpleNamespace(**defaults)
 
 
 # =========================
@@ -254,20 +275,29 @@ def run_ptq(
 
     if do_advanced:
         assert HAS_ADV, "mqbench.advanced_ptq not available."
-        with log_section("advanced PTQ reconstruction"):
-            stacked = []
-            with torch.no_grad():
-                for images in calib_images_fn():
-                    stacked.append(images.to(device, non_blocking=True))
-            adv_cfg = adv_cfg or {
-                "pattern": "block", "scale_lr": 4e-5, "warm_up": 0.2, "weight": 0.01,
-                "max_count": 20000, "b_range": [20, 2], "keep_gpu": True,
-                "round_mode": "learned_hard_sigmoid", "prob": 1.0,
-            }
-            model = ptq_reconstruction(model, stacked, adv_cfg)
-            # ★★★ ensure it’s still on device ★★★
-            model = model.to(device).eval()
-            if profile_mem: log_cuda_mem("after ptq_reconstruction")
+    with log_section("advanced PTQ reconstruction"):
+        # build config object with attributes (no more dict)
+        adv_ns = make_adv_cfg(adv_cfg)
+
+        # stack calibration mini-batches (respect keep_gpu)
+        stacked, total_imgs = [], 0
+        iterator = calib_images_fn()
+        if tqdm is not None and calib_steps:
+            iterator = tqdm(iterator, total=calib_steps, desc="Stack", leave=False)
+        with torch.no_grad():
+            for images in iterator:
+                img_dev = device if adv_ns.keep_gpu else "cpu"
+                stacked.append(images.to(img_dev, non_blocking=True))
+                total_imgs += images.size(0)
+
+        logging.info(f"[ADV] cfg={adv_ns.__dict__}")
+        logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
+
+        if profile_mem: log_cuda_mem("before ptq_reconstruction")
+        model = ptq_reconstruction(model, stacked, adv_ns)  # <-- pass namespace
+        # ensure model is on the right device after reconstruction
+        model = model.to(device).eval()
+        if profile_mem: log_cuda_mem("after ptq_reconstruction")
 
     with log_section("enable_quantization (simulate INT8)"):
         enable_quantization(model)
