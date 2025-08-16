@@ -294,7 +294,9 @@ def run_ptq(
         logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
 
         if profile_mem: log_cuda_mem("before ptq_reconstruction")
-        model = ptq_reconstruction(model, stacked, adv_ns)  # <-- pass namespace
+        # Convert SimpleNamespace to dict for ptq_reconstruction compatibility
+        adv_dict = vars(adv_ns)
+        model = ptq_reconstruction(model, stacked, adv_dict)  # <-- pass dict instead of namespace
         # ensure model is on the right device after reconstruction
         model = model.to(device).eval()
         if profile_mem: log_cuda_mem("after ptq_reconstruction")
@@ -374,13 +376,13 @@ def main():
         raise ValueError(f"Unknown BackendType '{args.backend}'. Check mqbench.prepare_by_platform.BackendType.")
 
     # Baseline FP32 eval
-    try:
+    '''try:
         with log_section("evaluate FP32 baseline"):
             acc_fp = top1(fp, val_loader, device, log_prefix="EVAL_FP32")
             logging.info(f"[FP32] Top-1 = {acc_fp:.2f}% "
                          f"(expected ~{ref_top1} if weights & transforms match)")
     except Exception:
-        logging.exception("FP32 eval failed/skipped")
+        logging.exception("FP32 eval failed/skipped")'''
 
     # Run PTQ
     qmodel = run_ptq(
