@@ -8,7 +8,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=<your-email-address>
 
-source mqbench/bin/activate
+source /home/alz07xz/project/kmeans_results/MQBench/mqbench/bin/activate
 
 
 echo "🚀 Submitting MQBench PTQ Experiments to SLURM..."
