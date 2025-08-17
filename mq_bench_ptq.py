@@ -263,11 +263,10 @@ def run_ptq(
     model.to(device).eval()
 
     backend = BackendType.Academic
-
     with log_section(f"prepare_by_platform({backend.name})"):
         pre_all, _ = count_quantish_modules(model)
 
-        # NEW: explicit Academic qconfig
+        # Build explicit Academic qconfig (you already have build_academic_qconfig)
         extra_q = build_academic_qconfig(
             w_bits=8, a_bits=8,
             w_per_channel=True, a_per_channel=False,
@@ -278,16 +277,34 @@ def run_ptq(
         )
         logging.info(f"[Academic qconfig] {extra_q}")
 
-        # pass extra_qconfig_dict=extra_q
-        model = prepare_by_platform(model, backend, extra_qconfig_dict=extra_q)
+        # ✅ Pack it under 'extra_qconfig_dict' inside prepare_custom_config_dict
+        prepare_cfg = {
+            "extra_qconfig_dict": extra_q,
+            # Optional knobs you might add later:
+            # "extra_quantizer_dict": {...},
+            # "preserve_attr": {"": ["some_attr"], "backbone": ["func2"]},
+            # "concrete_args": {...},
+            # "extra_fuse_dict": {...},
+            # "leaf_module": [SomeCustomModuleClass],
+        }
 
-        # IMPORTANT: GraphModule is new & on CPU
+        # ❗ PTQ => is_qat=False
+        model = prepare_by_platform(
+            model,
+            backend,
+            prepare_custom_config_dict=prepare_cfg,
+            is_qat=False,
+            freeze_bn=True
+        )
+
+        # The returned GraphModule is new & on CPU → move to device
         model = model.to(device).eval()
+
         post_all, post_quantish = count_quantish_modules(model)
         logging.info(f"Modules (total): {pre_all} -> {post_all}")
         logging.info(f"'Quantish' modules detected after prepare: {post_quantish}")
-        if profile_mem: log_cuda_mem("after prepare_by_platform")
-
+        if profile_mem:
+            log_cuda_mem("after prepare_by_platform")
 
     with log_section("calibration (enable_calibration + forward)"):
         enable_calibration(model)
