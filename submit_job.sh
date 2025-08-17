@@ -1,5 +1,15 @@
 #!/bin/bash
-# Quick SLURM job submission script
+#SBATCH -J TestJob
+#SBATCH -c 8
+#SBATCH --mem=128G
+#SBATCH -p gpu_computervision_long
+#SBATCH --gres=gpu:4
+#SBATCH --tmp=5G
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=<your-email-address>
+
+source mqbench/bin/activate
+
 
 echo "🚀 Submitting MQBench PTQ Experiments to SLURM..."
 echo "=========================================="
