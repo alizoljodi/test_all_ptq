@@ -34,14 +34,10 @@ class ConfigNamespace:
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
-    def __contains__(self, k): return hasattr(self, k)
-    def get(self, k, default=None): return getattr(self, k, default)
-    def __getitem__(self, k): return getattr(self, k)
-    def __setitem__(self, k, v): setattr(self, k, v)
 
-def make_adv_cfg(user_cfg=None):
+def make_adv_cfg(user_cfg=None, **overrides):
     defaults = dict(
-        pattern="block",                 # "layer" -> AdaRound, "block" -> BRECQ/QDrop
+        pattern="block",                 # 'layer' -> AdaRound, 'block' -> BRECQ/QDrop
         scale_lr=4e-5,
         warm_up=0.2,
         weight=0.01,
@@ -53,10 +49,10 @@ def make_adv_cfg(user_cfg=None):
     )
     if isinstance(user_cfg, dict):
         defaults.update(user_cfg)
-    elif user_cfg is not None:
-        return user_cfg
+    elif isinstance(user_cfg, ConfigNamespace):
+        defaults.update(user_cfg.__dict__)
+    defaults.update({k: v for k, v in overrides.items() if v is not None})
     return ConfigNamespace(**defaults)
-
 
 # =========================
 # Logging & utilities
@@ -259,6 +255,9 @@ def run_ptq(
     calib_steps=None,
     log_interval=10,
     profile_mem=False,
+    quant_model="fixed",
+    w_bits=8,
+    a_bits=8,
 ):
     model.to(device).eval()
 
@@ -266,50 +265,44 @@ def run_ptq(
     with log_section(f"prepare_by_platform({backend.name})"):
         pre_all, _ = count_quantish_modules(model)
 
-        # ---- NEW: explicit Academic config (avoids KeyError: default_weight_quantize) ----
+        # Resolve fake-quant classes from CLI
+        w_fq, a_fq = resolve_fakequant_names(quant_model)  # <-- needs args in scope; see note below
+
         extra_config = {
             "extra_qconfig_dict": {
-                # observers (PTQ-friendly)
                 "w_observer": "MinMaxObserver",
                 "a_observer": "EMAMinMaxObserver",
 
-                # MUST provide both quantizers so get_qconfig_by_platform won't read backend defaults
-                # Use FixedFakeQuantize for PTQ (unlearnable scale/zp, filled by observers)
-                "w_fakequantize": "FixedFakeQuantize",
-                "a_fakequantize": "FixedFakeQuantize",
+                # Use the selected fakequant
+                "w_fakequantize": w_fq,
+                "a_fakequantize": a_fq,
 
-                # schemes (note: key is 'symmetry' in this branch)
+                # Schemes (this branch expects 'symmetry' key)
                 "w_qscheme": {
-                    "bit": 8,
+                    "bit": w_bits,
                     "symmetry": True,
                     "per_channel": True,
                     "pot_scale": False,
                 },
                 "a_qscheme": {
-                    "bit": 8,
+                    "bit": a_bits,
                     "symmetry": False,
                     "per_channel": False,
                     "pot_scale": False,
                 },
-            },
-            # optional: you can add these later if needed
-            # "extra_quantizer_dict": {...},
-            # "preserve_attr": {...},
-            # "extra_fuse_dict": {...},
-            # "concrete_args": {...},
-            # "leaf_module": [...],
+            }
         }
         logging.info(f"[Academic extra_config] {extra_config}")
 
         model = prepare_by_platform(
             model,
             backend,
-            prepare_custom_config_dict=extra_config,  # <— pass the dict at the right level
-            is_qat=False,                             # PTQ path
+            prepare_custom_config_dict=extra_config,
+            is_qat=False,        # PTQ path
             freeze_bn=True,
         )
 
-        model = model.to(device).eval()  # FX GraphModule comes back on CPU
+        model = model.to(device).eval()
         post_all, post_quantish = count_quantish_modules(model)
         logging.info(f"Modules (total): {pre_all} -> {post_all}")
         logging.info(f"'Quantish' modules detected after prepare: {post_quantish}")
@@ -317,49 +310,67 @@ def run_ptq(
             log_cuda_mem("after prepare_by_platform")
 
 
+        
 
-    with log_section("calibration (enable_calibration + forward)"):
-        enable_calibration(model)
-        seen_imgs, t0 = 0, time.time()
-        iterator = calib_images_fn()
-        if tqdm is not None and calib_steps:
-            iterator = tqdm(iterator, total=calib_steps, desc="Calib", leave=False)
-        for step, images in enumerate(iterator, 1):
-            images = images.to(device, non_blocking=True)
-            _ = model(images)
-            seen_imgs += images.size(0)
-            if (step % log_interval == 0) or (step == 1):
-                elapsed = time.time() - t0
-                ips = seen_imgs / max(elapsed, 1e-6)
-                logging.info(f"[CALIB] step={step}/{calib_steps or '?'} seen={seen_imgs} ({ips:.1f} img/s)")
-                if profile_mem: log_cuda_mem(f"calib step {step}")
-        logging.info(f"[CALIB] total images seen: {seen_imgs}")
-
-    if do_advanced:
-        assert HAS_ADV, "mqbench.advanced_ptq not available."
-        with log_section("advanced PTQ reconstruction"):
-            adv_ns = make_adv_cfg(adv_cfg)
-            stacked, total_imgs = [], 0
+        with log_section("calibration (enable_calibration + forward)"):
+            enable_calibration(model)
+            seen_imgs, t0 = 0, time.time()
             iterator = calib_images_fn()
             if tqdm is not None and calib_steps:
-                iterator = tqdm(iterator, total=calib_steps, desc="Stack", leave=False)
-            with torch.no_grad():
-                for images in iterator:
-                    img_dev = device if adv_ns.keep_gpu else "cpu"
-                    stacked.append(images.to(img_dev, non_blocking=True))
-                    total_imgs += images.size(0)
-            logging.info(f"[ADV] cfg={adv_ns.__dict__}")
-            logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
-            if profile_mem: log_cuda_mem("before ptq_reconstruction")
-            model = ptq_reconstruction(model, stacked, adv_ns)
-            model = model.to(device).eval()
-            if profile_mem: log_cuda_mem("after ptq_reconstruction")
+                iterator = tqdm(iterator, total=calib_steps, desc="Calib", leave=False)
+            for step, images in enumerate(iterator, 1):
+                images = images.to(device, non_blocking=True)
+                _ = model(images)
+                seen_imgs += images.size(0)
+                if (step % log_interval == 0) or (step == 1):
+                    elapsed = time.time() - t0
+                    ips = seen_imgs / max(elapsed, 1e-6)
+                    logging.info(f"[CALIB] step={step}/{calib_steps or '?'} seen={seen_imgs} ({ips:.1f} img/s)")
+                    if profile_mem: log_cuda_mem(f"calib step {step}")
+            logging.info(f"[CALIB] total images seen: {seen_imgs}")
 
-    with log_section("enable_quantization (simulate INT8)"):
-        enable_quantization(model)
-        if profile_mem: log_cuda_mem("after enable_quantization")
+        if do_advanced:
+            
+            assert HAS_ADV, "mqbench.advanced_ptq not available."
+            with log_section("advanced PTQ reconstruction"):
+                adv_ns = make_adv_cfg(adv_cfg)
+                stacked, total_imgs = [], 0
+                iterator = calib_images_fn()
+                if tqdm is not None and calib_steps:
+                    iterator = tqdm(iterator, total=calib_steps, desc="Stack", leave=False)
+                with torch.no_grad():
+                    for images in iterator:
+                        img_dev = device if adv_ns.keep_gpu else "cpu"
+                        stacked.append(images.to(img_dev, non_blocking=True))
+                        total_imgs += images.size(0)
+                logging.info(f"[ADV] cfg={adv_ns.__dict__}")
+                logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
+                if profile_mem: log_cuda_mem("before ptq_reconstruction")
+                model = ptq_reconstruction(model, stacked, adv_ns)
+                model = model.to(device).eval()
+                if profile_mem: log_cuda_mem("after ptq_reconstruction")
 
-    return model
+        with log_section("enable_quantization (simulate INT8)"):
+            enable_quantization(model)
+            if profile_mem: log_cuda_mem("after enable_quantization")
+
+        return model
+
+def resolve_fakequant_names(quant_model: str):
+    """
+    Map CLI-friendly names to MQBench fake quant class strings.
+    """
+    qm = quant_model.lower()
+    if qm == "fixed":
+        return "FixedFakeQuantize", "FixedFakeQuantize"
+    if qm == "learnable":
+        return "LearnableFakeQuantize", "LearnableFakeQuantize"
+    if qm == "lsq":
+        return "LSQFakeQuantize", "LSQFakeQuantize"
+    if qm == "lsqplus":
+        return "LSQPlusFakeQuantize", "LSQPlusFakeQuantize"
+    # fallback
+    return "FixedFakeQuantize", "FixedFakeQuantize"
 
 
 # =========================
@@ -393,9 +404,27 @@ def main():
     p.add_argument("--a_per_channel", action="store_true", default=False)
     p.add_argument("--w_sym", action="store_true", default=True)
     p.add_argument("--a_sym", action="store_true", default=False)
+    p.add_argument("--quant_model",
+               choices=["fixed", "learnable", "lsq", "lsqplus"],
+               default="fixed",
+               help="FakeQuant type for weights/activations")
+    p.add_argument("--adv_mode", choices=["adaround", "brecq", "qdrop"], default=None,
+               help="Choose advanced PTQ method. If set, --advanced is implied.")
+    p.add_argument("--adv_steps", type=int, default=20000, help="Optimization steps (max_count)")
+    p.add_argument("--adv_warmup", type=float, default=0.2, help="Warm-up ratio in [0,1]")
+    p.add_argument("--adv_lambda", type=float, default=0.01, help="Reconstruction loss weight")
+    p.add_argument("--adv_prob", type=float, default=1.0,
+                help="Drop prob for QDrop (set <1.0). Ignored for AdaRound/BRECQ.")
+    p.add_argument("--keep_gpu", action="store_true",
+                help="Keep stacked calibration tensors on GPU during reconstruction")
 
     # p.add_argument("--fp32_eval", action="store_true")  # optional switch if you want baseline eval
     args = p.parse_args()
+
+    # If user picked a mode, enable advanced automatically
+    if args.adv_mode is not None:
+        args.advanced = True
+
 
     setup_logger(args.log_file, args.verbose)
 
@@ -438,6 +467,19 @@ def main():
     #     logging.info(f"[FP32] Top-1 = {acc_fp:.2f}% (expected ~{ref_top1})")
 
     # Run Academic PTQ
+    adv_cfg = None
+    if args.advanced:
+        pattern = "layer" if args.adv_mode == "adaround" else "block"
+        prob = args.adv_prob if args.adv_mode == "qdrop" else 1.0
+        adv_cfg = make_adv_cfg(
+            pattern=pattern,
+            max_count=args.adv_steps,
+            warm_up=args.adv_warmup,
+            weight=args.adv_lambda,
+            prob=prob,
+            keep_gpu=args.keep_gpu,
+        )
+
     qmodel = run_ptq(
         fp,
         calib_images_fn=calib_images_fn,
@@ -446,6 +488,9 @@ def main():
         calib_steps=args.calib_batches,
         log_interval=args.log_interval,
         profile_mem=args.profile_mem,
+        quant_model=args.quant_model,
+        w_bits=args.w_bits,
+        a_bits=args.a_bits,
     )
 
     with log_section("evaluate INT8-sim"):
