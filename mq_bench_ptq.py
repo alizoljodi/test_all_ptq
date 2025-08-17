@@ -332,7 +332,7 @@ def main():
     import argparse, random, numpy as np
 
     p = argparse.ArgumentParser()
-    p.add_argument("--val_root", required=True, help="Path to ImageNet val (folder with class subdirs).")
+    p.add_argument("--val_root",default="/home/alz07xz/imagenet/val", help="Path to ImageNet val (folder with class subdirs).")
     p.add_argument("--backend", default="Tensorrt",
                    help="BackendType enum name, e.g., Tensorrt, OPENVINO, Vitis, PPLCUDA, SNPE, ONNX_QNN, Tengine_u8, Tensorrt_NLP, etc.")
     p.add_argument("--model", default="resnet18", help="torchvision model name (e.g., resnet18, mobilenet_v2, vit_b_16)")
