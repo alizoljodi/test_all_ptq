@@ -30,10 +30,23 @@ except Exception:
 # -------------------------
 # Config ns for advanced PTQ
 # -------------------------
-class ConfigNamespace:
-    def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            setattr(self, k, v)
+# --- replace your ConfigNamespace & make_adv_cfg with this ---
+class AttrDict(dict):
+    """Dict that also supports attribute access: d.x <-> d['x']"""
+    def __getattr__(self, k):
+        try:
+            return self[k]
+        except KeyError:
+            raise AttributeError(k)
+    def __setattr__(self, k, v):
+        self[k] = v
+    def __delattr__(self, k):
+        try:
+            del self[k]
+        except KeyError:
+            raise AttributeError(k)
+    def copy(self):
+        return AttrDict(**self)
 
 def make_adv_cfg(user_cfg=None, **overrides):
     defaults = dict(
@@ -47,12 +60,13 @@ def make_adv_cfg(user_cfg=None, **overrides):
         round_mode="learned_hard_sigmoid",
         prob=1.0,                        # 1.0 => BRECQ/AdaRound; <1.0 => QDrop
     )
+    cfg = {}
     if isinstance(user_cfg, dict):
-        defaults.update(user_cfg)
-    elif isinstance(user_cfg, ConfigNamespace):
-        defaults.update(user_cfg.__dict__)
-    defaults.update({k: v for k, v in overrides.items() if v is not None})
-    return ConfigNamespace(**defaults)
+        cfg.update(user_cfg)
+    elif isinstance(user_cfg, AttrDict):
+        cfg.update(dict(user_cfg))
+    cfg.update({k: v for k, v in overrides.items() if v is not None})
+    return AttrDict(**{**defaults, **cfg})
 
 # =========================
 # Logging & utilities
@@ -343,7 +357,7 @@ def run_ptq(
                         img_dev = device if adv_ns.keep_gpu else "cpu"
                         stacked.append(images.to(img_dev, non_blocking=True))
                         total_imgs += images.size(0)
-                logging.info(f"[ADV] cfg={adv_ns.__dict__}")
+                logging.info(f"[ADV] cfg={dict(adv_ns)}")  # instead of adv_ns.__dict__
                 logging.info(f"[ADV] stacked tensors: {len(stacked)} | total calib images: {total_imgs}")
                 if profile_mem: log_cuda_mem("before ptq_reconstruction")
                 model = ptq_reconstruction(model, stacked, adv_ns)
