@@ -1,12 +1,16 @@
 #!/bin/bash
-#SBATCH -J TestJob
-#SBATCH -c 8
-#SBATCH --mem=128G
-#SBATCH -p gpu_computervision_long
-#SBATCH --gres=gpu:4
-#SBATCH --tmp=5G
+#SBATCH --job-name=mqbench_ptq_experiments
+#SBATCH --output=logs/mqbench_ptq_%A_%a.out
+#SBATCH --error=logs/mqbench_ptq_%A_%a.err
+#SBATCH --time=24:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
+#SBATCH --gres=gpu:1
+#SBATCH --array=0-1919%8  # 1920 total jobs, max 8 concurrent
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=<your-email-address>
+#SBATCH --mail-user=your.email@example.com
 
 source /home/alz07xz/project/kmeans_results/MQBench/mqbench/bin/activate
 

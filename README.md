@@ -24,6 +24,7 @@ The script now automatically detects compatibility issues and falls back to basi
 - `--diagnose`: Run MQBench setup diagnostics
 - `--extract_logits`: Extract and save model logits for analysis
 - `--check_train_structure`: Verify ImageNet training data structure
+- `--recover`: Recover from existing results and resume incomplete experiments
 
 ### 3. Better Error Messages
 Clear error messages explaining the issue and suggesting solutions.
@@ -85,6 +86,15 @@ python mq_bench_ptq.py --model resnet18 --extract_logits --output_dir my_results
 
 # Disable CSV export
 python mq_bench_ptq.py --model resnet18 --extract_logits --no_save_csv
+```
+
+### Crash Recovery and Resume
+```bash
+# Resume from where you left off after a crash
+python mq_bench_ptq.py --model resnet18 --extract_logits --recover
+
+# Resume with custom output directory
+python mq_bench_ptq.py --model resnet18 --extract_logits --recover --output_dir my_results
 ```
 
 ### Run Diagnostics
@@ -157,6 +167,66 @@ python test_compatibility.py
 
 8. **CSV Export**: Comprehensive logging of all parameters and results for analysis and comparison.
 
+9. **Accuracy Tracking**: Complete accuracy comparison including FP32 baseline, PTQ baseline, and clustering recovery.
+
+## Crash Recovery and Resume
+
+The script now includes robust crash recovery functionality that allows you to resume experiments from where they left off.
+
+### How It Works
+
+1. **Automatic Checkpointing**: The script saves progress every 5 combinations and creates recovery checkpoints
+2. **Result Persistence**: All completed results are saved to CSV files with timestamps
+3. **Smart Resume**: When restarting with `--recover`, the script automatically detects completed combinations
+4. **Progress Tracking**: Shows exactly how many combinations remain to be completed
+
+### Recovery Files
+
+- **`ptq_results_YYYYMMDD_HHMMSS.csv`**: Detailed results with timestamps
+- **`recovery_checkpoint.json`**: Progress tracking and experiment state
+- **`ptq_summary_YYYYMMDD_HHMMSS.csv`**: Summary of best results
+
+### Usage Examples
+
+#### Resume After Crash
+```bash
+# If your experiment crashes, simply restart with --recover
+python mq_bench_ptq.py --model resnet18 --extract_logits --recover
+```
+
+#### Resume After Manual Interruption
+```bash
+# If you stop with Ctrl+C, restart with --recover
+python mq_bench_ptq.py --model resnet18 --extract_logits --recover
+```
+
+#### Check Recovery Status
+```bash
+# The script will show you exactly what's been completed and what remains
+python mq_bench_ptq.py --model resnet18 --extract_logits --recover --verbose
+```
+
+### What Gets Recovered
+
+- ✅ **Completed combinations**: All previously run parameter combinations
+- ✅ **Accuracy results**: Top-1 and Top-5 accuracies for each combination
+- ✅ **Experiment parameters**: Model, quantization settings, PCA parameters
+- ✅ **Progress state**: Exact point where the experiment stopped
+
+### What Gets Skipped
+
+- ❌ **Already completed combinations**: Won't re-run experiments that are done
+- ❌ **Duplicate work**: Efficiently resumes from the last saved state
+- ❌ **Data loss**: All progress is preserved in CSV and checkpoint files
+
+### Recovery Scenarios
+
+1. **System Crash**: Restart with `--recover` to continue from last checkpoint
+2. **Power Outage**: All progress is saved, resume seamlessly
+3. **Manual Stop**: Ctrl+C interruption saves current state
+4. **SLURM Timeout**: Job can be resubmitted with `--recover`
+5. **Memory Errors**: Fix memory issues and resume from last successful point
+
 ## CSV Output Format
 
 The script generates two CSV files in the specified output directory:
@@ -165,15 +235,17 @@ The script generates two CSV files in the specified output directory:
 Contains all parameter combinations and their corresponding accuracies:
 - **Setup Parameters**: Model, weights, batch size, calibration settings, quantization parameters
 - **Advanced PTQ Settings**: Mode, steps, warmup, lambda, probability, GPU usage
+- **Baseline Accuracies**: FP32 model accuracy and baseline PTQ accuracy
 - **PCA Parameters**: Alpha, number of clusters, PCA dimensions
 - **Results**: Top-1 and Top-5 accuracies for each combination
-- **Baseline**: Original PTQ accuracy for comparison
+- **Comparison Metrics**: PTQ degradation and clustering recovery
 
 ### 2. Summary Results (`ptq_summary_YYYYMMDD_HHMMSS.csv`)
 Shows the best result for each unique parameter combination:
 - **Best Alpha**: Optimal alpha value for each cluster/PCA combination
-- **Improvement**: Accuracy improvement over baseline PTQ
+- **Improvement Metrics**: Accuracy improvement over baseline PTQ and FP32
 - **Parameter Optimization**: Best settings for each configuration
+- **Recovery Analysis**: How much accuracy was recovered from clustering
 
 ## Expected Behavior
 
@@ -197,3 +269,77 @@ Shows the best result for each unique parameter combination:
 - All fixes are backward compatible
 - Training data is now available for additional analysis
 - Logits extraction provides insights into quantization effects
+
+## SLURM Automation
+
+The repository includes a complete SLURM setup to automate large-scale PTQ experiments:
+
+### Quick Start with SLURM
+
+#### Option 1: Python Script (Recommended)
+```bash
+# Run with default 8 concurrent jobs
+python submit_experiments.py
+
+# Run with custom concurrency (e.g., 4 concurrent jobs)
+python submit_experiments.py --max-concurrent 4
+
+# Run with maximum concurrency (e.g., 16 concurrent jobs)
+python submit_experiments.py --max-concurrent 16
+```
+
+#### Option 2: Shell Script
+```bash
+# Run with default 8 concurrent jobs
+./submit_job.sh
+
+# Run with custom concurrency (e.g., 4 concurrent jobs)
+./submit_job.sh 4
+
+# Run with maximum concurrency (e.g., 16 concurrent jobs)
+./submit_job.sh 16
+```
+
+#### Option 3: Direct SLURM Submission
+```bash
+# Submit directly to SLURM (modify the script first if you want different concurrency)
+sbatch run_ptq_experiments.slurm
+```
+
+### SLURM Job Details
+
+- **Job Name**: `mqbench_ptq_experiments`
+- **Output Logs**: `logs/mqbench_ptq_<JOB_ID>_<ARRAY_ID>.out`
+- **Error Logs**: `logs/mqbench_ptq_<JOB_ID>_<ARRAY_ID>.err`
+- **Results Directory**: `results/`
+- **Temporary Scripts**: `temp_slurm_concurrent<N>_<TIMESTAMP>.sh`
+
+### Monitoring Commands
+
+```bash
+# Check all your jobs
+squeue -u $USER
+
+# Check specific job by name
+squeue -n mqbench_ptq_experiments
+
+# Monitor output logs
+tail -f logs/mqbench_ptq_*.out
+
+# Monitor error logs
+tail -f logs/mqbench_ptq_*.err
+
+# Check specific array job
+tail -f logs/mqbench_ptq_<JOB_ID>_<ARRAY_ID>.out
+```
+
+### Configurable Concurrency
+
+The `--max-concurrent` parameter controls how many experiments run simultaneously:
+
+- **`--max-concurrent 4`**: 4 experiments run at once (good for smaller clusters)
+- **`--max-concurrent 8`**: 8 experiments run at once (default, balanced)
+- **`--max-concurrent 16`**: 16 experiments run at once (for large clusters)
+
+**Total Experiments**: 1,920 combinations
+**Estimated Runtime**: ~24 hours (varies with concurrency)

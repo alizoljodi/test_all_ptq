@@ -14,6 +14,7 @@ from torchvision.models import get_model, get_model_weights
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
+import json
 
 from mqbench.prepare_by_platform import prepare_by_platform, BackendType
 from mqbench.utils.state import enable_calibration, enable_quantization
@@ -569,13 +570,108 @@ def build_cluster_affine(all_q, all_fp, num_clusters=64, pca_dim=None):
 
         return cluster_model, gamma_dict, beta_dict, pca
 
-def save_results_to_csv(results, args, baseline_ptq_acc, output_dir="results"):
+def check_existing_results(args, output_dir="results"):
+    """
+    Check for existing results and return the last saved state.
+    
+    Args:
+        args: Command line arguments
+        output_dir: Directory to check for existing results
+    
+    Returns:
+        Tuple of (existing_results, last_timestamp, resume_from)
+    """
+    if not os.path.exists(output_dir):
+        return [], None, None
+    
+    # Look for existing result files
+    result_files = []
+    for filename in os.listdir(output_dir):
+        if filename.startswith("ptq_results_") and filename.endswith(".csv"):
+            result_files.append(filename)
+    
+    if not result_files:
+        return [], None, None
+    
+    # Get the most recent results file
+    latest_file = max(result_files, key=lambda x: os.path.getmtime(os.path.join(output_dir, x)))
+    latest_path = os.path.join(output_dir, latest_file)
+    
+    # Extract timestamp from filename
+    timestamp = latest_file.replace("ptq_results_", "").replace(".csv", "")
+    
+    # Read existing results
+    existing_results = []
+    try:
+        with open(latest_path, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                # Convert string values back to appropriate types
+                result = {
+                    'alpha': float(row['alpha']),
+                    'num_clusters': int(row['num_clusters']),
+                    'pca_dim': int(row['pca_dim']),
+                    'top1_accuracy': float(row['top1_accuracy']),
+                    'top5_accuracy': float(row['top5_accuracy'])
+                }
+                existing_results.append(result)
+        
+        print(f"📁 Found existing results: {len(existing_results)} combinations")
+        print(f"📄 Last results file: {latest_file}")
+        print(f"⏰ Timestamp: {timestamp}")
+        
+        return existing_results, timestamp, latest_path
+        
+    except Exception as e:
+        print(f"⚠️  Warning: Could not read existing results: {e}")
+        return [], None, None
+
+
+def get_remaining_combinations(args, existing_results):
+    """
+    Determine which parameter combinations still need to be run.
+    
+    Args:
+        args: Command line arguments
+        existing_results: List of already completed results
+    
+    Returns:
+        List of remaining parameter combinations to run
+    """
+    # Get parameter lists
+    alpha_list = args.alpha_list if args.alpha_list else [args.alpha]
+    num_clusters_list = args.num_clusters_list if args.num_clusters_list else [args.num_clusters]
+    pca_dim_list = args.pca_dim_list if args.pca_dim_list else [args.pca_dim]
+    
+    # Create set of completed combinations
+    completed = set()
+    for result in existing_results:
+        completed.add((result['alpha'], result['num_clusters'], result['pca_dim']))
+    
+    # Find remaining combinations
+    remaining = []
+    for alpha in alpha_list:
+        for num_clusters in num_clusters_list:
+            for pca_dim in pca_dim_list:
+                if (alpha, num_clusters, pca_dim) not in completed:
+                    remaining.append({
+                        'alpha': alpha,
+                        'num_clusters': num_clusters,
+                        'pca_dim': pca_dim
+                    })
+    
+    return remaining
+
+
+def save_results_to_csv(results, args, fp32_acc, baseline_ptq_acc, output_dir="results", append=False, existing_file=None):
     """
     Save all results to a CSV file with setup parameters and accuracies.
     
     Args:
         results: List of result dictionaries
         args: Command line arguments
+        fp32_acc: Full-precision model accuracy
+        baseline_ptq_acc: Baseline PTQ accuracy
         output_dir: Directory to save the CSV file
     """
     os.makedirs(output_dir, exist_ok=True)
@@ -588,7 +684,7 @@ def save_results_to_csv(results, args, baseline_ptq_acc, output_dir="results"):
     headers = [
         'timestamp', 'model', 'weights', 'batch_size', 'calib_batches', 'img_size',
         'w_bits', 'a_bits', 'quant_model', 'advanced', 'adv_mode', 'adv_steps',
-        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'baseline_ptq_acc',
+        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'fp32_accuracy', 'baseline_ptq_acc',
         'alpha', 'num_clusters', 'pca_dim',
         'top1_accuracy', 'top5_accuracy', 'extract_logits', 'logits_batches'
     ]
@@ -616,6 +712,7 @@ def save_results_to_csv(results, args, baseline_ptq_acc, output_dir="results"):
                 'adv_lambda': args.adv_lambda,
                 'adv_prob': args.adv_prob,
                 'keep_gpu': args.keep_gpu,
+                'fp32_accuracy': fp32_acc, # Add baseline FP32 accuracy
                 'baseline_ptq_acc': baseline_ptq_acc, # Add baseline PTQ accuracy
                 'alpha': result['alpha'],
                 'num_clusters': result['num_clusters'],
@@ -630,13 +727,14 @@ def save_results_to_csv(results, args, baseline_ptq_acc, output_dir="results"):
     print(f"Results saved to: {csv_filename}")
     return csv_filename
 
-def save_summary_csv(results, args, baseline_ptq_acc, output_dir="results"):
+def save_summary_csv(results, args, fp32_acc, baseline_ptq_acc, output_dir="results"):
     """
     Save a summary CSV with the best results for each parameter combination.
     
     Args:
         results: List of result dictionaries
         args: Command line arguments
+        fp32_acc: Full-precision model accuracy
         baseline_ptq_acc: Baseline PTQ accuracy
         output_dir: Directory to save the CSV file
     """
@@ -660,9 +758,9 @@ def save_summary_csv(results, args, baseline_ptq_acc, output_dir="results"):
     headers = [
         'timestamp', 'model', 'weights', 'batch_size', 'calib_batches', 'img_size',
         'w_bits', 'a_bits', 'quant_model', 'advanced', 'adv_mode', 'adv_steps',
-        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'baseline_ptq_acc',
+        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'fp32_accuracy', 'baseline_ptq_acc',
         'best_alpha', 'num_clusters', 'pca_dim',
-        'best_top1_accuracy', 'best_top5_accuracy', 'improvement_over_baseline'
+        'best_top1_accuracy', 'best_top5_accuracy', 'improvement_over_baseline', 'improvement_over_fp32'
     ]
     
     with open(summary_filename, 'w', newline='', encoding='utf-8') as csvfile:
@@ -670,7 +768,8 @@ def save_summary_csv(results, args, baseline_ptq_acc, output_dir="results"):
         writer.writeheader()
         
         for (num_clusters, pca_dim), best_result in summary_data.items():
-            improvement = best_result['top1_accuracy'] - baseline_ptq_acc
+            improvement_over_baseline = best_result['top1_accuracy'] - baseline_ptq_acc
+            improvement_over_fp32 = best_result['top1_accuracy'] - fp32_acc
             
             row = {
                 'timestamp': timestamp,
@@ -689,13 +788,15 @@ def save_summary_csv(results, args, baseline_ptq_acc, output_dir="results"):
                 'adv_lambda': args.adv_lambda,
                 'adv_prob': args.adv_prob,
                 'keep_gpu': args.keep_gpu,
+                'fp32_accuracy': fp32_acc,
                 'baseline_ptq_acc': baseline_ptq_acc,
                 'best_alpha': best_result['alpha'],
                 'num_clusters': num_clusters,
                 'pca_dim': pca_dim,
                 'best_top1_accuracy': best_result['top1_accuracy'],
                 'best_top5_accuracy': best_result['top5_accuracy'],
-                'improvement_over_baseline': improvement
+                'improvement_over_baseline': improvement_over_baseline,
+                'improvement_over_fp32': improvement_over_fp32
             }
             writer.writerow(row)
     
@@ -774,6 +875,62 @@ def accuracy(output, target, topk=(1,)):
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
 
+def create_recovery_checkpoint(args, results, output_dir="results"):
+    """
+    Create a recovery checkpoint file to track progress.
+    
+    Args:
+        args: Command line arguments
+        results: Current results list
+        output_dir: Directory to save checkpoint
+    """
+    checkpoint_file = os.path.join(output_dir, "recovery_checkpoint.json")
+    checkpoint_data = {
+        'timestamp': time.strftime("%Y%m%d_%H%M%S"),
+        'total_combinations': len(results),
+        'completed_combinations': [f"{r['alpha']}_{r['num_clusters']}_{r['pca_dim']}" for r in results],
+        'args': {
+            'model': args.model,
+            'w_bits': args.w_bits,
+            'a_bits': args.a_bits,
+            'quant_model': args.quant_model,
+            'adv_mode': args.adv_mode,
+            'alpha_list': args.alpha_list,
+            'num_clusters_list': args.num_clusters_list,
+            'pca_dim_list': args.pca_dim_list
+        }
+    }
+    
+    try:
+        with open(checkpoint_file, 'w') as f:
+            json.dump(checkpoint_data, f, indent=2)
+        print(f"💾 Recovery checkpoint saved: {checkpoint_file}")
+    except Exception as e:
+        print(f"⚠️  Warning: Could not save recovery checkpoint: {e}")
+
+
+def check_recovery_checkpoint(output_dir="results"):
+    """
+    Check if a recovery checkpoint exists and return its data.
+    
+    Args:
+        output_dir: Directory to check for checkpoint
+    
+    Returns:
+        Checkpoint data if exists, None otherwise
+    """
+    checkpoint_file = os.path.join(output_dir, "recovery_checkpoint.json")
+    if os.path.exists(checkpoint_file):
+        try:
+            with open(checkpoint_file, 'r') as f:
+                checkpoint_data = json.load(f)
+            print(f"📋 Found recovery checkpoint from {checkpoint_data['timestamp']}")
+            print(f"📊 Completed combinations: {checkpoint_data['total_combinations']}")
+            return checkpoint_data
+        except Exception as e:
+            print(f"⚠️  Warning: Could not read recovery checkpoint: {e}")
+    return None
+
 def main():
     import argparse, random, numpy as np_alias  # avoid shadowing above
 
@@ -836,6 +993,7 @@ def main():
     # Output arguments
     p.add_argument("--output_dir", default="results", help="Directory to save CSV results (default: results)")
     p.add_argument("--save_csv", action="store_true", default=True, help="Save results to CSV files (default: True)")
+    p.add_argument("--recover", action="store_true", help="Recover from existing results and resume incomplete experiments")
     
     # p.add_argument("--fp32_eval", action="store_true")  # optional switch if you want baseline eval
     args = p.parse_args()
@@ -894,11 +1052,6 @@ def main():
     def calib_images_fn():
         return calib_iter_builder(val_loader, args.calib_batches)
 
-    # Optional FP32 eval (uncomment if you want it every run)
-    # with log_section("evaluate FP32 baseline"):
-    #     acc_fp = top1(fp, val_loader, device, log_prefix="EVAL_FP32")
-    #     logging.info(f"[FP32] Top-1 = {acc_fp:.2f}% (expected ~{ref_top1})")
-
     # Run Academic PTQ
     adv_cfg = None
     if args.advanced:
@@ -933,6 +1086,20 @@ def main():
     # Store baseline PTQ accuracy
     baseline_ptq_acc = acc_q
     
+    # Evaluate full-precision model for comparison
+    with log_section("evaluate FP32 baseline"):
+        acc_fp = top1(fp, val_loader, device, log_prefix="EVAL_FP32")
+        logging.info(f"[FP32] Top-1 = {acc_fp:.2f}% (expected ~{ref_top1})")
+    
+    # Print baseline accuracies
+    print(f"\n{'='*60}")
+    print("BASELINE ACCURACIES (Before Clustering)")
+    print(f"{'='*60}")
+    print(f"  FP32 Model: {acc_fp:.2f}%")
+    print(f"  Baseline PTQ: {baseline_ptq_acc:.2f}%")
+    print(f"  PTQ Degradation: {acc_fp - baseline_ptq_acc:.2f}%")
+    print(f"{'='*60}")
+    
     # Optional logits extraction for analysis
     if args.extract_logits:
         with log_section("extract model logits"):
@@ -941,17 +1108,44 @@ def main():
             print("Logits extraction complete.")
             print(f"Quantized logits shape: {all_q.shape}")
             print(f"Full-precision logits shape: {all_fp.shape}")
-        alpha_list = args.alpha_list if args.alpha_list else [args.alpha]
-        num_clusters_list = args.num_clusters_list if args.num_clusters_list else [args.num_clusters]
-        pca_dim_list = args.pca_dim_list if args.pca_dim_list else [args.pca_dim]
-        results = []
-
-        for alpha in alpha_list:
-            for num_clusters in num_clusters_list:
-                for pca_dim in pca_dim_list:
-                    print(f"Running with alpha={alpha}, num_clusters={num_clusters}, pca_dim={pca_dim}")
+        
+            # Check for existing results if recovery mode is enabled
+            existing_results, last_timestamp, resume_from = [], None, None
+            if args.recover:
+                existing_results, last_timestamp, resume_from = check_existing_results(args, args.output_dir)
+                checkpoint_data = check_recovery_checkpoint(args.output_dir)
+                if checkpoint_data:
+                    print(f"📋 Checkpoint shows {checkpoint_data['total_combinations']} completed combinations")
+            
+            # Get remaining combinations to run
+            remaining_combinations = get_remaining_combinations(args, existing_results)
+            
+            if args.recover and existing_results:
+                print(f"\n🔄 RECOVERY MODE")
+                print(f"📊 Existing results: {len(existing_results)} combinations")
+                print(f"⏳ Remaining to run: {len(remaining_combinations)} combinations")
+                print(f"📁 Resuming from: {resume_from}")
+                
+                if len(remaining_combinations) == 0:
+                    print("✅ All combinations already completed! No need to run additional experiments.")
+                    results = existing_results
+                else:
+                    print(f"🚀 Running remaining {len(remaining_combinations)} combinations...")
+            else:
+                print(f"🚀 Running all {len(remaining_combinations)} combinations...")
+            
+            # Initialize results list with existing results
+            results = existing_results.copy()
+            
+            # Run remaining combinations
+            try:
+                for i, comb in enumerate(remaining_combinations, 1):
+                    alpha = comb['alpha']
+                    num_clusters = comb['num_clusters']
+                    pca_dim = comb['pca_dim']
+                    print(f"\n🔄 [{i}/{len(remaining_combinations)}] Running with alpha={alpha}, num_clusters={num_clusters}, pca_dim={pca_dim}")
                     cluster_model, gamma_dict, beta_dict, pca = build_cluster_affine(
-                    all_q, all_fp, num_clusters=num_clusters, pca_dim=pca_dim)
+                        all_q, all_fp, num_clusters=num_clusters, pca_dim=pca_dim)
 
                     # Evaluate with current parameters
                     top1_acc, top5_acc = evaluate_cluster_affine_with_alpha(
@@ -969,7 +1163,32 @@ def main():
                     }
                     results.append(result)
                     
-                    print(f"Result: Top-1: {top1_acc:.2f}%, Top-5: {top5_acc:.2f}%")
+                    print(f"✅ Result: Top-1: {top1_acc:.2f}%, Top-5: {top5_acc:.2f}%")
+                    
+                    # Save intermediate results every few combinations
+                    if i % 5 == 0 or i == len(remaining_combinations):
+                        print(f"💾 Saving intermediate results... ({len(results)} total combinations)")
+                        if args.save_csv:
+                            save_results_to_csv(results, args, acc_fp, baseline_ptq_acc, args.output_dir)
+                            create_recovery_checkpoint(args, results, args.output_dir)
+                            
+            except KeyboardInterrupt:
+                print(f"\n⚠️  Experiment interrupted by user (Ctrl+C)")
+                print(f"💾 Saving current progress... ({len(results)} combinations completed)")
+                if args.save_csv:
+                    save_results_to_csv(results, args, acc_fp, baseline_ptq_acc, args.output_dir)
+                    create_recovery_checkpoint(args, results, args.output_dir)
+                print(f"🔄 You can resume later with: --recover")
+                return
+                
+            except Exception as e:
+                print(f"\n❌ Experiment crashed with error: {e}")
+                print(f"💾 Saving current progress... ({len(results)} combinations completed)")
+                if args.save_csv:
+                    save_results_to_csv(results, args, acc_fp, baseline_ptq_acc, args.output_dir)
+                    create_recovery_checkpoint(args, results, args.output_dir)
+                print(f"🔄 You can resume later with: --recover")
+                raise  # Re-raise the exception for debugging
         # Print summary of all results
         print(f"\n{'='*80}")
         print("SUMMARY OF ALL RESULTS")
@@ -989,11 +1208,25 @@ def main():
         print(f"  PCA_dim: {best_result['pca_dim']}")
         print(f"  Top-1 Accuracy: {best_result['top1_accuracy']:.2f}%")
         print(f"  Top-5 Accuracy: {best_result['top5_accuracy']:.2f}%")
+        
+        # Print accuracy comparison
+        print(f"\nACCURACY COMPARISON:")
+        print(f"  FP32 Model: {acc_fp:.2f}%")
+        print(f"  Baseline PTQ: {baseline_ptq_acc:.2f}%")
+        print(f"  Best Clustering: {best_result['top1_accuracy']:.2f}%")
+        print(f"  PTQ Degradation: {acc_fp - baseline_ptq_acc:.2f}%")
+        print(f"  Clustering Recovery: {best_result['top1_accuracy'] - baseline_ptq_acc:.2f}%")
+        print(f"  Final Gap to FP32: {acc_fp - best_result['top1_accuracy']:.2f}%")
 
     # Save results to CSV
     if args.save_csv:
-        save_results_to_csv(results, args, baseline_ptq_acc, args.output_dir)
-        save_summary_csv(results, args, baseline_ptq_acc, args.output_dir)
+        save_results_to_csv(results, args, acc_fp, baseline_ptq_acc, args.output_dir)
+        save_summary_csv(results, args, acc_fp, baseline_ptq_acc, args.output_dir)
+        
+        # Create final recovery checkpoint
+        if args.recover:
+            create_recovery_checkpoint(args, results, args.output_dir)
+            print(f"💾 Final recovery checkpoint saved with {len(results)} total combinations")
 
 if __name__ == "__main__":
     main()

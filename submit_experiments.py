@@ -10,13 +10,16 @@ import sys
 import subprocess
 import json
 import time
+import argparse
 from datetime import datetime
 from pathlib import Path
+import re
 
 class ExperimentManager:
-    def __init__(self):
+    def __init__(self, max_concurrent=8):
         self.experiments = []
         self.job_ids = []
+        self.max_concurrent = max_concurrent
         self.results_dir = Path("results")
         self.logs_dir = Path("logs")
         
@@ -69,10 +72,13 @@ class ExperimentManager:
         print(f"Experiment list saved to {filename}")
     
     def submit_slurm_job(self):
-        """Submit the SLURM array job."""
+        """Submit the SLURM array job with configurable concurrency."""
         try:
+            # Create a temporary SLURM script with configurable concurrency
+            slurm_script = self._create_slurm_script()
+            
             # Submit the SLURM job
-            cmd = ["sbatch", "run_ptq_experiments.slurm"]
+            cmd = ["sbatch", slurm_script]
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             
             # Extract job ID from output
@@ -82,17 +88,49 @@ class ExperimentManager:
                 self.job_ids.append(job_id)
                 print(f"✅ SLURM job submitted successfully! Job ID: {job_id}")
                 print(f"📊 Total experiments: {len(self.experiments)}")
-                print(f"🚀 Max concurrent jobs: 8")
+                print(f"🚀 Max concurrent jobs: {self.max_concurrent}")
                 print(f"⏱️  Estimated runtime: ~24 hours")
+                
+                # Clean up temporary script
+                os.remove(slurm_script)
                 return job_id
             else:
                 print(f"❌ Failed to submit job: {output}")
+                # Clean up temporary script
+                os.remove(slurm_script)
                 return None
                 
         except subprocess.CalledProcessError as e:
             print(f"❌ Error submitting SLURM job: {e}")
             print(f"Error output: {e.stderr}")
             return None
+        except Exception as e:
+            print(f"❌ Unexpected error: {e}")
+            return None
+    
+    def _create_slurm_script(self):
+        """Create a temporary SLURM script with configurable concurrency."""
+        # Read the base SLURM script
+        base_script_path = "run_ptq_experiments.slurm"
+        if not os.path.exists(base_script_path):
+            raise FileNotFoundError(f"Base SLURM script not found: {base_script_path}")
+        
+        with open(base_script_path, 'r') as f:
+            base_content = f.read()
+        
+        # Replace the concurrency setting
+        # Find the line with --array=0-1919%8 and replace the number after %
+        pattern = r'--array=0-1919%\d+'
+        replacement = f'--array=0-1919%{self.max_concurrent}'
+        modified_content = re.sub(pattern, replacement, base_content)
+        
+        # Create temporary script with better naming
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        temp_script = f"temp_slurm_concurrent{self.max_concurrent}_{timestamp}.sh"
+        with open(temp_script, 'w') as f:
+            f.write(modified_content)
+        
+        return temp_script
     
     def monitor_jobs(self, job_id):
         """Monitor the status of submitted jobs."""
@@ -225,9 +263,19 @@ class ExperimentManager:
 
 def main():
     """Main function to run the experiment manager."""
-    manager = ExperimentManager()
+    parser = argparse.ArgumentParser(description="MQBench PTQ Experiment Manager")
+    parser.add_argument("--max-concurrent", type=int, default=8, 
+                       help="Maximum number of concurrent SLURM jobs (default: 8)")
+    args = parser.parse_args()
+
+    manager = ExperimentManager(max_concurrent=args.max_concurrent)
     
     print("🚀 MQBench PTQ Experiment Manager")
+    print("=" * 50)
+    print(f"⚙️  Configuration:")
+    print(f"   Max Concurrent Jobs: {args.max_concurrent}")
+    print(f"   Total Experiments: 1,920")
+    print(f"   Estimated Runtime: ~24 hours")
     print("=" * 50)
     
     # Generate experiment list

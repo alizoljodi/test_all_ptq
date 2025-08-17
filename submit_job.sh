@@ -1,22 +1,17 @@
 #!/bin/bash
-#SBATCH -J TestJob
-#SBATCH -c 8
-#SBATCH --mem=128G
-#SBATCH -p gpu_computervision_long
-#SBATCH --gres=gpu:4
-#SBATCH --tmp=5G
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=<your-email-address>
+# Quick SLURM job submission script with configurable concurrency
 
-source /home/alz07xz/project/kmeans_results/MQBench/mqbench/bin/activate
-
+# Default concurrency
+MAX_CONCURRENT=${1:-8}
 
 echo "🚀 Submitting MQBench PTQ Experiments to SLURM..."
-echo "=========================================="
+echo "⚙️  Max Concurrent Jobs: $MAX_CONCURRENT"
+echo "📊 Total Experiments: 1,920"
+echo "🎯 Job Name: mqbench_ptq_experiments"
 
-# Check if SLURM is available
+# Check if sbatch is available
 if ! command -v sbatch &> /dev/null; then
-    echo "❌ Error: SLURM (sbatch) not found. Are you on a SLURM cluster?"
+    echo "❌ Error: sbatch command not found. Are you on a SLURM cluster?"
     exit 1
 fi
 
@@ -26,34 +21,27 @@ if [ ! -f "run_ptq_experiments.slurm" ]; then
     exit 1
 fi
 
-# Create necessary directories
-mkdir -p logs
-mkdir -p results
+# Create logs and results directories
+mkdir -p logs results
 
-echo "📁 Created logs/ and results/ directories"
-
-# Submit the job
+# Submit the job with configurable concurrency
 echo "📤 Submitting SLURM array job..."
-job_output=$(sbatch run_ptq_experiments.slurm 2>&1)
+job_output=$(python submit_experiments.py --max-concurrent $MAX_CONCURRENT 2>&1)
 
 if [ $? -eq 0 ]; then
-    # Extract job ID
-    job_id=$(echo "$job_output" | grep -o '[0-9]\+' | head -1)
     echo "✅ Job submitted successfully!"
-    echo "📊 Job ID: $job_id"
-    echo "🔢 Total experiments: 1,920"
-    echo "🚀 Max concurrent jobs: 8"
-    echo "⏱️  Estimated runtime: ~24 hours"
     echo ""
-    echo "💡 Useful commands:"
-    echo "   Check job status: squeue -j $job_id"
-    echo "   Monitor all jobs: squeue -u \$USER"
-    echo "   Cancel job: scancel $job_id"
-    echo "   View logs: tail -f logs/ptq_${job_id}_*.out"
+    echo "📋 Job Details:"
+    echo "   Job Name: mqbench_ptq_experiments"
+    echo "   Output Logs: logs/mqbench_ptq_*.out"
+    echo "   Error Logs: logs/mqbench_ptq_*.err"
+    echo "   Results: results/"
     echo ""
-    echo "📁 Results will be saved to: results/"
-    echo "📝 Logs will be saved to: logs/"
-    
+    echo "📊 Use the following commands to monitor your job:"
+    echo "   squeue -u $USER                    # Check job status"
+    echo "   squeue -n mqbench_ptq_experiments # Check specific job"
+    echo "   tail -f logs/mqbench_ptq_*.out    # Monitor output logs"
+    echo "   tail -f logs/mqbench_ptq_*.err    # Monitor error logs"
 else
     echo "❌ Failed to submit job:"
     echo "$job_output"

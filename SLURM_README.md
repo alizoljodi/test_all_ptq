@@ -55,20 +55,22 @@ sbatch run_ptq_experiments.slurm
 └── SLURM_README.md              # This file
 ```
 
-## ⚙️ SLURM Configuration
+## SLURM Configuration
 
-### Resource Requirements
-- **Nodes**: 1
-- **Tasks**: 1 per job
-- **CPUs per Task**: 8
-- **Memory**: 32GB per job
-- **GPUs**: 1 per job
+### Job Details
+- **Job Name**: `mqbench_ptq_experiments`
+- **Array Job**: `--array=0-1919%8` (1920 total jobs, max 8 concurrent)
+- **Output Logs**: `logs/mqbench_ptq_%A_%a.out`
+- **Error Logs**: `logs/mqbench_ptq_%A_%a.err`
 - **Time Limit**: 24 hours
+- **Memory**: 32GB per job
+- **GPUs**: 1 GPU per job
+- **CPUs**: 8 CPUs per job
 
-### Array Configuration
-- **Array Range**: 0-1919 (1920 total jobs)
-- **Concurrency**: 8 jobs max (one per GPU)
-- **Format**: `--array=0-1919%8`
+### File Naming Convention
+- **`%A`**: Main job ID
+- **`%a`**: Array job index (0-1919)
+- **Example**: `mqbench_ptq_12345_67.out` (Job 12345, Array 67)
 
 ## 🔧 Customization
 
