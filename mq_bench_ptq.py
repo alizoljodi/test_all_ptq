@@ -219,6 +219,37 @@ def count_quantish_modules(model):
     )
     return n_all, n_quantish
 
+def build_academic_qconfig(
+    w_bits=8,
+    a_bits=8,
+    w_per_channel=True,     # weights per-channel
+    a_per_channel=False,    # activations per-tensor
+    w_sym=True,             # symmetric weights
+    a_sym=False,            # asymmetric activations (zero-point)
+    w_observer="MinMaxObserver",
+    a_observer="EMAMinMaxObserver",
+    pot_scale=False,        # set True if you want power-of-two scales
+):
+    """
+    Returns the exact dict MQBench expects for BackendType.Academic in this repo version.
+    """
+    return {
+        "w_qscheme": {
+            "bit": w_bits,
+            "per_channel": w_per_channel,
+            "sym": w_sym,
+            "observer": w_observer,
+            "pot_scale": pot_scale,
+        },
+        "a_qscheme": {
+            "bit": a_bits,
+            "per_channel": a_per_channel,
+            "sym": a_sym,
+            "observer": a_observer,
+            "pot_scale": pot_scale,
+        },
+    }
+
 def run_ptq(
     model,
     calib_images_fn,
@@ -232,14 +263,31 @@ def run_ptq(
     model.to(device).eval()
 
     backend = BackendType.Academic
+
     with log_section(f"prepare_by_platform({backend.name})"):
         pre_all, _ = count_quantish_modules(model)
-        model = prepare_by_platform(model, backend)
-        model = model.to(device).eval()  # IMPORTANT: GraphModule is new & on CPU
+
+        # NEW: explicit Academic qconfig
+        extra_q = build_academic_qconfig(
+            w_bits=8, a_bits=8,
+            w_per_channel=True, a_per_channel=False,
+            w_sym=True, a_sym=False,
+            w_observer="MinMaxObserver",
+            a_observer="EMAMinMaxObserver",
+            pot_scale=False,
+        )
+        logging.info(f"[Academic qconfig] {extra_q}")
+
+        # pass extra_qconfig_dict=extra_q
+        model = prepare_by_platform(model, backend, extra_qconfig_dict=extra_q)
+
+        # IMPORTANT: GraphModule is new & on CPU
+        model = model.to(device).eval()
         post_all, post_quantish = count_quantish_modules(model)
         logging.info(f"Modules (total): {pre_all} -> {post_all}")
         logging.info(f"'Quantish' modules detected after prepare: {post_quantish}")
         if profile_mem: log_cuda_mem("after prepare_by_platform")
+
 
     with log_section("calibration (enable_calibration + forward)"):
         enable_calibration(model)
@@ -310,6 +358,13 @@ def main():
     p.add_argument("--profile_mem", action="store_true", help="Log CUDA memory at key steps")
     p.add_argument("--no_structure_check", action="store_true", help="Skip ImageNet val/ structure check")
     p.add_argument("--seed", type=int, default=123, help="Set random seed for reproducibility")
+    p.add_argument("--w_bits", type=int, default=8)
+    p.add_argument("--a_bits", type=int, default=8)
+    p.add_argument("--w_per_channel", action="store_true", default=True)
+    p.add_argument("--a_per_channel", action="store_true", default=False)
+    p.add_argument("--w_sym", action="store_true", default=True)
+    p.add_argument("--a_sym", action="store_true", default=False)
+
     # p.add_argument("--fp32_eval", action="store_true")  # optional switch if you want baseline eval
     args = p.parse_args()
 
