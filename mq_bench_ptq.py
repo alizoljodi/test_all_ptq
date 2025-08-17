@@ -274,13 +274,15 @@ def run_ptq(
     a_bits=8,
 ):
     model.to(device).eval()
+    
+
 
     backend = BackendType.Academic
     with log_section(f"prepare_by_platform({backend.name})"):
         pre_all, _ = count_quantish_modules(model)
 
         # Resolve fake-quant classes from CLI
-        w_fq, a_fq = resolve_fakequant_names(quant_model)  # <-- needs args in scope; see note below
+        w_fq, a_fq = resolve_fakequant_names(quant_model, adv_enabled=do_advanced)  # <-- needs args in scope; see note below
 
         extra_config = {
             "extra_qconfig_dict": {
@@ -370,22 +372,26 @@ def run_ptq(
 
         return model
 
-def resolve_fakequant_names(quant_model: str):
+def resolve_fakequant_names(quant_model: str, adv_enabled: bool):
     """
-    Map CLI-friendly names to MQBench fake quant class strings.
+    Pick (w_fakequantize, a_fakequantize) class names for MQBench.
+    In this commit, advanced PTQ requires a weight FQ that has .init(...).
     """
-    qm = quant_model.lower()
-    if qm == "fixed":
-        return "FixedFakeQuantize", "FixedFakeQuantize"
-    if qm == "learnable":
-        return "LearnableFakeQuantize", "LearnableFakeQuantize"
-    if qm == "lsq":
-        return "LSQFakeQuantize", "LSQFakeQuantize"
-    if qm == "lsqplus":
-        return "LSQPlusFakeQuantize", "LSQPlusFakeQuantize"
-    # fallback
-    return "FixedFakeQuantize", "FixedFakeQuantize"
+    if adv_enabled:
+        # Your grep shows only AdaRoundFakeQuantize has `init(...)`
+        return "AdaRoundFakeQuantize", "FixedFakeQuantize"
 
+    qm = (quant_model or "fixed").lower()
+    table = {
+        "fixed":     ("FixedFakeQuantize",     "FixedFakeQuantize"),
+        "learnable": ("LearnableFakeQuantize", "LearnableFakeQuantize"),
+        "lsq":       ("LSQFakeQuantize",       "LSQFakeQuantize"),
+        "lsqplus":   ("LSQPlusFakeQuantize",   "LSQPlusFakeQuantize"),
+        "pact":      ("PACTFakeQuantize",      "PACTFakeQuantize"),
+        "dsq":       ("DSQFakeQuantize",       "DSQFakeQuantize"),
+        "tqt":       ("TqtFakeQuantize",       "TqtFakeQuantize"),
+    }
+    return table.get(qm, ("FixedFakeQuantize", "FixedFakeQuantize"))
 
 # =========================
 # Script entry
