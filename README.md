@@ -335,11 +335,58 @@ tail -f logs/mqbench_ptq_<JOB_ID>_<ARRAY_ID>.out
 
 ### Configurable Concurrency
 
-The `--max-concurrent` parameter controls how many experiments run simultaneously:
+The `--max-concurrent` parameter controls how many **sequential batches** run:
 
-- **`--max-concurrent 4`**: 4 experiments run at once (good for smaller clusters)
-- **`--max-concurrent 8`**: 8 experiments run at once (default, balanced)
-- **`--max-concurrent 16`**: 16 experiments run at once (for large clusters)
+- **`--max-concurrent 2`**: 2 batches run one after another (very conservative)
+- **`--max-concurrent 4`**: 4 batches run sequentially (default, balanced)
+- **`--max-concurrent 8`**: 8 batches run sequentially (for large clusters)
 
 **Total Experiments**: 1,920 combinations
-**Estimated Runtime**: ~24 hours (varies with concurrency)
+**Batch Size**: ~480 experiments per batch (with 4 batches)
+**Execution**: **Sequential** - each batch waits for the previous one to complete
+
+### How It Works
+
+Instead of one large array job that violates cluster policies, the system now:
+
+1. **Divides experiments into batches**: 1,920 experiments → 4 batches of ~480 each
+2. **Submits batches sequentially**: Batch 1 → wait → Batch 2 → wait → Batch 3 → wait → Batch 4
+3. **Avoids policy violations**: Each batch is a separate job with reasonable resource requests
+4. **Maintains progress tracking**: Each batch saves results independently
+
+### Resource Requirements
+
+Each individual batch job requires:
+- **1 GPU** (per batch, not per experiment)
+- **4 CPUs** (conservative)
+- **16GB RAM** (conservative)
+- **12 hours time limit** (per batch)
+
+### Execution Timeline
+
+With 4 batches:
+- **Batch 1**: Hours 0-12 (experiments 0-479)
+- **Batch 2**: Hours 12-24 (experiments 480-959)
+- **Batch 3**: Hours 24-36 (experiments 960-1439)
+- **Batch 4**: Hours 36-48 (experiments 1440-1919)
+
+**Total Runtime**: ~48 hours (sequential execution)
+
+### Troubleshooting Cluster Limits
+
+If you get `QOSMaxGRESPerJob` or similar errors:
+
+1. **Reduce concurrency**:
+   ```bash
+   python submit_experiments.py --max-concurrent 2
+   ```
+
+2. **Check cluster limits**:
+   ```bash
+   sinfo --format "%P %G %m %c %f %D %t"
+   squeue -u $USER
+   ```
+
+3. **Use smaller resource requests**:
+   - Modify `run_ptq_experiments.slurm` to reduce CPU/memory requirements
+   - Contact your cluster administrator for proper resource limits

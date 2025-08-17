@@ -1,13 +1,14 @@
 #!/bin/bash
 # Quick SLURM job submission script with configurable concurrency
 
-# Default concurrency
-MAX_CONCURRENT=${1:-8}
+# Default concurrency (more conservative to avoid cluster limits)
+MAX_CONCURRENT=${1:-4}
 
 echo "🚀 Submitting MQBench PTQ Experiments to SLURM..."
 echo "⚙️  Max Concurrent Jobs: $MAX_CONCURRENT"
 echo "📊 Total Experiments: 1,920"
 echo "🎯 Job Name: mqbench_ptq_experiments"
+echo "⏱️  Estimated Runtime: ~48 hours (with $MAX_CONCURRENT concurrent)"
 
 # Check if sbatch is available
 if ! command -v sbatch &> /dev/null; then

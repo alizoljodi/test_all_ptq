@@ -71,45 +71,137 @@ class ExperimentManager:
             json.dump(self.experiments, f, indent=2)
         print(f"Experiment list saved to {filename}")
     
-    def submit_slurm_job(self):
-        """Submit the SLURM array job with configurable concurrency."""
+    def check_cluster_limits(self):
+        """Check if the requested resources are within cluster limits."""
         try:
-            # Create a temporary SLURM script with configurable concurrency
-            slurm_script = self._create_slurm_script()
-            
-            # Submit the SLURM job
-            cmd = ["sbatch", slurm_script]
+            # Check available partitions and their limits
+            cmd = ["sinfo", "--format", "%P %G %m %c %f %D %t"]
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             
-            # Extract job ID from output
-            output = result.stdout.strip()
-            if "Submitted batch job" in output:
-                job_id = output.split()[-1]
-                self.job_ids.append(job_id)
-                print(f"✅ SLURM job submitted successfully! Job ID: {job_id}")
-                print(f"📊 Total experiments: {len(self.experiments)}")
-                print(f"🚀 Max concurrent jobs: {self.max_concurrent}")
-                print(f"⏱️  Estimated runtime: ~24 hours")
-                
-                # Clean up temporary script
-                os.remove(slurm_script)
-                return job_id
-            else:
-                print(f"❌ Failed to submit job: {output}")
-                # Clean up temporary script
-                os.remove(slurm_script)
-                return None
-                
+            print("🔍 Cluster Resource Information:")
+            print(result.stdout)
+            
+            # Check user limits
+            cmd = ["sacctmgr", "show", "user", "$USER", "--format", "User,MaxJobs,MaxSubmit,MaxWall,MaxCPUMins"]
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            
+            print("\n👤 User Limits:")
+            print(result.stdout)
+            
         except subprocess.CalledProcessError as e:
-            print(f"❌ Error submitting SLURM job: {e}")
+            print(f"⚠️  Could not check cluster limits: {e}")
+        except Exception as e:
+            print(f"⚠️  Error checking cluster limits: {e}")
+    
+    def submit_slurm_job(self):
+        """Submit individual SLURM batch jobs sequentially."""
+        try:
+            # Check cluster limits first
+            print("🔍 Checking cluster resource limits...")
+            self.check_cluster_limits()
+            
+            print(f"📤 Submitting {self.max_concurrent} separate batch jobs sequentially...")
+            print(f"⏳ Each job will wait for the previous one to complete...")
+            
+            # Calculate how many experiments per batch
+            total_experiments = len(self.experiments)
+            experiments_per_batch = total_experiments // self.max_concurrent
+            remaining_experiments = total_experiments % self.max_concurrent
+            
+            print(f"📊 Batch Configuration:")
+            print(f"   Total experiments: {total_experiments}")
+            print(f"   Number of batches: {self.max_concurrent}")
+            print(f"   Experiments per batch: {experiments_per_batch}")
+            print(f"   Remaining experiments: {remaining_experiments}")
+            
+            # Submit jobs sequentially
+            for batch_id in range(self.max_concurrent):
+                start_idx = batch_id * experiments_per_batch
+                end_idx = start_idx + experiments_per_batch
+                
+                # Add remaining experiments to the last batch
+                if batch_id == self.max_concurrent - 1:
+                    end_idx += remaining_experiments
+                
+                # Create batch-specific SLURM script
+                slurm_script = self._create_batch_slurm_script(batch_id, start_idx, end_idx)
+                
+                print(f"\n🚀 Submitting Batch {batch_id + 1}/{self.max_concurrent} (experiments {start_idx}-{end_idx-1})...")
+                
+                # Submit the batch job
+                cmd = ["sbatch", slurm_script]
+                result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+                
+                # Extract job ID
+                output = result.stdout.strip()
+                if "Submitted batch job" in output:
+                    job_id = output.split()[-1]
+                    self.job_ids.append(job_id)
+                    print(f"✅ Batch {batch_id + 1} submitted! Job ID: {job_id}")
+                    
+                    # Wait for this job to complete before submitting the next one
+                    if batch_id < self.max_concurrent - 1:  # Don't wait for the last batch
+                        print(f"⏳ Waiting for Batch {batch_id + 1} to complete before starting next batch...")
+                        self.wait_for_job_completion(job_id)
+                        print(f"✅ Batch {batch_id + 1} completed! Starting next batch...")
+                    
+                    # Clean up temporary script
+                    os.remove(slurm_script)
+                else:
+                    print(f"❌ Failed to submit Batch {batch_id + 1}: {output}")
+                    os.remove(slurm_script)
+                    return None
+            
+            print(f"\n🎉 All {self.max_concurrent} batches submitted successfully!")
+            print(f"📊 Total experiments: {total_experiments}")
+            print(f"🚀 Sequential execution with {self.max_concurrent} batches")
+            print(f"⏱️  Estimated total runtime: ~{self.max_concurrent * 12} hours")
+            
+            return self.job_ids
+            
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Error submitting SLURM jobs: {e}")
             print(f"Error output: {e.stderr}")
             return None
         except Exception as e:
             print(f"❌ Unexpected error: {e}")
             return None
     
-    def _create_slurm_script(self):
-        """Create a temporary SLURM script with configurable concurrency."""
+    def wait_for_job_completion(self, job_id):
+        """Wait for a specific job to complete."""
+        print(f"🔍 Monitoring job {job_id} for completion...")
+        
+        while True:
+            try:
+                # Check job status
+                cmd = ["squeue", "-j", job_id, "--format", "%j %t %M %L"]
+                result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+                
+                if result.stdout.strip():
+                    # Job is still running
+                    lines = result.stdout.strip().split('\n')
+                    if len(lines) > 1:  # Skip header
+                        status_line = lines[1]
+                        parts = status_line.split()
+                        if len(parts) >= 4:
+                            job_name, status, time_used, time_limit = parts[0], parts[1], parts[2], parts[3]
+                            print(f"📊 Job {job_id}: {status} | Time: {time_used}/{time_limit}")
+                else:
+                    # Job completed
+                    print(f"✅ Job {job_id} completed!")
+                    break
+                
+                time.sleep(60)  # Check every minute
+                
+            except subprocess.CalledProcessError:
+                print(f"⚠️  Could not check job status")
+                break
+            except KeyboardInterrupt:
+                print(f"\n⏹️  Monitoring stopped by user")
+                break
+    
+    def _create_batch_slurm_script(self, batch_id, start_idx, end_idx):
+        """Create a SLURM script for a specific batch of experiments."""
         # Read the base SLURM script
         base_script_path = "run_ptq_experiments.slurm"
         if not os.path.exists(base_script_path):
@@ -118,15 +210,30 @@ class ExperimentManager:
         with open(base_script_path, 'r') as f:
             base_content = f.read()
         
-        # Replace the concurrency setting
-        # Find the line with --array=0-1919%8 and replace the number after %
-        pattern = r'--array=0-1919%\d+'
-        replacement = f'--array=0-1919%{self.max_concurrent}'
-        modified_content = re.sub(pattern, replacement, base_content)
+        # Modify the script for this specific batch
+        # Remove array directive and add batch-specific parameters
+        modified_content = base_content.replace(
+            "#SBATCH --array=0-1919%4",
+            f"#SBATCH --job-name=mqbench_ptq_batch{batch_id}"
+        )
         
-        # Create temporary script with better naming
+        # Add batch-specific environment variables
+        batch_vars = f"""
+# Batch-specific parameters
+export BATCH_ID={batch_id}
+export START_IDX={start_idx}
+export END_IDX={end_idx}
+export TOTAL_EXPERIMENTS={end_idx - start_idx}
+"""
+        # Insert after the SBATCH directives
+        modified_content = modified_content.replace(
+            "#SBATCH --mail-user=your.email@example.com",
+            f"#SBATCH --mail-user=your.email@example.com\n{batch_vars}"
+        )
+        
+        # Create temporary script
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        temp_script = f"temp_slurm_concurrent{self.max_concurrent}_{timestamp}.sh"
+        temp_script = f"temp_batch{batch_id}_concurrent{self.max_concurrent}_{timestamp}.sh"
         with open(temp_script, 'w') as f:
             f.write(modified_content)
         
@@ -264,8 +371,8 @@ class ExperimentManager:
 def main():
     """Main function to run the experiment manager."""
     parser = argparse.ArgumentParser(description="MQBench PTQ Experiment Manager")
-    parser.add_argument("--max-concurrent", type=int, default=8, 
-                       help="Maximum number of concurrent SLURM jobs (default: 8)")
+    parser.add_argument("--max-concurrent", type=int, default=4, 
+                       help="Maximum number of concurrent SLURM jobs (default: 4)")
     args = parser.parse_args()
 
     manager = ExperimentManager(max_concurrent=args.max_concurrent)
@@ -275,7 +382,7 @@ def main():
     print(f"⚙️  Configuration:")
     print(f"   Max Concurrent Jobs: {args.max_concurrent}")
     print(f"   Total Experiments: 1,920")
-    print(f"   Estimated Runtime: ~24 hours")
+    print(f"   Estimated Runtime: ~48 hours (with {args.max_concurrent} concurrent)")
     print("=" * 50)
     
     # Generate experiment list
