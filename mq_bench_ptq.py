@@ -3,6 +3,7 @@ import os
 import re
 import time
 import logging
+import csv
 from contextlib import contextmanager
 from typing import Callable, Iterable, Optional, Tuple
 
@@ -10,6 +11,9 @@ import torch
 import torchvision as tv
 import torchvision.transforms as T
 from torchvision.models import get_model, get_model_weights
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 
 from mqbench.prepare_by_platform import prepare_by_platform, BackendType
 from mqbench.utils.state import enable_calibration, enable_quantization
@@ -118,6 +122,20 @@ def env_info():
 # =========================
 # Dataset checks & loaders
 # =========================
+def assert_imagenet_train_structure(train_root: str):
+    """Ensure ImageNet train/ is split into 1,000 synset folders."""
+    classes = [d for d in os.listdir(train_root) if os.path.isdir(os.path.join(train_root, d))]
+    if len(classes) != 1000:
+        raise RuntimeError(
+            f"Expected 1000 class folders, found {len(classes)} at {train_root}. "
+            "Reorganize ImageNet train into synset subfolders."
+        )
+    syn_pat = re.compile(r"^n\d{8}$")
+    bad = [c for c in classes if not syn_pat.match(c)]
+    if bad:
+        raise RuntimeError(f"Found non-synset folder names: {bad[:5]} ...")
+    logging.info("Train structure looks OK (1000 synset folders).")
+
 def assert_imagenet_val_structure(val_root: str):
     classes = [d for d in os.listdir(val_root) if os.path.isdir(os.path.join(val_root, d))]
     if len(classes) != 1000:
@@ -132,33 +150,92 @@ def assert_imagenet_val_structure(val_root: str):
     logging.info("Val structure looks OK (1000 synset folders).")
 
 def build_loaders(
-    imagenet_val_root: str,
+    imagenet_root: str,
     weights,
     img_size: int = 224,
     calib_batches: int = 32,
     batch_size: int = 64,
     workers: int = 8,
+    split="val",
 ):
-    tfm = weights.transforms() if (weights is not None and hasattr(weights, "transforms")) else T.Compose([
-        T.Resize(256), T.CenterCrop(img_size),
-        T.ToTensor(),
-        T.Normalize(mean=[0.485,0.456,0.406], std=[0.229,0.224,0.225])
-    ])
-    ds_val = tv.datasets.ImageFolder(imagenet_val_root, transform=tfm)
-    val_loader = torch.utils.data.DataLoader(
-        ds_val, batch_size=batch_size, shuffle=False, num_workers=workers, pin_memory=True
-    )
-
+    """
+    Build data loaders for ImageNet train/val splits.
+    
+    Args:
+        imagenet_root: Path to ImageNet root directory containing 'train' and 'val' folders
+        weights: Model weights for transforms
+        img_size: Input image size
+        calib_batches: Number of batches for calibration
+        batch_size: Batch size for data loading
+        workers: Number of worker processes
+        split: Which split to load ('train', 'val', or 'both')
+    """
+    # Determine which splits to load
+    if split == "both":
+        splits = ["train", "val"]
+    else:
+        splits = [split]
+    
+    loaders = {}
+    
+    for current_split in splits:
+        split_path = os.path.join(imagenet_root, current_split)
+        
+        if not os.path.exists(split_path):
+            raise RuntimeError(f"ImageNet {current_split} directory not found at {split_path}")
+        
+        # Use weights' transforms if available, otherwise use default
+        if weights is not None and hasattr(weights, "transforms"):
+            tfm = weights.transforms()
+        else:
+            # Default ImageNet transforms
+            tfm = T.Compose([
+                T.Resize(256),
+                T.CenterCrop(img_size),
+                T.ToTensor(),
+                T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
+        
+        # Create dataset
+        dataset = tv.datasets.ImageFolder(split_path, transform=tfm)
+        
+        # Create data loader
+        loader = torch.utils.data.DataLoader(
+            dataset, 
+            batch_size=batch_size, 
+            shuffle=(current_split == "train"),  # Shuffle training data
+            num_workers=workers, 
+            pin_memory=True
+        )
+        
+        loaders[current_split] = loader
+        
+        # Log dataset info
+        try:
+            ds_len = len(dataset)
+            num_classes = len(dataset.classes)
+            logging.info(f"ImageNet {current_split}: {ds_len} images, {num_classes} classes")
+        except Exception as e:
+            logging.warning(f"Could not get {current_split} dataset info: {e}")
+    
+    # Create calibration iterator function
     def calib_iter(dl, n_batches):
         it = iter(dl)
         for _ in range(n_batches):
             try:
                 images, _ = next(it)
             except StopIteration:
-                it = iter(dl)
+                it = iter(dl)  # cycle if calib > dataset
                 images, _ = next(it)
             yield images
-    return val_loader, calib_iter
+    
+    # Return appropriate loaders based on split
+    if split == "both":
+        return loaders["train"], loaders["val"], calib_iter
+    elif split == "train":
+        return loaders["train"], calib_iter
+    else:  # val
+        return loaders["val"], calib_iter
 
 def log_first_batch_stats(loader):
     try:
@@ -393,15 +470,316 @@ def resolve_fakequant_names(quant_model: str, adv_enabled: bool):
     }
     return table.get(qm, ("FixedFakeQuantize", "FixedFakeQuantize"))
 
+def extract_model_logits(qmodel, fp_model, train_loader, device, max_batches: int = 10):
+    """
+    Extract logits from both quantized and full-precision models on training data.
+    
+    Args:
+        qmodel: Quantized model
+        fp_model: Full-precision model
+        train_loader: Training data loader
+        device: Device to run inference on
+        max_batches: Maximum number of batches to extract
+    
+    Returns:
+        Tuple of (quantized_logits, full_precision_logits)
+    """
+    qmodel.eval()
+    fp_model.eval()
+    
+    all_q_logits = []
+    all_fp_logits = []
+    
+    logging.info("Extracting logits from both models...")
+    
+    with torch.no_grad():
+        for i, (images, _) in enumerate(train_loader):
+            if i >= max_batches:  # Limit to first max_batches batches for efficiency
+                break
+                
+            images = images.to(device, non_blocking=True)
+            
+            # Get logits from quantized model
+            q_logits = qmodel(images)
+            all_q_logits.append(q_logits.cpu())
+            
+            # Get logits from full-precision model
+            fp_logits = fp_model(images)
+            all_fp_logits.append(fp_logits.cpu())
+            
+            if (i + 1) % 5 == 0:
+                logging.info(f"Processed {i + 1} batches")
+    
+    # Concatenate all logits
+    all_q = torch.cat(all_q_logits, dim=0)
+    all_fp = torch.cat(all_fp_logits, dim=0)
+    
+    logging.info(f"Extracted logits: Q={all_q.shape}, FP={all_fp.shape}")
+    
+    return all_q, all_fp
+
+
 # =========================
 # Script entry
 # =========================
+def build_cluster_affine(all_q, all_fp, num_clusters=64, pca_dim=None):
+        """
+        Build cluster affine correction model from pre-extracted logits.
+        """
+        # Optional PCA for clustering only
+        pca = None
+        if pca_dim is not None and pca_dim < all_q.shape[1]:
+            pca = PCA(n_components=pca_dim, random_state=42)
+            q_features = pca.fit_transform(all_q.numpy())
+        else:
+            q_features = all_q.numpy()
+
+        # Cluster quantized outputs
+        cluster_model = KMeans(n_clusters=num_clusters, random_state=42)
+        cluster_ids = cluster_model.fit_predict(q_features)
+
+        # For each cluster: learn gamma, beta (per-class)
+        gamma_dict = {}
+        beta_dict = {}
+
+        for cid in range(num_clusters):
+            idxs = (cluster_ids == cid)
+            if idxs.sum() == 0:
+                # Empty cluster, default to identity
+                gamma_dict[cid] = torch.ones(all_q.shape[1])
+                beta_dict[cid] = torch.zeros(all_q.shape[1])
+                continue
+
+            q_c = all_q[idxs]  # [Nc, C]
+            fp_c = all_fp[idxs]  # [Nc, C]
+
+            # Closed-form least squares: fp ≈ gamma * q + beta
+            mean_q = q_c.mean(dim=0)
+            mean_fp = fp_c.mean(dim=0)
+
+            # Compute variance, avoid div by zero
+            var_q = q_c.var(dim=0, unbiased=False)
+            var_q[var_q < 1e-8] = 1e-8
+
+            gamma = ((q_c - mean_q) * (fp_c - mean_fp)).mean(dim=0) / var_q
+            beta = mean_fp - gamma * mean_q
+
+            gamma_dict[cid] = gamma
+            beta_dict[cid] = beta
+
+        return cluster_model, gamma_dict, beta_dict, pca
+
+def save_results_to_csv(results, args, baseline_ptq_acc, output_dir="results"):
+    """
+    Save all results to a CSV file with setup parameters and accuracies.
+    
+    Args:
+        results: List of result dictionaries
+        args: Command line arguments
+        output_dir: Directory to save the CSV file
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Create filename with timestamp
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    csv_filename = os.path.join(output_dir, f"ptq_results_{timestamp}.csv")
+    
+    # Define CSV headers
+    headers = [
+        'timestamp', 'model', 'weights', 'batch_size', 'calib_batches', 'img_size',
+        'w_bits', 'a_bits', 'quant_model', 'advanced', 'adv_mode', 'adv_steps',
+        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'baseline_ptq_acc',
+        'alpha', 'num_clusters', 'pca_dim',
+        'top1_accuracy', 'top5_accuracy', 'extract_logits', 'logits_batches'
+    ]
+    
+    with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=headers)
+        writer.writeheader()
+        
+        for result in results:
+            # Create row with all arguments and results
+            row = {
+                'timestamp': timestamp,
+                'model': args.model,
+                'weights': args.weights,
+                'batch_size': args.batch_size,
+                'calib_batches': args.calib_batches,
+                'img_size': args.img_size,
+                'w_bits': args.w_bits,
+                'a_bits': args.a_bits,
+                'quant_model': args.quant_model,
+                'advanced': args.advanced,
+                'adv_mode': args.adv_mode,
+                'adv_steps': args.adv_steps,
+                'adv_warmup': args.adv_warmup,
+                'adv_lambda': args.adv_lambda,
+                'adv_prob': args.adv_prob,
+                'keep_gpu': args.keep_gpu,
+                'baseline_ptq_acc': baseline_ptq_acc, # Add baseline PTQ accuracy
+                'alpha': result['alpha'],
+                'num_clusters': result['num_clusters'],
+                'pca_dim': result['pca_dim'],
+                'top1_accuracy': result['top1_accuracy'],
+                'top5_accuracy': result['top5_accuracy'],
+                'extract_logits': args.extract_logits,
+                'logits_batches': args.logits_batches
+            }
+            writer.writerow(row)
+    
+    print(f"Results saved to: {csv_filename}")
+    return csv_filename
+
+def save_summary_csv(results, args, baseline_ptq_acc, output_dir="results"):
+    """
+    Save a summary CSV with the best results for each parameter combination.
+    
+    Args:
+        results: List of result dictionaries
+        args: Command line arguments
+        baseline_ptq_acc: Baseline PTQ accuracy
+        output_dir: Directory to save the CSV file
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Create filename with timestamp
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    summary_filename = os.path.join(output_dir, f"ptq_summary_{timestamp}.csv")
+    
+    # Group results by parameter combinations and find best for each
+    summary_data = {}
+    
+    for result in results:
+        # Create key for grouping (excluding alpha which we want to optimize)
+        key = (result['num_clusters'], result['pca_dim'])
+        
+        if key not in summary_data or result['top1_accuracy'] > summary_data[key]['top1_accuracy']:
+            summary_data[key] = result.copy()
+    
+    # Define summary CSV headers
+    headers = [
+        'timestamp', 'model', 'weights', 'batch_size', 'calib_batches', 'img_size',
+        'w_bits', 'a_bits', 'quant_model', 'advanced', 'adv_mode', 'adv_steps',
+        'adv_warmup', 'adv_lambda', 'adv_prob', 'keep_gpu', 'baseline_ptq_acc',
+        'best_alpha', 'num_clusters', 'pca_dim',
+        'best_top1_accuracy', 'best_top5_accuracy', 'improvement_over_baseline'
+    ]
+    
+    with open(summary_filename, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=headers)
+        writer.writeheader()
+        
+        for (num_clusters, pca_dim), best_result in summary_data.items():
+            improvement = best_result['top1_accuracy'] - baseline_ptq_acc
+            
+            row = {
+                'timestamp': timestamp,
+                'model': args.model,
+                'weights': args.weights,
+                'batch_size': args.batch_size,
+                'calib_batches': args.calib_batches,
+                'img_size': args.img_size,
+                'w_bits': args.w_bits,
+                'a_bits': args.a_bits,
+                'quant_model': args.quant_model,
+                'advanced': args.advanced,
+                'adv_mode': args.adv_mode,
+                'adv_steps': args.adv_steps,
+                'adv_warmup': args.adv_warmup,
+                'adv_lambda': args.adv_lambda,
+                'adv_prob': args.adv_prob,
+                'keep_gpu': args.keep_gpu,
+                'baseline_ptq_acc': baseline_ptq_acc,
+                'best_alpha': best_result['alpha'],
+                'num_clusters': num_clusters,
+                'pca_dim': pca_dim,
+                'best_top1_accuracy': best_result['top1_accuracy'],
+                'best_top5_accuracy': best_result['top5_accuracy'],
+                'improvement_over_baseline': improvement
+            }
+            writer.writerow(row)
+    
+    print(f"Summary saved to: {summary_filename}")
+    return summary_filename
+
+def apply_cluster_affine(q_logits, cluster_model, gamma_dict, beta_dict, pca=None, alpha=0.4):
+        """
+        Apply per-cluster affine correction with optional PCA and alpha blending.
+        """
+        q_np = q_logits.cpu().numpy()
+
+        # Apply same PCA as used during LUT building
+        if pca is not None:
+            q_np = pca.transform(q_np)
+
+        cluster_ids = cluster_model.predict(q_np)
+
+        corrected = []
+        for i, q in enumerate(q_logits):
+            cid = int(cluster_ids[i])
+            gamma = gamma_dict[cid].to(q.device)
+            beta = beta_dict[cid].to(q.device)
+            affine_corrected = q * gamma + beta
+            blended = q + alpha * (affine_corrected - q)
+            corrected.append(blended)
+        return torch.stack(corrected)
+
+def evaluate_cluster_affine_with_alpha(q_model, fp_model, cluster_model, gamma_dict, beta_dict, dataloader, device, pca=None, alpha=0.4):
+        q_model.eval()
+        fp_model.eval()
+        total_top1, total_top5, total = 0, 0, 0
+        
+        # Store logits for plotting
+        all_q_logits = []
+        all_fp_logits = []
+        all_corrected_logits = []
+        all_cluster_ids = []
+
+        with torch.no_grad():
+            for images, targets in dataloader:
+                images, targets = images.to(device), targets.to(device)
+                q_logits = q_model(images)
+                fp_logits = fp_model(images)
+
+                corrected_logits = apply_cluster_affine(q_logits, cluster_model, gamma_dict, beta_dict, pca=pca, alpha=alpha)
+
+
+                acc1, acc5 = accuracy(corrected_logits, targets, topk=(1, 5))
+                total_top1 += acc1.item() * images.size(0)
+                total_top5 += acc5.item() * images.size(0)
+                total += images.size(0)
+
+        print(f"[Alpha={alpha:.2f}] Top-1 Accuracy: {total_top1 / total:.2f}%")
+        print(f"[Alpha={alpha:.2f}] Top-5 Accuracy: {total_top5 / total:.2f}%")
+        
+        
+        # Save logits data as CSV files
+        
+        
+        return total_top1 / total, total_top5 / total
+  
+def accuracy(output, target, topk=(1,)):
+    """Computes the accuracy over the k top predictions for the specified values of k"""
+    with torch.no_grad():
+        maxk = max(topk)
+        batch_size = target.size(0)
+
+        _, pred = output.topk(maxk, 1, True, True)
+        pred = pred.t()
+        correct = pred.eq(target.view(1, -1).expand_as(pred))
+
+        res = []
+        for k in topk:
+            correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
+            res.append(correct_k.mul_(100.0 / batch_size))
+        return res
+
 def main():
-    import argparse, random, numpy as np
+    import argparse, random, numpy as np_alias  # avoid shadowing above
 
     p = argparse.ArgumentParser()
-    p.add_argument("--val_root", default="/home/alz07xz/imagenet/val",
-                   help="Path to ImageNet val (folder with class subdirs).")
+    p.add_argument("--val_root", default="/home/alz07xz/imagenet",
+                   help="Path to ImageNet root directory containing 'train' and 'val' folders")
     p.add_argument("--model", default="resnet18",
                    help="torchvision model name (e.g., resnet18, mobilenet_v2, vit_b_16)")
     p.add_argument("--weights", default="DEFAULT",
@@ -417,6 +795,9 @@ def main():
     p.add_argument("--log_interval", type=int, default=10, help="Log every N calibration steps")
     p.add_argument("--profile_mem", action="store_true", help="Log CUDA memory at key steps")
     p.add_argument("--no_structure_check", action="store_true", help="Skip ImageNet val/ structure check")
+    p.add_argument("--check_train_structure", action="store_true",default=True, help="Also check ImageNet train/ structure")
+    p.add_argument("--extract_logits", action="store_true",default=True, help="Extract and save model logits for analysis")
+    p.add_argument("--logits_batches", type=int, default=10, help="Number of batches to use for logits extraction")
     p.add_argument("--seed", type=int, default=123, help="Set random seed for reproducibility")
     p.add_argument("--w_bits", type=int, default=8)
     p.add_argument("--a_bits", type=int, default=8)
@@ -438,6 +819,24 @@ def main():
     p.add_argument("--keep_gpu", action="store_true",
                 help="Keep stacked calibration tensors on GPU during reconstruction")
 
+    # PCA analysis arguments
+    p.add_argument("--alpha", type=float, default=0.5,
+                 help="Alpha parameter for PCA analysis (default: 0.5)")
+    p.add_argument("--alpha_list", nargs='+', type=float, default=None,
+                 help="List of alpha values for PCA analysis (overrides --alpha)")
+    p.add_argument("--num_clusters", type=int, default=10,
+                 help="Number of clusters for PCA analysis (default: 10)")
+    p.add_argument("--num_clusters_list", nargs='+', type=int, default=None,
+                 help="List of cluster numbers for PCA analysis (overrides --num_clusters)")
+    p.add_argument("--pca_dim", type=int, default=50,
+                 help="PCA dimension for analysis (default: 50)")
+    p.add_argument("--pca_dim_list", nargs='+', type=int, default=None,
+                 help="List of PCA dimensions for analysis (overrides --pca_dim)")
+    
+    # Output arguments
+    p.add_argument("--output_dir", default="results", help="Directory to save CSV results (default: results)")
+    p.add_argument("--save_csv", action="store_true", default=True, help="Save results to CSV files (default: True)")
+    
     # p.add_argument("--fp32_eval", action="store_true")  # optional switch if you want baseline eval
     args = p.parse_args()
 
@@ -450,7 +849,6 @@ def main():
 
     # Repro
     random.seed(args.seed)
-    import numpy as np_alias  # avoid shadowing above
     np_alias.random.seed(args.seed)
     torch.manual_seed(args.seed)
     if torch.cuda.is_available():
@@ -466,11 +864,26 @@ def main():
 
     with log_section("build & check loaders"):
         if not args.no_structure_check:
-            assert_imagenet_val_structure(args.val_root)
-        val_loader, calib_iter_builder = build_loaders(
-            args.val_root, weights=weights, img_size=args.img_size,
-            calib_batches=args.calib_batches, batch_size=args.batch_size, workers=args.workers
+            # Check val structure in the val subdirectory
+            val_path = os.path.join(args.val_root, "val")
+            assert_imagenet_val_structure(val_path)
+            
+            # Optionally check train structure
+            if args.check_train_structure:
+                train_path = os.path.join(args.val_root, "train")
+                assert_imagenet_train_structure(train_path)
+        
+        # Build both train and val loaders
+        train_loader, val_loader, calib_iter_builder = build_loaders(
+            args.val_root,  # This should be the ImageNet root directory
+            weights=weights, 
+            img_size=args.img_size,
+            calib_batches=args.calib_batches, 
+            batch_size=args.batch_size, 
+            workers=args.workers,
+            split="both"  # Load both train and val splits
         )
+        
         try:
             ds_len = len(val_loader.dataset)
         except Exception:
@@ -516,6 +929,71 @@ def main():
     with log_section("evaluate INT8-sim"):
         acc_q = top1(qmodel, val_loader, device, log_prefix="EVAL_INT8")
         logging.info(f"[PTQ][{args.model}][Academic]{' [ADV]' if args.advanced else ''} Top-1 = {acc_q:.2f}%")
+    
+    # Store baseline PTQ accuracy
+    baseline_ptq_acc = acc_q
+    
+    # Optional logits extraction for analysis
+    if args.extract_logits:
+        with log_section("extract model logits"):
+            print("Extracting logits from quantized and full-precision models...")
+            all_q, all_fp = extract_model_logits(qmodel, fp, train_loader, device, max_batches=args.logits_batches)
+            print("Logits extraction complete.")
+            print(f"Quantized logits shape: {all_q.shape}")
+            print(f"Full-precision logits shape: {all_fp.shape}")
+        alpha_list = args.alpha_list if args.alpha_list else [args.alpha]
+        num_clusters_list = args.num_clusters_list if args.num_clusters_list else [args.num_clusters]
+        pca_dim_list = args.pca_dim_list if args.pca_dim_list else [args.pca_dim]
+        results = []
+
+        for alpha in alpha_list:
+            for num_clusters in num_clusters_list:
+                for pca_dim in pca_dim_list:
+                    print(f"Running with alpha={alpha}, num_clusters={num_clusters}, pca_dim={pca_dim}")
+                    cluster_model, gamma_dict, beta_dict, pca = build_cluster_affine(
+                    all_q, all_fp, num_clusters=num_clusters, pca_dim=pca_dim)
+
+                    # Evaluate with current parameters
+                    top1_acc, top5_acc = evaluate_cluster_affine_with_alpha(
+                        qmodel, fp, cluster_model, gamma_dict, beta_dict, val_loader, device, 
+                        pca=pca, alpha=alpha
+                    )
+                    
+                    # Store results
+                    result = {
+                        'alpha': alpha,
+                        'num_clusters': num_clusters,
+                        'pca_dim': pca_dim,
+                        'top1_accuracy': top1_acc,
+                        'top5_accuracy': top5_acc
+                    }
+                    results.append(result)
+                    
+                    print(f"Result: Top-1: {top1_acc:.2f}%, Top-5: {top5_acc:.2f}%")
+        # Print summary of all results
+        print(f"\n{'='*80}")
+        print("SUMMARY OF ALL RESULTS")
+        print(f"{'='*80}")
+        print(f"{'Alpha':<8} {'Clusters':<10} {'PCA_dim':<10} {'Top-1':<10} {'Top-5':<10}")
+        print(f"{'-'*50}")
+        
+        for result in results:
+            print(f"{result['alpha']:<8.2f} {result['num_clusters']:<10} {result['pca_dim']:<10} "
+                f"{result['top1_accuracy']:<10.2f} {result['top5_accuracy']:<10.2f}")
+        
+        # Find best result
+        best_result = max(results, key=lambda x: x['top1_accuracy'])
+        print(f"\nBEST RESULT:")
+        print(f"  Alpha: {best_result['alpha']}")
+        print(f"  Clusters: {best_result['num_clusters']}")
+        print(f"  PCA_dim: {best_result['pca_dim']}")
+        print(f"  Top-1 Accuracy: {best_result['top1_accuracy']:.2f}%")
+        print(f"  Top-5 Accuracy: {best_result['top5_accuracy']:.2f}%")
+
+    # Save results to CSV
+    if args.save_csv:
+        save_results_to_csv(results, args, baseline_ptq_acc, args.output_dir)
+        save_summary_csv(results, args, baseline_ptq_acc, args.output_dir)
 
 if __name__ == "__main__":
     main()
