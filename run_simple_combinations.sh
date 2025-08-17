@@ -12,7 +12,7 @@ cd results/simple_combinations
 
 # Define parameter lists
 adv_modes=("adaround" "brecq" "qdrop")
-models=("resnet18" "resnet50" "mnasnet" "mobilenet_v2")
+models=("resnet18" "resnet50" "mnasnet0_5" "mobilenet_v2")
 quant_models=("fixed" "learnable" "lsq" "lsqplus")
 
 # Fixed parameters for simplicity
@@ -56,6 +56,11 @@ for adv_mode in "${adv_modes[@]}"; do
                 batch_size=64
                 calib_batches=32
                 logits_batches=10
+
+# Parameter lists for looping (space-separated values)
+alpha_list="0.2 0.4 0.6 0.8 1.0"
+num_clusters_list="8 16 32 64"
+pca_dim_list="25 50 100"
             fi
             
             # Create experiment-specific output directory
@@ -72,9 +77,9 @@ for adv_mode in "${adv_modes[@]}"; do
                 --alpha "$alpha" \
                 --num_clusters "$num_clusters" \
                 --pca_dim "$pca_dim" \
-                --alpha_list "$alpha" \
-                --num_clusters_list "$num_clusters" \
-                --pca_dim_list "$pca_dim" \
+                --alpha_list $alpha_list \
+                --num_clusters_list $num_clusters_list \
+                --pca_dim_list $pca_dim_list \
                 --batch_size "$batch_size" \
                 --calib_batches "$calib_batches" \
                 --logits_batches "$logits_batches" \

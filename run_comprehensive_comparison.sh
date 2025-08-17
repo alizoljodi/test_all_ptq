@@ -11,7 +11,7 @@ mkdir -p results/comprehensive_comparison
 cd results/comprehensive_comparison
 
 # Define parameter lists
-models=("resnet18" "resnet50" "mnasnet" "mobilenet_v2")
+models=("resnet18" "resnet50" "mnasnet0_5" "mobilenet_v2")
 quant_models=("fixed" "learnable" "lsq" "lsqplus")
 adv_modes=("adaround" "brecq" "qdrop")
 w_bits=(2 4 8)
@@ -97,6 +97,11 @@ for model in "${models[@]}"; do
                                     batch_size=64
                                     calib_batches=32
                                     logits_batches=10
+
+# Parameter lists for looping (space-separated values)
+alpha_list="0.2 0.4 0.6 0.8 1.0"
+num_clusters_list="8 16 32 64"
+pca_dim_list="25 50 100"
                                 fi
                                 
                                 # Reduce batch size for larger models
@@ -120,9 +125,9 @@ for model in "${models[@]}"; do
                                     --alpha "$alpha" \
                                     --num_clusters "$num_cluster" \
                                     --pca_dim "$pca_dim" \
-                                    --alpha_list "$alpha" \
+                                    --alpha_list $alpha_list \
                                     --num_clusters_list "$num_cluster" \
-                                    --pca_dim_list "$pca_dim" \
+                                    --pca_dim_list $pca_dim_list \
                                     --batch_size "$batch_size" \
                                     --calib_batches "$calib_batches" \
                                     --logits_batches "$logits_batches" \

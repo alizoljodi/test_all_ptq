@@ -7,8 +7,8 @@ echo "🚀 Starting MNASNet PTQ experiments..."
 echo "=========================================="
 
 # Create results directory
-mkdir -p results/mnasnet
-cd results/mnasnet
+mkdir -p results/mnasnet0_5
+cd results/mnasnet0_5
 
 # Define parameter lists
 alphas=(0.2 0.4 0.6 0.8 1.0)
@@ -42,7 +42,7 @@ for alpha in "${alphas[@]}"; do
             
             # Run the PTQ experiment
             python ../../mq_bench_ptq.py \
-                --model mnasnet \
+                --model mnasnet0_5 \
                 --w_bits 8 \
                 --a_bits 8 \
                 --quant_model fixed \

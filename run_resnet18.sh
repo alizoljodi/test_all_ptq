@@ -49,9 +49,9 @@ for alpha in "${alphas[@]}"; do
                 --alpha "$alpha" \
                 --num_clusters "$num_cluster" \
                 --pca_dim "$pca_dim" \
-                --alpha_list "$alpha" \
+                --alpha_list $alpha_list \
                 --num_clusters_list "$num_cluster" \
-                --pca_dim_list "$pca_dim" \
+                --pca_dim_list $pca_dim_list \
                 --batch_size 64 \
                 --calib_batches 32 \
                 --logits_batches 10 \

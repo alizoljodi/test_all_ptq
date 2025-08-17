@@ -7,7 +7,7 @@ echo "=========================================="
 
 # Define parameter lists
 adv_modes=("adaround" "brecq" "qdrop")
-models=("resnet18" "resnet50" "mnasnet" "mobilenet_v2")
+models=("resnet18" "resnet50" "mnasnet0_5" "mobilenet_v2")
 quant_models=("fixed" "learnable" "lsq" "lsqplus")
 
 # Counter for files created
@@ -28,6 +28,11 @@ for adv_mode in "${adv_modes[@]}"; do
                 batch_size=64
                 calib_batches=32
                 logits_batches=10
+
+# Parameter lists for looping (space-separated values)
+alpha_list="0.2 0.4 0.6 0.8 1.0"
+num_clusters_list="8 16 32 64"
+pca_dim_list="25 50 100"
             fi
             
             # Create the bash file

@@ -8,22 +8,22 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=<your-email-address>
 
-# PTQ Experiment: brecq + learnable + resnet18
+# PTQ Experiment: qdrop + lsqplus + mnasnet
 
 # Activate MQBench environment
 source /home/alz07xz/project/kmeans_results/MQBench/mqbench/bin/activate
 
-echo "🚀 Starting PTQ Experiment: brecq + learnable + resnet18"
+echo "🚀 Starting PTQ Experiment: qdrop + lsqplus + mnasnet"
 echo "=========================================="
 
 # Create results directory
-mkdir -p results/brecq_learnable_resnet18
-cd results/brecq_learnable_resnet18
+mkdir -p results/qdrop_lsqplus_mnasnet
+cd results/qdrop_lsqplus_mnasnet
 
 # Fixed parameters
-model="resnet18"
-adv_mode="brecq"
-quant_model="learnable"
+model="mnasnet0_5"
+adv_mode="qdrop"
+quant_model="lsqplus"
 w_bits=8
 a_bits=8
 alpha=0.5
@@ -56,7 +56,7 @@ echo "  PCA Dim List: $pca_dim_list"
 echo "=========================================="
 
 # Create experiment output directory
-exp_dir="brecq_learnable_resnet18_$(date +%Y%m%d_%H%M%S)"
+exp_dir="qdrop_lsqplus_mnasnet0_5_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$exp_dir"
 
 echo "🔄 Running experiment..."

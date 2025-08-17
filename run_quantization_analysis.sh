@@ -68,6 +68,11 @@ for model in "${models[@]}"; do
                         batch_size=64
                         calib_batches=32
                         logits_batches=10
+
+# Parameter lists for looping (space-separated values)
+alpha_list="0.2 0.4 0.6 0.8 1.0"
+num_clusters_list="8 16 32 64"
+pca_dim_list="25 50 100"
                     fi
                     
                     # Reduce batch size for larger models
@@ -91,9 +96,9 @@ for model in "${models[@]}"; do
                         --alpha "$alpha" \
                         --num_clusters "$num_clusters" \
                         --pca_dim "$pca_dim" \
-                        --alpha_list "$alpha" \
-                        --num_clusters_list "$num_clusters" \
-                        --pca_dim_list "$pca_dim" \
+                        --alpha_list $alpha_list \
+                        --num_clusters_list $num_clusters_list \
+                        --pca_dim_list $pca_dim_list \
                         --batch_size "$batch_size" \
                         --calib_batches "$calib_batches" \
                         --logits_batches "$logits_batches" \

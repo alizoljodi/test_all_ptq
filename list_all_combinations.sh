@@ -7,7 +7,7 @@ echo "=========================================="
 
 # Define parameter lists
 adv_modes=("adaround" "brecq" "qdrop")
-models=("resnet18" "resnet50" "mnasnet" "mobilenet_v2")
+models=("resnet18" "resnet50" "mnasnet0_5" "mobilenet_v2")
 quant_models=("fixed" "learnable" "lsq" "lsqplus")
 
 # Counter

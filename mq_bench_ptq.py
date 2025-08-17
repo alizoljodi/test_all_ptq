@@ -638,10 +638,27 @@ def get_remaining_combinations(args, existing_results):
     Returns:
         List of remaining parameter combinations to run
     """
-    # Get parameter lists
-    alpha_list = args.alpha_list if args.alpha_list else [args.alpha]
-    num_clusters_list = args.num_clusters_list if args.num_clusters_list else [args.num_clusters]
-    pca_dim_list = args.pca_dim_list if args.pca_dim_list else [args.pca_dim]
+    # Get parameter lists - convert to lists if they're not already
+    if args.alpha_list:
+        alpha_list = [float(x) for x in args.alpha_list]
+    else:
+        alpha_list = [args.alpha]
+        
+    if args.num_clusters_list:
+        num_clusters_list = [int(x) for x in args.num_clusters_list]
+    else:
+        num_clusters_list = [args.num_clusters]
+        
+    if args.pca_dim_list:
+        pca_dim_list = [int(x) for x in args.pca_dim_list]
+    else:
+        pca_dim_list = [args.pca_dim]
+    
+    print(f"🔍 Parameter ranges to test:")
+    print(f"  Alpha values: {alpha_list}")
+    print(f"  Cluster numbers: {num_clusters_list}")
+    print(f"  PCA dimensions: {pca_dim_list}")
+    print(f"  Total combinations: {len(alpha_list) * len(num_clusters_list) * len(pca_dim_list)}")
     
     # Create set of completed combinations
     completed = set()
