@@ -408,7 +408,7 @@ def main():
                choices=["fixed", "learnable", "lsq", "lsqplus"],
                default="fixed",
                help="FakeQuant type for weights/activations")
-    p.add_argument("--adv_mode", choices=["adaround", "brecq", "qdrop"], default=None,
+    p.add_argument("--adv_mode", choices=["adaround", "brecq", "qdrop"], default="adaround",
                help="Choose advanced PTQ method. If set, --advanced is implied.")
     p.add_argument("--adv_steps", type=int, default=20000, help="Optimization steps (max_count)")
     p.add_argument("--adv_warmup", type=float, default=0.2, help="Warm-up ratio in [0,1]")
