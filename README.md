@@ -341,18 +341,21 @@ The `--max-concurrent` parameter controls how many **sequential batches** run:
 - **`--max-concurrent 4`**: 4 batches run sequentially (default, balanced)
 - **`--max-concurrent 8`**: 8 batches run sequentially (for large clusters)
 
-**Total Experiments**: 1,920 combinations
-**Batch Size**: ~480 experiments per batch (with 4 batches)
+**Total Core Experiments**: 96 combinations (4 models × 3 adv_modes × 3 w_bits × 3 a_bits × 4 quant_models)
+**PCA Combinations per Core**: 60 combinations (5 alphas × 4 clusters × 3 PCA dims)
+**Total Parameter Tests**: 5,760 combinations (96 × 60)
+**Batch Size**: ~24 core experiments per batch (with 4 batches)
 **Execution**: **Sequential** - each batch waits for the previous one to complete
 
 ### How It Works
 
 Instead of one large array job that violates cluster policies, the system now:
 
-1. **Divides experiments into batches**: 1,920 experiments → 4 batches of ~480 each
-2. **Submits batches sequentially**: Batch 1 → wait → Batch 2 → wait → Batch 3 → wait → Batch 4
-3. **Avoids policy violations**: Each batch is a separate job with reasonable resource requests
-4. **Maintains progress tracking**: Each batch saves results independently
+1. **Divides core experiments into batches**: 96 core experiments → 4 batches of ~24 each
+2. **Each core experiment tests all PCA parameters**: Every core experiment runs with all 60 PCA combinations
+3. **Submits batches sequentially**: Batch 1 → wait → Batch 2 → wait → Batch 3 → wait → Batch 4
+4. **Avoids policy violations**: Each batch is a separate job with reasonable resource requests
+5. **Maintains progress tracking**: Each batch saves results independently
 
 ### Resource Requirements
 
@@ -365,12 +368,13 @@ Each individual batch job requires:
 ### Execution Timeline
 
 With 4 batches:
-- **Batch 1**: Hours 0-12 (experiments 0-479)
-- **Batch 2**: Hours 12-24 (experiments 480-959)
-- **Batch 3**: Hours 24-36 (experiments 960-1439)
-- **Batch 4**: Hours 36-48 (experiments 1440-1919)
+- **Batch 1**: Hours 0-12 (core experiments 0-23, each testing 60 PCA combinations)
+- **Batch 2**: Hours 12-24 (core experiments 24-47, each testing 60 PCA combinations)
+- **Batch 3**: Hours 24-36 (core experiments 48-71, each testing 60 PCA combinations)
+- **Batch 4**: Hours 36-48 (core experiments 72-95, each testing 60 PCA combinations)
 
 **Total Runtime**: ~48 hours (sequential execution)
+**Total Parameter Tests**: 5,760 combinations across all batches
 
 ### Troubleshooting Cluster Limits
 

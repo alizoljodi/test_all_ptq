@@ -34,9 +34,9 @@ class ExperimentManager:
         w_bits = [2, 4, 8]
         a_bits = [2, 4, 8]
         quant_models = ["fixed", "learnable", "lsq", "lsqplus"]
-        alphas = [0.2, 0.4, 0.6, 0.8, 1.0]
-        num_clusters = [8, 16, 32, 64]
-        pca_dims = [25, 50, 100]
+        
+        # Note: PCA analysis parameters (alpha, num_clusters, pca_dim) are handled separately
+        # in the SLURM script for each individual experiment
         
         experiment_id = 0
         for model in models:
@@ -44,25 +44,20 @@ class ExperimentManager:
                 for w_bit in w_bits:
                     for a_bit in a_bits:
                         for quant_model in quant_models:
-                            for alpha in alphas:
-                                for num_cluster in num_clusters:
-                                    for pca_dim in pca_dims:
-                                        exp = {
-                                            'id': experiment_id,
-                                            'model': model,
-                                            'adv_mode': adv_mode,
-                                            'w_bits': w_bit,
-                                            'a_bits': a_bit,
-                                            'quant_model': quant_model,
-                                            'alpha': alpha,
-                                            'num_clusters': num_cluster,
-                                            'pca_dim': pca_dim,
-                                            'status': 'pending'
-                                        }
-                                        self.experiments.append(exp)
-                                        experiment_id += 1
+                            exp = {
+                                'id': experiment_id,
+                                'model': model,
+                                'adv_mode': adv_mode,
+                                'w_bits': w_bit,
+                                'a_bits': a_bit,
+                                'quant_model': quant_model,
+                                'status': 'pending'
+                            }
+                            self.experiments.append(exp)
+                            experiment_id += 1
         
-        print(f"Generated {len(self.experiments)} experiment combinations")
+        print(f"Generated {len(self.experiments)} core PTQ experiment combinations")
+        print(f"Note: PCA analysis parameters (alpha, num_clusters, pca_dim) will be tested for each combination")
         return self.experiments
     
     def save_experiment_list(self, filename="experiment_list.json"):
@@ -281,7 +276,7 @@ export TOTAL_EXPERIMENTS={end_idx - start_idx}
         pending = 0
         
         for exp in self.experiments:
-            exp_name = f"{exp['model']}_{exp['adv_mode']}_w{exp['w_bits']}a{exp['a_bits']}_{exp['quant_model']}_a{exp['alpha']}_c{exp['num_clusters']}_pca{exp['pca_dim']}"
+            exp_name = f"{exp['model']}_{exp['adv_mode']}_w{exp['w_bits']}a{exp['a_bits']}_{exp['quant_model']}"
             
             # Look for results in the results directory
             exp_dirs = list(self.results_dir.glob(f"{exp_name}_*"))
@@ -359,9 +354,6 @@ export TOTAL_EXPERIMENTS={end_idx - start_idx}
             print(f"   Weight Bits: {exp['w_bits']}")
             print(f"   Activation Bits: {exp['a_bits']}")
             print(f"   Quantization Model: {exp['quant_model']}")
-            print(f"   Alpha: {exp['alpha']}")
-            print(f"   Number of Clusters: {exp['num_clusters']}")
-            print(f"   PCA Dimension: {exp['pca_dim']}")
             print(f"   Status: {exp['status']}")
             if 'result_dir' in exp:
                 print(f"   Result Directory: {exp['result_dir']}")
@@ -381,8 +373,8 @@ def main():
     print("=" * 50)
     print(f"⚙️  Configuration:")
     print(f"   Max Concurrent Jobs: {args.max_concurrent}")
-    print(f"   Total Experiments: 1,920")
-    print(f"   Estimated Runtime: ~48 hours (with {args.max_concurrent} concurrent)")
+    print(f"   Total Experiments: 96")
+    print(f"   Estimated Runtime: ~{args.max_concurrent * 3} hours (with {args.max_concurrent} sequential batches)")
     print("=" * 50)
     
     # Generate experiment list
