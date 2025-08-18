@@ -1,0 +1,30 @@
+2025-08-18 11:11:15,587 | INFO | Environment: {'torch': '2.8.0+cu128', 'torchvision': '0.23.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA L40S', 'capability': '8.9', 'cudnn_version': 91002}
+2025-08-18 11:11:15,587 | INFO | ▶ START: load fp32 model (torchvision weights API)
+2025-08-18 11:11:15,794 | INFO | Model: mobilenet_v2 | Weights: MobileNet_V2_Weights.IMAGENET1K_V2 | Params: 3.50M | Ref acc@1=None
+2025-08-18 11:11:15,794 | INFO | ✔ END: load fp32 model (torchvision weights API) (elapsed 0.21s)
+2025-08-18 11:11:15,795 | INFO | ▶ START: build & check loaders
+2025-08-18 11:11:15,801 | INFO | Val structure looks OK (1000 synset folders).
+2025-08-18 11:11:15,807 | INFO | Train structure looks OK (1000 synset folders).
+2025-08-18 11:12:05,959 | INFO | ImageNet train: 1281167 images, 1000 classes
+2025-08-18 11:12:07,653 | INFO | ImageNet val: 50000 images, 1000 classes
+2025-08-18 11:12:07,654 | INFO | Val dataset size: 50000 | batch_size=64 | calib_batches=32
+2025-08-18 11:12:08,991 | INFO | [SANITY] Batch[0] stats: mean=-0.2055, std=1.1229, min=-2.118, max=2.640
+2025-08-18 11:12:08,991 | INFO | ✔ END: build & check loaders (elapsed 53.20s)
+2025-08-18 11:12:08,994 | INFO | ▶ START: prepare_by_platform(Academic)
+2025-08-18 11:12:08,995 | INFO | [Academic extra_config] {'extra_qconfig_dict': {'w_observer': 'MinMaxObserver', 'a_observer': 'EMAMinMaxObserver', 'w_fakequantize': 'AdaRoundFakeQuantize', 'a_fakequantize': 'FixedFakeQuantize', 'w_qscheme': {'bit': 4, 'symmetry': True, 'per_channel': True, 'pot_scale': False}, 'a_qscheme': {'bit': 2, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}
+2025-08-18 11:12:09,162 | INFO | Modules (total): 213 -> 425
+2025-08-18 11:12:09,162 | INFO | 'Quantish' modules detected after prepare: 212
+2025-08-18 11:12:09,162 | INFO | ▶ START: calibration (enable_calibration + forward)
+2025-08-18 11:12:10,554 | INFO | [CALIB] step=1/32 seen=64 (46.1 img/s)
+2025-08-18 11:12:11,014 | INFO | [CALIB] step=10/32 seen=640 (346.0 img/s)
+2025-08-18 11:12:11,549 | INFO | [CALIB] step=20/32 seen=1280 (536.7 img/s)
+2025-08-18 11:12:12,059 | INFO | [CALIB] step=30/32 seen=1920 (663.4 img/s)
+2025-08-18 11:12:13,436 | INFO | [CALIB] total images seen: 2048
+2025-08-18 11:12:13,436 | INFO | ✔ END: calibration (enable_calibration + forward) (elapsed 4.27s)
+2025-08-18 11:12:13,436 | INFO | ▶ START: advanced PTQ reconstruction
+2025-08-18 11:12:15,410 | INFO | [ADV] cfg={'pattern': 'block', 'scale_lr': 4e-05, 'warm_up': 0.2, 'weight': 0.01, 'max_count': 20000, 'b_range': [20, 2], 'keep_gpu': True, 'round_mode': 'learned_hard_sigmoid', 'prob': 1.0}
+2025-08-18 11:12:15,411 | INFO | [ADV] stacked tensors: 32 | total calib images: 2048
+2025-08-18 11:12:22,495 | WARNING | /home/alz07xz/project/kmeans_results/MQBench/mqbench/advanced_ptq.py:220: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  float(total_loss), float(rec_loss), float(round_loss), b, self.count))
+
