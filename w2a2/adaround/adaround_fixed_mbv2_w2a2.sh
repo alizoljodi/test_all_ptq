@@ -64,7 +64,7 @@ echo "Time: $(date)"
 echo "------------------------------------------"
 
 # Run the PTQ experiment
-python ../../mq_bench_ptq.py \
+python /home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/mq_bench_ptq.py \
     --model "$model" \
     --w_bits "$w_bits" \
     --a_bits "$a_bits" \
