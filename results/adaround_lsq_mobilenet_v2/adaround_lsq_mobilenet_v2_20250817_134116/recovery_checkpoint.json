@@ -1,0 +1,23 @@
+{
+  "timestamp": "20250817_142951",
+  "total_combinations": 1,
+  "completed_combinations": [
+    "0.5_16_50"
+  ],
+  "args": {
+    "model": "mobilenet_v2",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "adv_mode": "adaround",
+    "alpha_list": [
+      0.5
+    ],
+    "num_clusters_list": [
+      16
+    ],
+    "pca_dim_list": [
+      50
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+🚀 Starting PTQ Experiment: qdrop + lsq + resnet50
+==========================================
+Parameters:
+  Model: resnet50
+  Advanced Mode: qdrop
+  Quant Model: lsq
+  Weight Bits: 8
+  Activation Bits: 8
+  Alpha: 0.5
+  Clusters: 16
+  PCA dim: 50
+  Batch Size: 48
+  Calib Batches: 24
+  Logits Batches: 8
+  Alpha List: 
+  Clusters List: 
+  PCA Dim List: 
+==========================================
+🔄 Running experiment...
+Time: Sun Aug 17 04:08:45 PM CEST 2025
+------------------------------------------
+usage: mq_bench_ptq.py [-h] [--val_root VAL_ROOT] [--model MODEL]
+                       [--weights WEIGHTS] [--batch_size BATCH_SIZE]
+                       [--workers WORKERS] [--calib_batches CALIB_BATCHES]
+                       [--img_size IMG_SIZE] [--advanced]
+                       [--log_file LOG_FILE] [--verbose]
+                       [--log_interval LOG_INTERVAL] [--profile_mem]
+                       [--no_structure_check] [--check_train_structure]
+                       [--extract_logits] [--logits_batches LOGITS_BATCHES]
+                       [--seed SEED] [--w_bits W_BITS] [--a_bits A_BITS]
+                       [--w_per_channel] [--a_per_channel] [--w_sym] [--a_sym]
+                       [--quant_model {fixed,learnable,lsq,lsqplus}]
+                       [--adv_mode {adaround,brecq,qdrop}]
+                       [--adv_steps ADV_STEPS] [--adv_warmup ADV_WARMUP]
+                       [--adv_lambda ADV_LAMBDA] [--adv_prob ADV_PROB]
+                       [--keep_gpu] [--alpha ALPHA]
+                       [--alpha_list ALPHA_LIST [ALPHA_LIST ...]]
+                       [--num_clusters NUM_CLUSTERS]
+                       [--num_clusters_list NUM_CLUSTERS_LIST [NUM_CLUSTERS_LIST ...]]
+                       [--pca_dim PCA_DIM]
+                       [--pca_dim_list PCA_DIM_LIST [PCA_DIM_LIST ...]]
+                       [--output_dir OUTPUT_DIR] [--save_csv] [--recover]
+mq_bench_ptq.py: error: argument --alpha_list: expected at least one argument
+❌ Experiment failed!
+Check logs in: qdrop_lsq_resnet50_20250817_160845
+------------------------------------------
+🎉 Experiment finished!
+Results directory: qdrop_lsq_resnet50_20250817_160845

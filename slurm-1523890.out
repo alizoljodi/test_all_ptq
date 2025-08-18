@@ -1,0 +1,30 @@
+/var/lib/slurm/slurmd/job1523890/slurm_script: line 22: module: command not found
+/var/lib/slurm/slurmd/job1523890/slurm_script: line 23: module: command not found
+/var/lib/slurm/slurmd/job1523890/slurm_script: line 26: /home/alz07xz/miniconda3/etc/profile.d/conda.sh: No such file or directory
+/var/lib/slurm/slurmd/job1523890/slurm_script: line 27: conda: command not found
+==========================================
+Starting PTQ Experiment: resnet18_adaround_w2a2_fixed_a0.2_c8_pca25
+Job ID: 
+Node: jnfat04
+GPU: 0
+==========================================
+Parameters:
+  Model: resnet18
+  Advanced Mode: adaround
+  Weight Bits: 2
+  Activation Bits: 2
+  Quantization Model: fixed
+  Alpha: 0.2
+  Number of Clusters: 8
+  PCA Dimension: 25
+  Output Directory: results/resnet18_adaround_w2a2_fixed_a0.2_c8_pca25_20250817_122939
+==========================================
+Traceback (most recent call last):
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/mq_bench_ptq.py", line 15, in <module>
+    from sklearn.decomposition import PCA
+ModuleNotFoundError: No module named 'sklearn'
+==========================================
+Experiment resnet18_adaround_w2a2_fixed_a0.2_c8_pca25 FAILED!
+Check logs: logs/resnet18_adaround_w2a2_fixed_a0.2_c8_pca25_20250817_122939.log
+==========================================
+/var/lib/slurm/slurmd/job1523890/slurm_script: line 170: results/resnet18_adaround_w2a2_fixed_a0.2_c8_pca25_20250817_122939/experiment_failed.txt: No such file or directory

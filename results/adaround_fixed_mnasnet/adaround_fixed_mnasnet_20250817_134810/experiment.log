@@ -1,0 +1,28 @@
+2025-08-17 13:48:37,647 | INFO | Environment: {'torch': '2.8.0+cu128', 'torchvision': '0.23.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA L40S', 'capability': '8.9', 'cudnn_version': 91002}
+2025-08-17 13:48:37,647 | INFO | ▶ START: load fp32 model (torchvision weights API)
+2025-08-17 13:48:37,647 | WARNING | Could not resolve weights enum for mnasnet: Unknown model mnasnet. Using random init.
+2025-08-17 13:48:37,647 | ERROR | ✖ ERROR in section: load fp32 model (torchvision weights API)
+Traceback (most recent call last):
+  File "/home/alz07xz/project/kmeans_results/MQBench/mqbench/lib/python3.11/site-packages/torchvision/models/_api.py", line 259, in get_model_builder
+    fn = BUILTIN_MODELS[name]
+         ~~~~~~~~~~~~~~^^^^^^
+KeyError: 'mnasnet'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/results/adaround_fixed_mnasnet/../../mq_bench_ptq.py", line 93, in log_section
+    yield
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/results/adaround_fixed_mnasnet/../../mq_bench_ptq.py", line 1019, in main
+    fp, weights, ref_top1 = load_model_with_weights(args.model, args.weights, device)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/results/adaround_fixed_mnasnet/../../mq_bench_ptq.py", line 270, in load_model_with_weights
+    model = get_model(model_name, weights=weights).eval().to(device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alz07xz/project/kmeans_results/MQBench/mqbench/lib/python3.11/site-packages/torchvision/models/_api.py", line 276, in get_model
+    fn = get_model_builder(name)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alz07xz/project/kmeans_results/MQBench/mqbench/lib/python3.11/site-packages/torchvision/models/_api.py", line 261, in get_model_builder
+    raise ValueError(f"Unknown model {name}")
+ValueError: Unknown model mnasnet
+2025-08-17 13:48:37,649 | INFO | ✔ END: load fp32 model (torchvision weights API) (elapsed 0.00s)

@@ -1,0 +1,78 @@
+2025-08-17 16:08:32,644 | INFO | Environment: {'torch': '2.8.0+cu128', 'torchvision': '0.23.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA L40S', 'capability': '8.9', 'cudnn_version': 91002}
+2025-08-17 16:08:32,644 | INFO | ▶ START: load fp32 model (torchvision weights API)
+2025-08-17 16:08:34,758 | INFO | Model: mnasnet0_5 | Weights: MNASNet0_5_Weights.IMAGENET1K_V1 | Params: 2.22M | Ref acc@1=None
+2025-08-17 16:08:34,758 | INFO | ✔ END: load fp32 model (torchvision weights API) (elapsed 2.11s)
+2025-08-17 16:08:34,758 | INFO | ▶ START: build & check loaders
+2025-08-17 16:08:34,764 | INFO | Val structure looks OK (1000 synset folders).
+2025-08-17 16:08:34,771 | INFO | Train structure looks OK (1000 synset folders).
+2025-08-17 16:09:17,542 | INFO | ImageNet train: 1281167 images, 1000 classes
+2025-08-17 16:09:25,850 | INFO | ImageNet val: 50000 images, 1000 classes
+2025-08-17 16:09:25,851 | INFO | Val dataset size: 50000 | batch_size=64 | calib_batches=32
+2025-08-17 16:09:27,937 | INFO | [SANITY] Batch[0] stats: mean=-0.1807, std=1.1175, min=-2.118, max=2.640
+2025-08-17 16:09:27,937 | INFO | ✔ END: build & check loaders (elapsed 53.18s)
+2025-08-17 16:09:27,943 | INFO | ▶ START: prepare_by_platform(Academic)
+2025-08-17 16:09:27,945 | INFO | [Academic extra_config] {'extra_qconfig_dict': {'w_observer': 'MinMaxObserver', 'a_observer': 'EMAMinMaxObserver', 'w_fakequantize': 'AdaRoundFakeQuantize', 'a_fakequantize': 'FixedFakeQuantize', 'w_qscheme': {'bit': 8, 'symmetry': True, 'per_channel': True, 'pot_scale': False}, 'a_qscheme': {'bit': 8, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}
+2025-08-17 16:09:28,251 | INFO | Modules (total): 182 -> 394
+2025-08-17 16:09:28,251 | INFO | 'Quantish' modules detected after prepare: 212
+2025-08-17 16:09:28,251 | INFO | ▶ START: calibration (enable_calibration + forward)
+2025-08-17 16:09:34,492 | INFO | [CALIB] step=1/32 seen=64 (10.3 img/s)
+2025-08-17 16:09:34,887 | INFO | [CALIB] step=10/32 seen=640 (96.5 img/s)
+2025-08-17 16:09:35,495 | INFO | [CALIB] step=20/32 seen=1280 (176.8 img/s)
+2025-08-17 16:09:36,942 | INFO | [CALIB] step=30/32 seen=1920 (221.0 img/s)
+2025-08-17 16:09:38,259 | INFO | [CALIB] total images seen: 2048
+2025-08-17 16:09:38,259 | INFO | ✔ END: calibration (enable_calibration + forward) (elapsed 10.01s)
+2025-08-17 16:09:38,259 | INFO | ▶ START: advanced PTQ reconstruction
+2025-08-17 16:09:42,731 | INFO | [ADV] cfg={'pattern': 'block', 'scale_lr': 4e-05, 'warm_up': 0.2, 'weight': 0.01, 'max_count': 20000, 'b_range': [20, 2], 'keep_gpu': True, 'round_mode': 'learned_hard_sigmoid', 'prob': 1.0}
+2025-08-17 16:09:42,731 | INFO | [ADV] stacked tensors: 32 | total calib images: 2048
+2025-08-17 16:09:50,581 | WARNING | /home/alz07xz/project/kmeans_results/MQBench/mqbench/advanced_ptq.py:220: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  float(total_loss), float(rec_loss), float(round_loss), b, self.count))
+
+2025-08-17 16:48:04,285 | INFO | ✔ END: advanced PTQ reconstruction (elapsed 2306.03s)
+2025-08-17 16:48:04,287 | INFO | ▶ START: enable_quantization (simulate INT8)
+2025-08-17 16:48:04,291 | INFO | ✔ END: enable_quantization (simulate INT8) (elapsed 0.00s)
+2025-08-17 16:48:04,291 | INFO | ✔ END: prepare_by_platform(Academic) (elapsed 2316.35s)
+2025-08-17 16:48:04,292 | INFO | ▶ START: evaluate INT8-sim
+2025-08-17 16:48:06,913 | INFO | [EVAL_INT8] progress: 50 batches, running top1=72.50%
+2025-08-17 16:48:09,058 | INFO | [EVAL_INT8] progress: 100 batches, running top1=73.75%
+2025-08-17 16:48:10,879 | INFO | [EVAL_INT8] progress: 150 batches, running top1=73.93%
+2025-08-17 16:48:12,849 | INFO | [EVAL_INT8] progress: 200 batches, running top1=72.95%
+2025-08-17 16:48:18,928 | INFO | [EVAL_INT8] progress: 250 batches, running top1=72.74%
+2025-08-17 16:48:24,938 | INFO | [EVAL_INT8] progress: 300 batches, running top1=73.20%
+2025-08-17 16:48:30,919 | INFO | [EVAL_INT8] progress: 350 batches, running top1=71.82%
+2025-08-17 16:48:35,824 | INFO | [EVAL_INT8] progress: 400 batches, running top1=70.12%
+2025-08-17 16:48:43,709 | INFO | [EVAL_INT8] progress: 450 batches, running top1=69.43%
+2025-08-17 16:48:51,754 | INFO | [EVAL_INT8] progress: 500 batches, running top1=68.44%
+2025-08-17 16:48:57,547 | INFO | [EVAL_INT8] progress: 550 batches, running top1=67.66%
+2025-08-17 16:49:04,967 | INFO | [EVAL_INT8] progress: 600 batches, running top1=67.07%
+2025-08-17 16:49:10,242 | INFO | [EVAL_INT8] progress: 650 batches, running top1=66.60%
+2025-08-17 16:49:18,283 | INFO | [EVAL_INT8] progress: 700 batches, running top1=65.97%
+2025-08-17 16:49:28,425 | INFO | [EVAL_INT8] progress: 750 batches, running top1=66.06%
+2025-08-17 16:49:32,734 | INFO | [EVAL_INT8] done: 782 batches in 88.44s, top1=66.07%
+2025-08-17 16:49:32,734 | INFO | [PTQ][mnasnet0_5][Academic] [ADV] Top-1 = 66.07%
+2025-08-17 16:49:32,734 | INFO | ✔ END: evaluate INT8-sim (elapsed 88.44s)
+2025-08-17 16:49:32,734 | INFO | ▶ START: evaluate FP32 baseline
+2025-08-17 16:49:35,212 | INFO | [EVAL_FP32] progress: 50 batches, running top1=73.44%
+2025-08-17 16:49:37,183 | INFO | [EVAL_FP32] progress: 100 batches, running top1=74.81%
+2025-08-17 16:49:39,025 | INFO | [EVAL_FP32] progress: 150 batches, running top1=75.14%
+2025-08-17 16:49:40,985 | INFO | [EVAL_FP32] progress: 200 batches, running top1=74.41%
+2025-08-17 16:49:43,144 | INFO | [EVAL_FP32] progress: 250 batches, running top1=74.26%
+2025-08-17 16:49:45,052 | INFO | [EVAL_FP32] progress: 300 batches, running top1=74.69%
+2025-08-17 16:49:46,976 | INFO | [EVAL_FP32] progress: 350 batches, running top1=73.39%
+2025-08-17 16:49:48,863 | INFO | [EVAL_FP32] progress: 400 batches, running top1=71.63%
+2025-08-17 16:49:50,836 | INFO | [EVAL_FP32] progress: 450 batches, running top1=70.98%
+2025-08-17 16:49:52,796 | INFO | [EVAL_FP32] progress: 500 batches, running top1=69.94%
+2025-08-17 16:49:54,752 | INFO | [EVAL_FP32] progress: 550 batches, running top1=69.28%
+2025-08-17 16:49:56,477 | INFO | [EVAL_FP32] progress: 600 batches, running top1=68.73%
+2025-08-17 16:49:58,484 | INFO | [EVAL_FP32] progress: 650 batches, running top1=68.26%
+2025-08-17 16:50:00,348 | INFO | [EVAL_FP32] progress: 700 batches, running top1=67.67%
+2025-08-17 16:50:02,155 | INFO | [EVAL_FP32] progress: 750 batches, running top1=67.74%
+2025-08-17 16:50:03,346 | INFO | [EVAL_FP32] done: 782 batches in 30.61s, top1=67.76%
+2025-08-17 16:50:03,346 | INFO | [FP32] Top-1 = 67.76% (expected ~None)
+2025-08-17 16:50:03,346 | INFO | ✔ END: evaluate FP32 baseline (elapsed 30.61s)
+2025-08-17 16:50:03,346 | INFO | ▶ START: extract model logits
+2025-08-17 16:50:03,348 | INFO | Extracting logits from both models...
+2025-08-17 16:50:06,416 | INFO | Processed 5 batches
+2025-08-17 16:50:07,929 | INFO | Processed 10 batches
+2025-08-17 16:50:10,214 | INFO | Extracted logits: Q=torch.Size([640, 1000]), FP=torch.Size([640, 1000])
+2025-08-17 17:35:13,829 | INFO | ✔ END: extract model logits (elapsed 2710.48s)

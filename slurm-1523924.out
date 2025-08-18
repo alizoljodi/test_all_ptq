@@ -1,0 +1,31 @@
+🚀 Submitting MQBench PTQ Experiments to SLURM...
+⚙️  Max Concurrent Jobs: 8
+📊 Total Experiments: 1,920
+🎯 Job Name: mqbench_ptq_experiments
+📤 Submitting SLURM array job...
+❌ Failed to submit job:
+🚀 MQBench PTQ Experiment Manager
+==================================================
+⚙️  Configuration:
+   Max Concurrent Jobs: 8
+   Total Experiments: 1,920
+   Estimated Runtime: ~24 hours
+==================================================
+Generated 25920 experiment combinations
+Experiment list saved to experiment_list.json
+
+📋 Available Commands:
+   1. Submit SLURM job
+   2. Monitor jobs
+   3. Check results
+   4. Generate summary report
+   5. Show experiment details
+   6. Exit
+
+🎯 Enter your choice (1-6): Traceback (most recent call last):
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/submit_experiments.py", line 330, in <module>
+    main()
+  File "/home/alz07xz/project/kmeans_results/MQBench/run/test_all_ptq/submit_experiments.py", line 294, in main
+    choice = input(f"\n🎯 Enter your choice (1-6): ").strip()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+EOFError: EOF when reading a line

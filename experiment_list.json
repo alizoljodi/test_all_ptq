@@ -1,0 +1,3890 @@
+[
+  {
+    "id": 0,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 1,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 3,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 4,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 5,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 7,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 8,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 9,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 10,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 11,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 12,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 13,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 14,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 15,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 16,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 17,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 18,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 19,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 20,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 21,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 22,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 23,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 24,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 25,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 26,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 27,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 28,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 29,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 30,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 31,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 32,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 33,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 34,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 35,
+    "model": "resnet18",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 36,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 37,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 38,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 39,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 40,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 41,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 42,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 43,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 44,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 45,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 46,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 47,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 48,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 49,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 50,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 51,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 52,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 53,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 54,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 55,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 56,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 57,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 58,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 59,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 60,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 61,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 62,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 63,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 64,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 65,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 66,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 67,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 68,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 69,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 70,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 71,
+    "model": "resnet18",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 72,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 73,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 74,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 75,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 76,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 77,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 78,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 79,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 80,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 81,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 82,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 83,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 84,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 85,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 86,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 87,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 88,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 89,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 90,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 91,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 92,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 93,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 94,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 95,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 96,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 97,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 98,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 99,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 100,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 101,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 102,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 103,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 104,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 105,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 106,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 107,
+    "model": "resnet18",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 108,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 109,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 110,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 111,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 112,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 113,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 114,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 115,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 116,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 117,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 118,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 119,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 120,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 121,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 122,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 123,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 124,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 125,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 126,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 127,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 128,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 129,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 130,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 131,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 132,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 133,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 134,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 135,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 136,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 137,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 138,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 139,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 140,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 141,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 142,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 143,
+    "model": "resnet50",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 144,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 145,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 146,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 147,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 148,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 149,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 150,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 151,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 152,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 153,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 154,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 155,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 156,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 157,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 158,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 159,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 160,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 161,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 162,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 163,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 164,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 165,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 166,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 167,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 168,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 169,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 170,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 171,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 172,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 173,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 174,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 175,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 176,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 177,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 178,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 179,
+    "model": "resnet50",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 180,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 181,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 182,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 183,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 184,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 185,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 186,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 187,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 188,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 189,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 190,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 191,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 192,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 193,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 194,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 195,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 196,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 197,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 198,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 199,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 200,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 201,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 202,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 203,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 204,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 205,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 206,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 207,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 208,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 209,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 210,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 211,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 212,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 213,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 214,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 215,
+    "model": "resnet50",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 216,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 217,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 218,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 219,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 220,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 221,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 222,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 223,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 224,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 225,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 226,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 227,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 228,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 229,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 230,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 231,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 232,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 233,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 234,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 235,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 236,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 237,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 238,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 239,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 240,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 241,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 242,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 243,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 244,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 245,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 246,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 247,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 248,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 249,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 250,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 251,
+    "model": "mnasnet",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 252,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 253,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 254,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 255,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 256,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 257,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 258,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 259,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 260,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 261,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 262,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 263,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 264,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 265,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 266,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 267,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 268,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 269,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 270,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 271,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 272,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 273,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 274,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 275,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 276,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 277,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 278,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 279,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 280,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 281,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 282,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 283,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 284,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 285,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 286,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 287,
+    "model": "mnasnet",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 288,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 289,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 290,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 291,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 292,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 293,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 294,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 295,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 296,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 297,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 298,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 299,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 300,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 301,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 302,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 303,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 304,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 305,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 306,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 307,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 308,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 309,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 310,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 311,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 312,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 313,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 314,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 315,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 316,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 317,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 318,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 319,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 320,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 321,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 322,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 323,
+    "model": "mnasnet",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 324,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 325,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 326,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 327,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 328,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 329,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 330,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 331,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 332,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 333,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 334,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 335,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 336,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 337,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 338,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 339,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 340,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 341,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 342,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 343,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 344,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 345,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 346,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 347,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 348,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 349,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 350,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 351,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 352,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 353,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 354,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 355,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 356,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 357,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 358,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 359,
+    "model": "mobilenet_v2",
+    "adv_mode": "adaround",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 360,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 361,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 362,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 363,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 364,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 365,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 366,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 367,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 368,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 369,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 370,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 371,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 372,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 373,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 374,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 375,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 376,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 377,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 378,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 379,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 380,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 381,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 382,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 383,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 384,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 385,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 386,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 387,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 388,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 389,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 390,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 391,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 392,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 393,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 394,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 395,
+    "model": "mobilenet_v2",
+    "adv_mode": "brecq",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 396,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 397,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 398,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 399,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 400,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 401,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 402,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 403,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 404,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 405,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 406,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 407,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 2,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 408,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 409,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 410,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 411,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 412,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 413,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 414,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 415,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 416,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 417,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 418,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 419,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 4,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 420,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 421,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 422,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 423,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 2,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 424,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 425,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 426,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 427,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 4,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  },
+  {
+    "id": 428,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "fixed",
+    "status": "pending"
+  },
+  {
+    "id": 429,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "learnable",
+    "status": "pending"
+  },
+  {
+    "id": 430,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsq",
+    "status": "pending"
+  },
+  {
+    "id": 431,
+    "model": "mobilenet_v2",
+    "adv_mode": "qdrop",
+    "w_bits": 8,
+    "a_bits": 8,
+    "quant_model": "lsqplus",
+    "status": "pending"
+  }
+]
