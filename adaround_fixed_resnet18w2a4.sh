@@ -24,8 +24,8 @@ cd results/adaround_fixed_resnet18
 model="resnet18"
 adv_mode="adaround"
 quant_model="fixed"
-w_bits=8
-a_bits=8
+w_bits=2
+a_bits=4
 alpha=0.5
 num_clusters=16
 pca_dim=50
