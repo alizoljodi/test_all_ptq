@@ -2081,3 +2081,146 @@ Results saved to: adaround_learnable_mnasnet0_5_20250818_114220/ptq_results_2025
 💾 Recovery checkpoint saved: adaround_learnable_mnasnet0_5_20250818_114220/recovery_checkpoint.json
 
 🔄 [51/60] Running with alpha=1.0, num_clusters=8, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.11%
+[Alpha=1.00] Top-5 Accuracy: 0.53%
+✅ Result: Top-1: 0.11%, Top-5: 0.53%
+
+🔄 [52/60] Running with alpha=1.0, num_clusters=16, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.11%
+[Alpha=1.00] Top-5 Accuracy: 0.55%
+✅ Result: Top-1: 0.11%, Top-5: 0.55%
+
+🔄 [53/60] Running with alpha=1.0, num_clusters=16, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.11%
+[Alpha=1.00] Top-5 Accuracy: 0.55%
+✅ Result: Top-1: 0.11%, Top-5: 0.55%
+
+🔄 [54/60] Running with alpha=1.0, num_clusters=16, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.10%
+[Alpha=1.00] Top-5 Accuracy: 0.52%
+✅ Result: Top-1: 0.10%, Top-5: 0.52%
+
+🔄 [55/60] Running with alpha=1.0, num_clusters=32, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.11%
+[Alpha=1.00] Top-5 Accuracy: 0.57%
+✅ Result: Top-1: 0.11%, Top-5: 0.57%
+💾 Saving intermediate results... (55 total combinations)
+Results saved to: adaround_learnable_mnasnet0_5_20250818_114220/ptq_results_20250818_130535.csv
+💾 Recovery checkpoint saved: adaround_learnable_mnasnet0_5_20250818_114220/recovery_checkpoint.json
+
+🔄 [56/60] Running with alpha=1.0, num_clusters=32, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.10%
+[Alpha=1.00] Top-5 Accuracy: 0.49%
+✅ Result: Top-1: 0.10%, Top-5: 0.49%
+
+🔄 [57/60] Running with alpha=1.0, num_clusters=32, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.11%
+[Alpha=1.00] Top-5 Accuracy: 0.47%
+✅ Result: Top-1: 0.11%, Top-5: 0.47%
+
+🔄 [58/60] Running with alpha=1.0, num_clusters=64, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.09%
+[Alpha=1.00] Top-5 Accuracy: 0.53%
+✅ Result: Top-1: 0.09%, Top-5: 0.53%
+
+🔄 [59/60] Running with alpha=1.0, num_clusters=64, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.10%
+[Alpha=1.00] Top-5 Accuracy: 0.54%
+✅ Result: Top-1: 0.10%, Top-5: 0.54%
+
+🔄 [60/60] Running with alpha=1.0, num_clusters=64, pca_dim=100
+2025-08-18 13:09:30,564 | INFO | ✔ END: extract model logits (elapsed 2828.36s)
+[Alpha=1.00] Top-1 Accuracy: 0.14%
+[Alpha=1.00] Top-5 Accuracy: 0.63%
+✅ Result: Top-1: 0.14%, Top-5: 0.63%
+💾 Saving intermediate results... (60 total combinations)
+Results saved to: adaround_learnable_mnasnet0_5_20250818_114220/ptq_results_20250818_130930.csv
+💾 Recovery checkpoint saved: adaround_learnable_mnasnet0_5_20250818_114220/recovery_checkpoint.json
+
+================================================================================
+SUMMARY OF ALL RESULTS
+================================================================================
+Alpha    Clusters   PCA_dim    Top-1      Top-5     
+--------------------------------------------------
+0.20     8          25         0.15       0.75      
+0.20     8          50         0.15       0.75      
+0.20     8          100        0.15       0.75      
+0.20     16         25         0.14       0.77      
+0.20     16         50         0.15       0.76      
+0.20     16         100        0.15       0.77      
+0.20     32         25         0.16       0.77      
+0.20     32         50         0.15       0.78      
+0.20     32         100        0.17       0.74      
+0.20     64         25         0.15       0.74      
+0.20     64         50         0.17       0.74      
+0.20     64         100        0.15       0.80      
+0.40     8          25         0.14       0.71      
+0.40     8          50         0.13       0.67      
+0.40     8          100        0.13       0.68      
+0.40     16         25         0.15       0.68      
+0.40     16         50         0.15       0.69      
+0.40     16         100        0.12       0.71      
+0.40     32         25         0.16       0.68      
+0.40     32         50         0.13       0.66      
+0.40     32         100        0.14       0.65      
+0.40     64         25         0.15       0.65      
+0.40     64         50         0.14       0.68      
+0.40     64         100        0.15       0.71      
+0.60     8          25         0.10       0.58      
+0.60     8          50         0.09       0.60      
+0.60     8          100        0.12       0.61      
+0.60     16         25         0.10       0.61      
+0.60     16         50         0.14       0.62      
+0.60     16         100        0.13       0.60      
+0.60     32         25         0.14       0.64      
+0.60     32         50         0.12       0.56      
+0.60     32         100        0.11       0.59      
+0.60     64         25         0.12       0.61      
+0.60     64         50         0.11       0.61      
+0.60     64         100        0.16       0.69      
+0.80     8          25         0.09       0.55      
+0.80     8          50         0.10       0.51      
+0.80     8          100        0.10       0.49      
+0.80     16         25         0.09       0.57      
+0.80     16         50         0.13       0.60      
+0.80     16         100        0.11       0.50      
+0.80     32         25         0.13       0.56      
+0.80     32         50         0.11       0.46      
+0.80     32         100        0.10       0.50      
+0.80     64         25         0.12       0.56      
+0.80     64         50         0.10       0.55      
+0.80     64         100        0.14       0.61      
+1.00     8          25         0.10       0.54      
+1.00     8          50         0.10       0.54      
+1.00     8          100        0.11       0.53      
+1.00     16         25         0.11       0.55      
+1.00     16         50         0.11       0.55      
+1.00     16         100        0.10       0.52      
+1.00     32         25         0.11       0.57      
+1.00     32         50         0.10       0.49      
+1.00     32         100        0.11       0.47      
+1.00     64         25         0.09       0.53      
+1.00     64         50         0.10       0.54      
+1.00     64         100        0.14       0.63      
+
+BEST RESULT:
+  Alpha: 0.2
+  Clusters: 64
+  PCA_dim: 50
+  Top-1 Accuracy: 0.17%
+  Top-5 Accuracy: 0.74%
+
+ACCURACY COMPARISON:
+  FP32 Model: 67.76%
+  Baseline PTQ: 0.15%
+  Best Clustering: 0.17%
+  PTQ Degradation: 67.61%
+  Clustering Recovery: 0.02%
+  Final Gap to FP32: 67.59%
+Results saved to: adaround_learnable_mnasnet0_5_20250818_114220/ptq_results_20250818_130930.csv
+Summary saved to: adaround_learnable_mnasnet0_5_20250818_114220/ptq_summary_20250818_130930.csv
+✅ Experiment completed successfully!
+Results saved in: adaround_learnable_mnasnet0_5_20250818_114220
+------------------------------------------
+🎉 Experiment finished!
+Results directory: adaround_learnable_mnasnet0_5_20250818_114220

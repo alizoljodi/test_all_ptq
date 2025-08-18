@@ -75,3 +75,4 @@ Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/cs
 2025-08-18 12:23:03,070 | INFO | Processed 5 batches
 2025-08-18 12:23:03,169 | INFO | Processed 10 batches
 2025-08-18 12:23:05,148 | INFO | Extracted logits: Q=torch.Size([640, 1000]), FP=torch.Size([640, 1000])
+2025-08-18 13:09:22,935 | INFO | ✔ END: extract model logits (elapsed 2780.75s)

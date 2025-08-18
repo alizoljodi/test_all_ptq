@@ -1971,3 +1971,91 @@ Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_1258
 ✅ Result: Top-1: 1.11%, Top-5: 2.60%
 
 🔄 [24/60] Running with alpha=0.4, num_clusters=64, pca_dim=100
+                                                Top-5 Accuracy: 2.68%
+✅ Result: Top-1: 1.20%, Top-5: 2.68%
+
+🔄 [25/60] Running with alpha=0.6, num_clusters=8, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 1.46%
+[Alpha=0.60] Top-5 Accuracy: 2.75%
+✅ Result: Top-1: 1.46%, Top-5: 2.75%
+💾 Saving intermediate results... (25 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_130405.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [26/60] Running with alpha=0.6, num_clusters=8, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 1.48%
+[Alpha=0.60] Top-5 Accuracy: 2.75%
+✅ Result: Top-1: 1.48%, Top-5: 2.75%
+
+🔄 [27/60] Running with alpha=0.6, num_clusters=8, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 1.49%
+[Alpha=0.60] Top-5 Accuracy: 2.76%
+✅ Result: Top-1: 1.49%, Top-5: 2.76%
+
+🔄 [28/60] Running with alpha=0.6, num_clusters=16, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 1.29%
+[Alpha=0.60] Top-5 Accuracy: 2.68%
+✅ Result: Top-1: 1.29%, Top-5: 2.68%
+
+🔄 [29/60] Running with alpha=0.6, num_clusters=16, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 1.32%
+[Alpha=0.60] Top-5 Accuracy: 2.63%
+✅ Result: Top-1: 1.32%, Top-5: 2.63%
+
+🔄 [30/60] Running with alpha=0.6, num_clusters=16, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 1.36%
+[Alpha=0.60] Top-5 Accuracy: 2.64%
+✅ Result: Top-1: 1.36%, Top-5: 2.64%
+💾 Saving intermediate results... (30 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_130921.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [31/60] Running with alpha=0.6, num_clusters=32, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.91%
+[Alpha=0.60] Top-5 Accuracy: 2.37%
+✅ Result: Top-1: 0.91%, Top-5: 2.37%
+
+🔄 [32/60] Running with alpha=0.6, num_clusters=32, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.94%
+[Alpha=0.60] Top-5 Accuracy: 2.27%
+✅ Result: Top-1: 0.94%, Top-5: 2.27%
+
+🔄 [33/60] Running with alpha=0.6, num_clusters=32, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 1.04%
+[Alpha=0.60] Top-5 Accuracy: 2.38%
+✅ Result: Top-1: 1.04%, Top-5: 2.38%
+
+🔄 [34/60] Running with alpha=0.6, num_clusters=64, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.55%
+[Alpha=0.60] Top-5 Accuracy: 1.92%
+✅ Result: Top-1: 0.55%, Top-5: 1.92%
+
+🔄 [35/60] Running with alpha=0.6, num_clusters=64, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.47%
+[Alpha=0.60] Top-5 Accuracy: 1.87%
+✅ Result: Top-1: 0.47%, Top-5: 1.87%
+💾 Saving intermediate results... (35 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_131437.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [36/60] Running with alpha=0.6, num_clusters=64, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 0.57%
+[Alpha=0.60] Top-5 Accuracy: 2.03%
+✅ Result: Top-1: 0.57%, Top-5: 2.03%
+
+🔄 [37/60] Running with alpha=0.8, num_clusters=8, pca_dim=25
+[Alpha=0.80] Top-1 Accuracy: 0.91%
+[Alpha=0.80] Top-5 Accuracy: 2.22%
+✅ Result: Top-1: 0.91%, Top-5: 2.22%
+
+🔄 [38/60] Running with alpha=0.8, num_clusters=8, pca_dim=50
+[Alpha=0.80] Top-1 Accuracy: 0.98%
+[Alpha=0.80] Top-5 Accuracy: 2.24%
+✅ Result: Top-1: 0.98%, Top-5: 2.24%
+
+🔄 [39/60] Running with alpha=0.8, num_clusters=8, pca_dim=100
+[Alpha=0.80] Top-1 Accuracy: 0.96%
+[Alpha=0.80] Top-5 Accuracy: 2.23%
+✅ Result: Top-1: 0.96%, Top-5: 2.23%
+
+🔄 [40/60] Running with alpha=0.8, num_clusters=16, pca_dim=25
