@@ -1,0 +1,1973 @@
+🚀 Starting PTQ Experiment: brecq + fixed + resnet50
+==========================================
+Parameters:
+  Model: resnet50
+  Advanced Mode: brecq
+  Quant Model: fixed
+  Weight Bits: 4
+  Activation Bits: 4
+  Alpha: 0.5
+  Clusters: 16
+  PCA dim: 50
+  Batch Size: 64
+  Calib Batches: 32
+  Logits Batches: 10
+  Alpha List: 0.2 0.4 0.6 0.8 1.0
+  Clusters List: 8 16 32 64
+  PCA Dim List: 25 50 100
+==========================================
+🔄 Running experiment...
+Time: Mon Aug 18 11:34:51 AM CEST 2025
+------------------------------------------
+2025-08-18 11:35:06,800 | INFO | Environment: {'torch': '2.8.0+cu128', 'torchvision': '0.23.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA L40S', 'capability': '8.9', 'cudnn_version': 91002}
+2025-08-18 11:35:06,800 | INFO | ▶ START: load fp32 model (torchvision weights API)
+2025-08-18 11:35:08,329 | INFO | Model: resnet50 | Weights: ResNet50_Weights.IMAGENET1K_V2 | Params: 25.56M | Ref acc@1=None
+2025-08-18 11:35:08,329 | INFO | ✔ END: load fp32 model (torchvision weights API) (elapsed 1.53s)
+2025-08-18 11:35:08,329 | INFO | ▶ START: build & check loaders
+2025-08-18 11:35:08,349 | INFO | Val structure looks OK (1000 synset folders).
+2025-08-18 11:35:08,354 | INFO | Train structure looks OK (1000 synset folders).
+2025-08-18 11:35:33,805 | INFO | ImageNet train: 1281167 images, 1000 classes
+2025-08-18 11:35:34,788 | INFO | ImageNet val: 50000 images, 1000 classes
+2025-08-18 11:35:34,789 | INFO | Val dataset size: 50000 | batch_size=64 | calib_batches=32
+2025-08-18 11:35:37,279 | INFO | [SANITY] Batch[0] stats: mean=-0.2055, std=1.1229, min=-2.118, max=2.640
+2025-08-18 11:35:37,280 | INFO | ✔ END: build & check loaders (elapsed 28.95s)
+2025-08-18 11:35:37,286 | INFO | ▶ START: prepare_by_platform(Academic)
+2025-08-18 11:35:37,288 | INFO | [Academic extra_config] {'extra_qconfig_dict': {'w_observer': 'MinMaxObserver', 'a_observer': 'EMAMinMaxObserver', 'w_fakequantize': 'AdaRoundFakeQuantize', 'a_fakequantize': 'FixedFakeQuantize', 'w_qscheme': {'bit': 4, 'symmetry': True, 'per_channel': True, 'pot_scale': False}, 'a_qscheme': {'bit': 4, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}
+[MQBENCH] INFO: Quantize model Scheme: BackendType.Academic Mode: Eval
+[MQBENCH] INFO: Weight Qconfig:
+    FakeQuantize: AdaRoundFakeQuantize Params: {}
+    Oberver:      MinMaxObserver Params: Symmetric: True / Bitwidth: 4 / Per channel: True / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Activation Qconfig:
+    FakeQuantize: FixedFakeQuantize Params: {}
+    Oberver:      EMAMinMaxObserver Params: Symmetric: False / Bitwidth: 4 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Replace module to qat module.
+[MQBENCH] INFO: Set layer conv1 to 8 bit.
+[MQBENCH] INFO: Set layer fc to 8 bit.
+[MQBENCH] INFO: Set x post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant x_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_2_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_2_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_3_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_3_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_3_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_2_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_3_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_3_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_3_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_4_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_4_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_4_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_5_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_5_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_5_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_2_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Set flatten post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant flatten_post_act_fake_quantizer
+2025-08-18 11:35:37,579 | INFO | Modules (total): 151 -> 391
+2025-08-18 11:35:37,579 | INFO | 'Quantish' modules detected after prepare: 208
+2025-08-18 11:35:37,579 | INFO | ▶ START: calibration (enable_calibration + forward)
+[MQBENCH] INFO: Enable observer and Disable quantize.
+2025-08-18 11:35:44,194 | INFO | [CALIB] step=1/32 seen=64 (9.7 img/s)
+2025-08-18 11:35:44,744 | INFO | [CALIB] step=10/32 seen=640 (89.4 img/s)
+2025-08-18 11:35:45,350 | INFO | [CALIB] step=20/32 seen=1280 (164.8 img/s)
+2025-08-18 11:35:46,275 | INFO | [CALIB] step=30/32 seen=1920 (220.9 img/s)
+2025-08-18 11:35:47,621 | INFO | [CALIB] total images seen: 2048
+2025-08-18 11:35:47,621 | INFO | ✔ END: calibration (enable_calibration + forward) (elapsed 10.04s)
+2025-08-18 11:35:47,621 | INFO | ▶ START: advanced PTQ reconstruction
+2025-08-18 11:35:52,435 | INFO | [ADV] cfg={'pattern': 'block', 'scale_lr': 4e-05, 'warm_up': 0.2, 'weight': 0.01, 'max_count': 20000, 'b_range': [20, 2], 'keep_gpu': True, 'round_mode': 'learned_hard_sigmoid', 'prob': 1.0}
+2025-08-18 11:35:52,436 | INFO | [ADV] stacked tensors: 32 | total calib images: 2048
+[MQBENCH] INFO: Disable observer and Disable quantize.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: prepare block reconstruction for conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [x_post_act_fake_quantizer, conv1, bn1, relu, maxpool, maxpool_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, x_post_act_fake_quantizer):
+    conv1 = self.conv1(x_post_act_fake_quantizer);  x_post_act_fake_quantizer = None
+    bn1 = self.bn1(conv1);  conv1 = None
+    relu = self.relu(bn1);  bn1 = None
+    maxpool = self.maxpool(relu);  relu = None
+    maxpool_post_act_fake_quantizer = self.maxpool_post_act_fake_quantizer(maxpool);  maxpool = None
+    return maxpool_post_act_fake_quantizer
+    
+Init alpha to be FP32
+[MQBENCH] INFO: learn the scale for maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+2025-08-18 11:35:59,101 | WARNING | /home/alz07xz/project/kmeans_results/MQBench/mqbench/advanced_ptq.py:220: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  float(total_loss), float(rec_loss), float(round_loss), b, self.count))
+
+[MQBENCH] INFO: Total loss:	30.973 (rec:30.973, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	31.152 (rec:31.152, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	33.155 (rec:33.155, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	31.511 (rec:31.511, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	28.714 (rec:28.714, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	29.009 (rec:29.009, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	31.530 (rec:31.530, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	114.139 (rec:30.872, round:83.267)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	88.848 (rec:29.123, round:59.724)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	85.100 (rec:29.094, round:56.007)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	87.266 (rec:33.412, round:53.854)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	83.982 (rec:31.688, round:52.294)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	84.124 (rec:33.450, round:50.675)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	82.556 (rec:33.439, round:49.117)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	80.474 (rec:32.783, round:47.691)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	80.281 (rec:33.994, round:46.288)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	76.364 (rec:31.486, round:44.878)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	76.419 (rec:32.823, round:43.596)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	71.292 (rec:28.889, round:42.404)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	72.867 (rec:31.715, round:41.153)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	73.568 (rec:33.753, round:39.815)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	72.292 (rec:33.816, round:38.476)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	66.480 (rec:29.455, round:37.025)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	67.148 (rec:31.527, round:35.621)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	68.084 (rec:33.863, round:34.221)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	63.692 (rec:31.066, round:32.626)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	62.899 (rec:31.806, round:31.094)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	59.140 (rec:29.609, round:29.531)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	62.017 (rec:34.051, round:27.966)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	59.468 (rec:33.208, round:26.259)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	57.934 (rec:33.458, round:24.476)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	56.647 (rec:34.149, round:22.498)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	50.510 (rec:30.167, round:20.343)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	47.316 (rec:29.243, round:18.073)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	45.465 (rec:29.793, round:15.671)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	45.839 (rec:33.059, round:12.780)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	39.071 (rec:29.097, round:9.974)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	40.054 (rec:33.007, round:7.048)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	33.548 (rec:29.582, round:3.966)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	35.312 (rec:33.781, round:1.532)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer1_0_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [maxpool_post_act_fake_quantizer, layer1_0_conv1, layer1_0_bn1, layer1_0_relu, layer1_0_relu_post_act_fake_quantizer, layer1_0_conv2, layer1_0_bn2, layer1_0_relu_1, layer1_0_relu_1_post_act_fake_quantizer, layer1_0_conv3, layer1_0_bn3, layer1_0_downsample_0, layer1_0_downsample_1, add, layer1_0_relu_2, layer1_0_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, maxpool_post_act_fake_quantizer):
+    layer1_0_conv1 = getattr(self.layer1, "0").conv1(maxpool_post_act_fake_quantizer)
+    layer1_0_bn1 = getattr(self.layer1, "0").bn1(layer1_0_conv1);  layer1_0_conv1 = None
+    layer1_0_relu = getattr(self.layer1, "0").relu(layer1_0_bn1);  layer1_0_bn1 = None
+    layer1_0_relu_post_act_fake_quantizer = self.layer1_0_relu_post_act_fake_quantizer(layer1_0_relu);  layer1_0_relu = None
+    layer1_0_conv2 = getattr(self.layer1, "0").conv2(layer1_0_relu_post_act_fake_quantizer);  layer1_0_relu_post_act_fake_quantizer = None
+    layer1_0_bn2 = getattr(self.layer1, "0").bn2(layer1_0_conv2);  layer1_0_conv2 = None
+    layer1_0_relu_1 = getattr(self.layer1, "0").relu_dup1(layer1_0_bn2);  layer1_0_bn2 = None
+    layer1_0_relu_1_post_act_fake_quantizer = self.layer1_0_relu_1_post_act_fake_quantizer(layer1_0_relu_1);  layer1_0_relu_1 = None
+    layer1_0_conv3 = getattr(self.layer1, "0").conv3(layer1_0_relu_1_post_act_fake_quantizer);  layer1_0_relu_1_post_act_fake_quantizer = None
+    layer1_0_bn3 = getattr(self.layer1, "0").bn3(layer1_0_conv3);  layer1_0_conv3 = None
+    layer1_0_downsample_0 = getattr(getattr(self.layer1, "0").downsample, "0")(maxpool_post_act_fake_quantizer);  maxpool_post_act_fake_quantizer = None
+    layer1_0_downsample_1 = getattr(getattr(self.layer1, "0").downsample, "1")(layer1_0_downsample_0);  layer1_0_downsample_0 = None
+    add = layer1_0_bn3 + layer1_0_downsample_1;  layer1_0_bn3 = layer1_0_downsample_1 = None
+    layer1_0_relu_2 = getattr(self.layer1, "0").relu_dup2(add);  add = None
+    layer1_0_relu_2_post_act_fake_quantizer = self.layer1_0_relu_2_post_act_fake_quantizer(layer1_0_relu_2);  layer1_0_relu_2 = None
+    return layer1_0_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_0_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	104.987 (rec:104.987, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	98.736 (rec:98.736, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	99.928 (rec:99.928, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	97.661 (rec:97.661, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	97.806 (rec:97.806, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	98.190 (rec:98.190, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	91.985 (rec:91.985, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	731.638 (rec:92.777, round:638.861)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	556.826 (rec:96.599, round:460.227)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	523.452 (rec:96.104, round:427.348)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	501.326 (rec:97.502, round:403.824)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	477.108 (rec:92.569, round:384.540)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	457.443 (rec:90.534, round:366.909)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	447.673 (rec:96.593, round:351.079)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	427.157 (rec:91.480, round:335.676)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	414.301 (rec:93.317, round:320.984)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	399.372 (rec:91.440, round:307.932)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	383.640 (rec:88.492, round:295.148)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	374.264 (rec:91.473, round:282.791)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	361.837 (rec:91.421, round:270.416)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	354.546 (rec:95.450, round:259.096)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	338.799 (rec:91.207, round:247.592)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	325.979 (rec:89.931, round:236.048)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	315.317 (rec:90.279, round:225.038)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	309.567 (rec:95.274, round:214.293)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	294.464 (rec:91.362, round:203.102)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	281.930 (rec:90.026, round:191.904)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	272.388 (rec:91.467, round:180.921)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	261.562 (rec:91.412, round:170.150)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	251.609 (rec:92.312, round:159.296)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	237.566 (rec:89.216, round:148.350)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	229.015 (rec:92.629, round:136.386)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	218.365 (rec:93.998, round:124.367)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	206.091 (rec:93.978, round:112.113)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	190.673 (rec:90.764, round:99.909)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	180.511 (rec:93.754, round:86.757)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	166.116 (rec:93.174, round:72.942)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	147.508 (rec:89.134, round:58.374)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	136.166 (rec:92.439, round:43.727)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	122.633 (rec:93.275, round:29.358)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer1_1_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer1_0_relu_2_post_act_fake_quantizer, layer1_1_conv1, layer1_1_bn1, layer1_1_relu, layer1_1_relu_post_act_fake_quantizer, layer1_1_conv2, layer1_1_bn2, layer1_1_relu_1, layer1_1_relu_1_post_act_fake_quantizer, layer1_1_conv3, layer1_1_bn3, add_1, layer1_1_relu_2, layer1_1_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer1_0_relu_2_post_act_fake_quantizer):
+    layer1_1_conv1 = getattr(self.layer1, "1").conv1(layer1_0_relu_2_post_act_fake_quantizer)
+    layer1_1_bn1 = getattr(self.layer1, "1").bn1(layer1_1_conv1);  layer1_1_conv1 = None
+    layer1_1_relu = getattr(self.layer1, "1").relu(layer1_1_bn1);  layer1_1_bn1 = None
+    layer1_1_relu_post_act_fake_quantizer = self.layer1_1_relu_post_act_fake_quantizer(layer1_1_relu);  layer1_1_relu = None
+    layer1_1_conv2 = getattr(self.layer1, "1").conv2(layer1_1_relu_post_act_fake_quantizer);  layer1_1_relu_post_act_fake_quantizer = None
+    layer1_1_bn2 = getattr(self.layer1, "1").bn2(layer1_1_conv2);  layer1_1_conv2 = None
+    layer1_1_relu_1 = getattr(self.layer1, "1").relu_dup1(layer1_1_bn2);  layer1_1_bn2 = None
+    layer1_1_relu_1_post_act_fake_quantizer = self.layer1_1_relu_1_post_act_fake_quantizer(layer1_1_relu_1);  layer1_1_relu_1 = None
+    layer1_1_conv3 = getattr(self.layer1, "1").conv3(layer1_1_relu_1_post_act_fake_quantizer);  layer1_1_relu_1_post_act_fake_quantizer = None
+    layer1_1_bn3 = getattr(self.layer1, "1").bn3(layer1_1_conv3);  layer1_1_conv3 = None
+    add_1 = layer1_1_bn3 + layer1_0_relu_2_post_act_fake_quantizer;  layer1_1_bn3 = layer1_0_relu_2_post_act_fake_quantizer = None
+    layer1_1_relu_2 = getattr(self.layer1, "1").relu_dup2(add_1);  add_1 = None
+    layer1_1_relu_2_post_act_fake_quantizer = self.layer1_1_relu_2_post_act_fake_quantizer(layer1_1_relu_2);  layer1_1_relu_2 = None
+    return layer1_1_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_1_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	235.128 (rec:235.128, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	223.770 (rec:223.770, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	221.916 (rec:221.916, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	208.095 (rec:208.095, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	200.633 (rec:200.633, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	194.284 (rec:194.284, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	207.501 (rec:207.501, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	752.422 (rec:207.628, round:544.794)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	575.935 (rec:191.794, round:384.141)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	542.892 (rec:192.993, round:349.899)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	516.765 (rec:192.159, round:324.605)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	499.392 (rec:197.421, round:301.972)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	475.642 (rec:193.655, round:281.987)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	450.768 (rec:187.149, round:263.620)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	437.543 (rec:190.574, round:246.969)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	424.286 (rec:192.569, round:231.717)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	408.886 (rec:191.383, round:217.503)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	391.872 (rec:188.047, round:203.826)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	379.642 (rec:187.214, round:192.428)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	369.608 (rec:187.980, round:181.629)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	372.399 (rec:201.060, round:171.339)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	357.760 (rec:196.027, round:161.734)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	339.561 (rec:186.656, round:152.905)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	338.500 (rec:193.735, round:144.765)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	334.542 (rec:197.932, round:136.611)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	319.942 (rec:190.887, round:129.056)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	309.367 (rec:187.915, round:121.452)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	303.109 (rec:189.018, round:114.091)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	299.052 (rec:192.667, round:106.384)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	292.259 (rec:193.222, round:99.037)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	281.638 (rec:190.980, round:90.657)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	271.557 (rec:188.755, round:82.802)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	267.977 (rec:193.430, round:74.547)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	259.562 (rec:193.141, round:66.422)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	251.251 (rec:193.286, round:57.965)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	236.816 (rec:187.945, round:48.871)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	228.532 (rec:189.269, round:39.264)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	230.971 (rec:201.622, round:29.349)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	213.760 (rec:193.798, round:19.962)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	202.459 (rec:191.257, round:11.202)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer1_2_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer1_1_relu_2_post_act_fake_quantizer, layer1_2_conv1, layer1_2_bn1, layer1_2_relu, layer1_2_relu_post_act_fake_quantizer, layer1_2_conv2, layer1_2_bn2, layer1_2_relu_1, layer1_2_relu_1_post_act_fake_quantizer, layer1_2_conv3, layer1_2_bn3, add_2, layer1_2_relu_2, layer1_2_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer1_1_relu_2_post_act_fake_quantizer):
+    layer1_2_conv1 = getattr(self.layer1, "2").conv1(layer1_1_relu_2_post_act_fake_quantizer)
+    layer1_2_bn1 = getattr(self.layer1, "2").bn1(layer1_2_conv1);  layer1_2_conv1 = None
+    layer1_2_relu = getattr(self.layer1, "2").relu(layer1_2_bn1);  layer1_2_bn1 = None
+    layer1_2_relu_post_act_fake_quantizer = self.layer1_2_relu_post_act_fake_quantizer(layer1_2_relu);  layer1_2_relu = None
+    layer1_2_conv2 = getattr(self.layer1, "2").conv2(layer1_2_relu_post_act_fake_quantizer);  layer1_2_relu_post_act_fake_quantizer = None
+    layer1_2_bn2 = getattr(self.layer1, "2").bn2(layer1_2_conv2);  layer1_2_conv2 = None
+    layer1_2_relu_1 = getattr(self.layer1, "2").relu_dup1(layer1_2_bn2);  layer1_2_bn2 = None
+    layer1_2_relu_1_post_act_fake_quantizer = self.layer1_2_relu_1_post_act_fake_quantizer(layer1_2_relu_1);  layer1_2_relu_1 = None
+    layer1_2_conv3 = getattr(self.layer1, "2").conv3(layer1_2_relu_1_post_act_fake_quantizer);  layer1_2_relu_1_post_act_fake_quantizer = None
+    layer1_2_bn3 = getattr(self.layer1, "2").bn3(layer1_2_conv3);  layer1_2_conv3 = None
+    add_2 = layer1_2_bn3 + layer1_1_relu_2_post_act_fake_quantizer;  layer1_2_bn3 = layer1_1_relu_2_post_act_fake_quantizer = None
+    layer1_2_relu_2 = getattr(self.layer1, "2").relu_dup2(add_2);  add_2 = None
+    layer1_2_relu_2_post_act_fake_quantizer = self.layer1_2_relu_2_post_act_fake_quantizer(layer1_2_relu_2);  layer1_2_relu_2 = None
+    return layer1_2_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer1_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer1_2_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	822.241 (rec:822.241, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	866.435 (rec:866.435, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	886.436 (rec:886.436, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	915.537 (rec:915.537, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	922.979 (rec:922.979, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	998.483 (rec:998.483, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	949.681 (rec:949.681, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	1454.303 (rec:971.976, round:482.327)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	1269.110 (rec:957.700, round:311.410)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	1258.353 (rec:984.395, round:273.958)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	1236.509 (rec:992.153, round:244.356)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	1200.553 (rec:981.372, round:219.181)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	1171.633 (rec:974.380, round:197.252)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	1184.671 (rec:1006.944, round:177.727)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	1160.405 (rec:999.708, round:160.697)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	1152.177 (rec:1005.748, round:146.428)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	1131.895 (rec:997.668, round:134.226)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	1130.128 (rec:1006.616, round:123.512)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	1119.898 (rec:1005.952, round:113.946)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	1076.141 (rec:970.176, round:105.966)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	1076.208 (rec:977.915, round:98.293)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	1062.603 (rec:971.003, round:91.600)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	1056.317 (rec:970.508, round:85.810)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	1070.510 (rec:990.226, round:80.284)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	1033.349 (rec:958.255, round:75.094)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	1078.018 (rec:1008.013, round:70.006)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	1097.270 (rec:1032.022, round:65.248)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	1029.838 (rec:969.043, round:60.795)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	1038.425 (rec:981.791, round:56.634)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	1030.636 (rec:977.902, round:52.734)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	1041.874 (rec:993.157, round:48.717)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	1077.018 (rec:1032.345, round:44.673)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	1011.192 (rec:970.651, round:40.541)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	1015.803 (rec:979.828, round:35.975)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	1024.110 (rec:992.856, round:31.254)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	1008.646 (rec:981.904, round:26.742)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	1002.716 (rec:980.437, round:22.279)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	988.494 (rec:970.871, round:17.623)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	1018.282 (rec:1005.370, round:12.912)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	988.791 (rec:980.864, round:7.927)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer2_0_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer1_2_relu_2_post_act_fake_quantizer, layer2_0_conv1, layer2_0_bn1, layer2_0_relu, layer2_0_relu_post_act_fake_quantizer, layer2_0_conv2, layer2_0_bn2, layer2_0_relu_1, layer2_0_relu_1_post_act_fake_quantizer, layer2_0_conv3, layer2_0_bn3, layer2_0_downsample_0, layer2_0_downsample_1, add_3, layer2_0_relu_2, layer2_0_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer1_2_relu_2_post_act_fake_quantizer):
+    layer2_0_conv1 = getattr(self.layer2, "0").conv1(layer1_2_relu_2_post_act_fake_quantizer)
+    layer2_0_bn1 = getattr(self.layer2, "0").bn1(layer2_0_conv1);  layer2_0_conv1 = None
+    layer2_0_relu = getattr(self.layer2, "0").relu(layer2_0_bn1);  layer2_0_bn1 = None
+    layer2_0_relu_post_act_fake_quantizer = self.layer2_0_relu_post_act_fake_quantizer(layer2_0_relu);  layer2_0_relu = None
+    layer2_0_conv2 = getattr(self.layer2, "0").conv2(layer2_0_relu_post_act_fake_quantizer);  layer2_0_relu_post_act_fake_quantizer = None
+    layer2_0_bn2 = getattr(self.layer2, "0").bn2(layer2_0_conv2);  layer2_0_conv2 = None
+    layer2_0_relu_1 = getattr(self.layer2, "0").relu_dup1(layer2_0_bn2);  layer2_0_bn2 = None
+    layer2_0_relu_1_post_act_fake_quantizer = self.layer2_0_relu_1_post_act_fake_quantizer(layer2_0_relu_1);  layer2_0_relu_1 = None
+    layer2_0_conv3 = getattr(self.layer2, "0").conv3(layer2_0_relu_1_post_act_fake_quantizer);  layer2_0_relu_1_post_act_fake_quantizer = None
+    layer2_0_bn3 = getattr(self.layer2, "0").bn3(layer2_0_conv3);  layer2_0_conv3 = None
+    layer2_0_downsample_0 = getattr(getattr(self.layer2, "0").downsample, "0")(layer1_2_relu_2_post_act_fake_quantizer);  layer1_2_relu_2_post_act_fake_quantizer = None
+    layer2_0_downsample_1 = getattr(getattr(self.layer2, "0").downsample, "1")(layer2_0_downsample_0);  layer2_0_downsample_0 = None
+    add_3 = layer2_0_bn3 + layer2_0_downsample_1;  layer2_0_bn3 = layer2_0_downsample_1 = None
+    layer2_0_relu_2 = getattr(self.layer2, "0").relu_dup2(add_3);  add_3 = None
+    layer2_0_relu_2_post_act_fake_quantizer = self.layer2_0_relu_2_post_act_fake_quantizer(layer2_0_relu_2);  layer2_0_relu_2 = None
+    return layer2_0_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_0_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1518.470 (rec:1518.470, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1433.001 (rec:1433.001, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1433.624 (rec:1433.624, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	1415.059 (rec:1415.059, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1431.925 (rec:1431.925, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1447.641 (rec:1447.641, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1446.616 (rec:1446.616, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	4478.360 (rec:1456.114, round:3022.246)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	3590.594 (rec:1463.575, round:2127.019)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	3386.645 (rec:1466.933, round:1919.712)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	3208.222 (rec:1450.882, round:1757.341)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	3083.184 (rec:1472.722, round:1610.462)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	2953.984 (rec:1480.427, round:1473.557)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	2812.857 (rec:1466.018, round:1346.839)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	2689.467 (rec:1460.890, round:1228.578)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	2601.958 (rec:1478.010, round:1123.947)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	2465.832 (rec:1436.719, round:1029.114)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	2408.655 (rec:1465.532, round:943.123)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	2332.349 (rec:1464.184, round:868.165)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	2266.984 (rec:1465.248, round:801.736)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	2201.416 (rec:1460.326, round:741.090)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	2163.626 (rec:1477.277, round:686.349)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	2115.015 (rec:1477.906, round:637.109)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	2047.068 (rec:1454.275, round:592.793)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	2013.624 (rec:1461.554, round:552.069)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	1992.478 (rec:1478.115, round:514.363)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	1957.143 (rec:1478.725, round:478.418)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	1930.679 (rec:1486.696, round:443.983)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	1882.495 (rec:1470.104, round:412.391)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	1856.675 (rec:1476.358, round:380.317)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	1805.761 (rec:1456.703, round:349.059)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	1788.301 (rec:1469.950, round:318.351)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	1757.059 (rec:1469.342, round:287.717)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	1748.960 (rec:1493.547, round:255.414)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	1697.550 (rec:1474.883, round:222.667)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	1657.529 (rec:1467.865, round:189.664)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	1638.582 (rec:1483.405, round:155.177)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	1601.197 (rec:1481.897, round:119.299)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	1565.144 (rec:1482.155, round:82.989)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	1494.177 (rec:1445.938, round:48.238)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer2_1_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer2_0_relu_2_post_act_fake_quantizer, layer2_1_conv1, layer2_1_bn1, layer2_1_relu, layer2_1_relu_post_act_fake_quantizer, layer2_1_conv2, layer2_1_bn2, layer2_1_relu_1, layer2_1_relu_1_post_act_fake_quantizer, layer2_1_conv3, layer2_1_bn3, add_4, layer2_1_relu_2, layer2_1_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer2_0_relu_2_post_act_fake_quantizer):
+    layer2_1_conv1 = getattr(self.layer2, "1").conv1(layer2_0_relu_2_post_act_fake_quantizer)
+    layer2_1_bn1 = getattr(self.layer2, "1").bn1(layer2_1_conv1);  layer2_1_conv1 = None
+    layer2_1_relu = getattr(self.layer2, "1").relu(layer2_1_bn1);  layer2_1_bn1 = None
+    layer2_1_relu_post_act_fake_quantizer = self.layer2_1_relu_post_act_fake_quantizer(layer2_1_relu);  layer2_1_relu = None
+    layer2_1_conv2 = getattr(self.layer2, "1").conv2(layer2_1_relu_post_act_fake_quantizer);  layer2_1_relu_post_act_fake_quantizer = None
+    layer2_1_bn2 = getattr(self.layer2, "1").bn2(layer2_1_conv2);  layer2_1_conv2 = None
+    layer2_1_relu_1 = getattr(self.layer2, "1").relu_dup1(layer2_1_bn2);  layer2_1_bn2 = None
+    layer2_1_relu_1_post_act_fake_quantizer = self.layer2_1_relu_1_post_act_fake_quantizer(layer2_1_relu_1);  layer2_1_relu_1 = None
+    layer2_1_conv3 = getattr(self.layer2, "1").conv3(layer2_1_relu_1_post_act_fake_quantizer);  layer2_1_relu_1_post_act_fake_quantizer = None
+    layer2_1_bn3 = getattr(self.layer2, "1").bn3(layer2_1_conv3);  layer2_1_conv3 = None
+    add_4 = layer2_1_bn3 + layer2_0_relu_2_post_act_fake_quantizer;  layer2_1_bn3 = layer2_0_relu_2_post_act_fake_quantizer = None
+    layer2_1_relu_2 = getattr(self.layer2, "1").relu_dup2(add_4);  add_4 = None
+    layer2_1_relu_2_post_act_fake_quantizer = self.layer2_1_relu_2_post_act_fake_quantizer(layer2_1_relu_2);  layer2_1_relu_2 = None
+    return layer2_1_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_1_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	2683.037 (rec:2683.037, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	2618.430 (rec:2618.430, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	2634.257 (rec:2634.257, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2648.347 (rec:2648.347, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	2683.078 (rec:2683.078, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	2688.856 (rec:2688.856, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	2720.619 (rec:2720.619, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	4947.023 (rec:2666.615, round:2280.408)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	4256.635 (rec:2685.542, round:1571.093)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	4079.615 (rec:2654.766, round:1424.849)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	3972.649 (rec:2659.699, round:1312.949)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	3959.591 (rec:2746.839, round:1212.753)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	3919.698 (rec:2801.747, round:1117.951)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	3807.286 (rec:2778.420, round:1028.866)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	3723.846 (rec:2777.991, round:945.855)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	3561.291 (rec:2692.289, round:869.002)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	3492.673 (rec:2693.233, round:799.440)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	3494.497 (rec:2758.227, round:736.270)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	3434.505 (rec:2756.500, round:678.005)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	3383.174 (rec:2759.767, round:623.407)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	3288.348 (rec:2714.740, round:573.608)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	3182.987 (rec:2655.880, round:527.107)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	3194.927 (rec:2711.148, round:483.778)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	3161.778 (rec:2718.087, round:443.691)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	3169.379 (rec:2763.320, round:406.059)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	3074.741 (rec:2703.346, round:371.395)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	3031.732 (rec:2693.984, round:337.748)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	3112.799 (rec:2806.708, round:306.091)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2992.631 (rec:2715.895, round:276.736)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	2993.584 (rec:2744.992, round:248.592)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	2921.355 (rec:2699.366, round:221.990)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	2866.343 (rec:2669.864, round:196.479)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	2941.296 (rec:2769.061, round:172.235)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2859.504 (rec:2710.406, round:149.098)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2846.677 (rec:2719.400, round:127.277)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2818.853 (rec:2712.874, round:105.979)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2842.843 (rec:2758.023, round:84.819)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2812.428 (rec:2747.528, round:64.900)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2757.876 (rec:2712.055, round:45.821)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2815.505 (rec:2787.320, round:28.185)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer2_2_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer2_1_relu_2_post_act_fake_quantizer, layer2_2_conv1, layer2_2_bn1, layer2_2_relu, layer2_2_relu_post_act_fake_quantizer, layer2_2_conv2, layer2_2_bn2, layer2_2_relu_1, layer2_2_relu_1_post_act_fake_quantizer, layer2_2_conv3, layer2_2_bn3, add_5, layer2_2_relu_2, layer2_2_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer2_1_relu_2_post_act_fake_quantizer):
+    layer2_2_conv1 = getattr(self.layer2, "2").conv1(layer2_1_relu_2_post_act_fake_quantizer)
+    layer2_2_bn1 = getattr(self.layer2, "2").bn1(layer2_2_conv1);  layer2_2_conv1 = None
+    layer2_2_relu = getattr(self.layer2, "2").relu(layer2_2_bn1);  layer2_2_bn1 = None
+    layer2_2_relu_post_act_fake_quantizer = self.layer2_2_relu_post_act_fake_quantizer(layer2_2_relu);  layer2_2_relu = None
+    layer2_2_conv2 = getattr(self.layer2, "2").conv2(layer2_2_relu_post_act_fake_quantizer);  layer2_2_relu_post_act_fake_quantizer = None
+    layer2_2_bn2 = getattr(self.layer2, "2").bn2(layer2_2_conv2);  layer2_2_conv2 = None
+    layer2_2_relu_1 = getattr(self.layer2, "2").relu_dup1(layer2_2_bn2);  layer2_2_bn2 = None
+    layer2_2_relu_1_post_act_fake_quantizer = self.layer2_2_relu_1_post_act_fake_quantizer(layer2_2_relu_1);  layer2_2_relu_1 = None
+    layer2_2_conv3 = getattr(self.layer2, "2").conv3(layer2_2_relu_1_post_act_fake_quantizer);  layer2_2_relu_1_post_act_fake_quantizer = None
+    layer2_2_bn3 = getattr(self.layer2, "2").bn3(layer2_2_conv3);  layer2_2_conv3 = None
+    add_5 = layer2_2_bn3 + layer2_1_relu_2_post_act_fake_quantizer;  layer2_2_bn3 = layer2_1_relu_2_post_act_fake_quantizer = None
+    layer2_2_relu_2 = getattr(self.layer2, "2").relu_dup2(add_5);  add_5 = None
+    layer2_2_relu_2_post_act_fake_quantizer = self.layer2_2_relu_2_post_act_fake_quantizer(layer2_2_relu_2);  layer2_2_relu_2 = None
+    return layer2_2_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer2_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_2_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	2471.662 (rec:2471.662, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	2104.532 (rec:2104.532, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	2156.678 (rec:2156.678, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2159.214 (rec:2159.214, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	2229.575 (rec:2229.575, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	2149.188 (rec:2149.188, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	2271.141 (rec:2271.141, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	4511.061 (rec:2235.825, round:2275.235)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	3835.895 (rec:2183.950, round:1651.945)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	3736.890 (rec:2223.975, round:1512.915)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	3740.069 (rec:2331.581, round:1408.488)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	3597.493 (rec:2282.582, round:1314.912)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	3397.615 (rec:2170.430, round:1227.185)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	3461.527 (rec:2316.549, round:1144.978)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	3358.937 (rec:2293.156, round:1065.781)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	3213.050 (rec:2221.154, round:991.896)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	3238.601 (rec:2316.759, round:921.843)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	3261.003 (rec:2405.631, round:855.372)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	3134.251 (rec:2342.048, round:792.203)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	2956.012 (rec:2224.772, round:731.240)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	2801.917 (rec:2127.964, round:673.953)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	2937.618 (rec:2318.945, round:618.673)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	2890.100 (rec:2322.570, round:567.529)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	2798.826 (rec:2280.191, round:518.635)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	2822.610 (rec:2349.876, round:472.734)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	2667.061 (rec:2238.911, round:428.150)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	2734.032 (rec:2348.102, round:385.930)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	2628.293 (rec:2283.971, round:344.322)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2628.339 (rec:2322.771, round:305.568)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	2618.258 (rec:2349.228, round:269.031)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	2464.527 (rec:2229.748, round:234.779)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	2497.753 (rec:2295.216, round:202.538)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	2477.345 (rec:2306.369, round:170.976)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2438.443 (rec:2296.321, round:142.122)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2406.445 (rec:2290.494, round:115.951)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2314.937 (rec:2222.015, round:92.921)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2370.944 (rec:2297.431, round:73.514)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2310.857 (rec:2254.516, round:56.341)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2328.088 (rec:2285.805, round:42.283)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2334.945 (rec:2305.135, round:29.810)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer2_3_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer2_2_relu_2_post_act_fake_quantizer, layer2_3_conv1, layer2_3_bn1, layer2_3_relu, layer2_3_relu_post_act_fake_quantizer, layer2_3_conv2, layer2_3_bn2, layer2_3_relu_1, layer2_3_relu_1_post_act_fake_quantizer, layer2_3_conv3, layer2_3_bn3, add_6, layer2_3_relu_2, layer2_3_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer2_2_relu_2_post_act_fake_quantizer):
+    layer2_3_conv1 = getattr(self.layer2, "3").conv1(layer2_2_relu_2_post_act_fake_quantizer)
+    layer2_3_bn1 = getattr(self.layer2, "3").bn1(layer2_3_conv1);  layer2_3_conv1 = None
+    layer2_3_relu = getattr(self.layer2, "3").relu(layer2_3_bn1);  layer2_3_bn1 = None
+    layer2_3_relu_post_act_fake_quantizer = self.layer2_3_relu_post_act_fake_quantizer(layer2_3_relu);  layer2_3_relu = None
+    layer2_3_conv2 = getattr(self.layer2, "3").conv2(layer2_3_relu_post_act_fake_quantizer);  layer2_3_relu_post_act_fake_quantizer = None
+    layer2_3_bn2 = getattr(self.layer2, "3").bn2(layer2_3_conv2);  layer2_3_conv2 = None
+    layer2_3_relu_1 = getattr(self.layer2, "3").relu_dup1(layer2_3_bn2);  layer2_3_bn2 = None
+    layer2_3_relu_1_post_act_fake_quantizer = self.layer2_3_relu_1_post_act_fake_quantizer(layer2_3_relu_1);  layer2_3_relu_1 = None
+    layer2_3_conv3 = getattr(self.layer2, "3").conv3(layer2_3_relu_1_post_act_fake_quantizer);  layer2_3_relu_1_post_act_fake_quantizer = None
+    layer2_3_bn3 = getattr(self.layer2, "3").bn3(layer2_3_conv3);  layer2_3_conv3 = None
+    add_6 = layer2_3_bn3 + layer2_2_relu_2_post_act_fake_quantizer;  layer2_3_bn3 = layer2_2_relu_2_post_act_fake_quantizer = None
+    layer2_3_relu_2 = getattr(self.layer2, "3").relu_dup2(add_6);  add_6 = None
+    layer2_3_relu_2_post_act_fake_quantizer = self.layer2_3_relu_2_post_act_fake_quantizer(layer2_3_relu_2);  layer2_3_relu_2 = None
+    return layer2_3_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer2_3_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_3_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer2_3_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	2407.187 (rec:2407.187, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	2157.744 (rec:2157.744, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	2039.115 (rec:2039.115, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2169.872 (rec:2169.872, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	2223.085 (rec:2223.085, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	2074.696 (rec:2074.696, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	2185.397 (rec:2185.397, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	4491.768 (rec:2357.337, round:2134.431)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	3679.370 (rec:2190.266, round:1489.105)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	3619.804 (rec:2271.774, round:1348.030)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	3487.062 (rec:2245.403, round:1241.659)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	3506.678 (rec:2362.662, round:1144.016)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	3361.772 (rec:2304.311, round:1057.462)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	3390.874 (rec:2412.131, round:978.744)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	3219.118 (rec:2310.430, round:908.688)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	3262.193 (rec:2418.062, round:844.131)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	3027.445 (rec:2245.604, round:781.841)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	2957.112 (rec:2233.891, round:723.221)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	2859.447 (rec:2192.760, round:666.686)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	2778.159 (rec:2164.124, round:614.036)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	2874.288 (rec:2310.288, round:563.999)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	2795.777 (rec:2280.329, round:515.447)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	2859.337 (rec:2390.783, round:468.554)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	2525.870 (rec:2100.623, round:425.247)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	2777.869 (rec:2392.080, round:385.789)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	2608.254 (rec:2260.232, round:348.022)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	2615.341 (rec:2303.582, round:311.759)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	2628.327 (rec:2349.989, round:278.339)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2588.987 (rec:2342.549, round:246.438)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	2541.883 (rec:2325.421, round:216.462)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	2443.461 (rec:2255.481, round:187.979)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	2511.181 (rec:2349.309, round:161.872)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	2440.893 (rec:2303.287, round:137.606)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2409.885 (rec:2294.543, round:115.342)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2397.544 (rec:2301.971, round:95.573)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2253.077 (rec:2174.741, round:78.335)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2275.082 (rec:2211.626, round:63.456)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2397.330 (rec:2346.566, round:50.764)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2312.758 (rec:2273.406, round:39.351)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2332.161 (rec:2304.059, round:28.102)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_0_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer2_3_relu_2_post_act_fake_quantizer, layer3_0_conv1, layer3_0_bn1, layer3_0_relu, layer3_0_relu_post_act_fake_quantizer, layer3_0_conv2, layer3_0_bn2, layer3_0_relu_1, layer3_0_relu_1_post_act_fake_quantizer, layer3_0_conv3, layer3_0_bn3, layer3_0_downsample_0, layer3_0_downsample_1, add_7, layer3_0_relu_2, layer3_0_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer2_3_relu_2_post_act_fake_quantizer):
+    layer3_0_conv1 = getattr(self.layer3, "0").conv1(layer2_3_relu_2_post_act_fake_quantizer)
+    layer3_0_bn1 = getattr(self.layer3, "0").bn1(layer3_0_conv1);  layer3_0_conv1 = None
+    layer3_0_relu = getattr(self.layer3, "0").relu(layer3_0_bn1);  layer3_0_bn1 = None
+    layer3_0_relu_post_act_fake_quantizer = self.layer3_0_relu_post_act_fake_quantizer(layer3_0_relu);  layer3_0_relu = None
+    layer3_0_conv2 = getattr(self.layer3, "0").conv2(layer3_0_relu_post_act_fake_quantizer);  layer3_0_relu_post_act_fake_quantizer = None
+    layer3_0_bn2 = getattr(self.layer3, "0").bn2(layer3_0_conv2);  layer3_0_conv2 = None
+    layer3_0_relu_1 = getattr(self.layer3, "0").relu_dup1(layer3_0_bn2);  layer3_0_bn2 = None
+    layer3_0_relu_1_post_act_fake_quantizer = self.layer3_0_relu_1_post_act_fake_quantizer(layer3_0_relu_1);  layer3_0_relu_1 = None
+    layer3_0_conv3 = getattr(self.layer3, "0").conv3(layer3_0_relu_1_post_act_fake_quantizer);  layer3_0_relu_1_post_act_fake_quantizer = None
+    layer3_0_bn3 = getattr(self.layer3, "0").bn3(layer3_0_conv3);  layer3_0_conv3 = None
+    layer3_0_downsample_0 = getattr(getattr(self.layer3, "0").downsample, "0")(layer2_3_relu_2_post_act_fake_quantizer);  layer2_3_relu_2_post_act_fake_quantizer = None
+    layer3_0_downsample_1 = getattr(getattr(self.layer3, "0").downsample, "1")(layer3_0_downsample_0);  layer3_0_downsample_0 = None
+    add_7 = layer3_0_bn3 + layer3_0_downsample_1;  layer3_0_bn3 = layer3_0_downsample_1 = None
+    layer3_0_relu_2 = getattr(self.layer3, "0").relu_dup2(add_7);  add_7 = None
+    layer3_0_relu_2_post_act_fake_quantizer = self.layer3_0_relu_2_post_act_fake_quantizer(layer3_0_relu_2);  layer3_0_relu_2 = None
+    return layer3_0_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_0_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	3024.299 (rec:3024.299, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	3005.794 (rec:3005.794, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	3252.875 (rec:3252.875, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	3349.386 (rec:3349.386, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	3381.396 (rec:3381.396, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	3371.878 (rec:3371.878, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	3162.081 (rec:3162.081, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	16117.477 (rec:3378.181, round:12739.295)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	11934.601 (rec:3440.203, round:8494.397)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	11314.027 (rec:3497.691, round:7816.337)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	10887.082 (rec:3557.335, round:7329.746)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	10084.017 (rec:3174.473, round:6909.543)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	9863.379 (rec:3343.300, round:6520.079)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	9733.153 (rec:3587.827, round:6145.326)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	9346.850 (rec:3556.313, round:5790.536)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	9072.625 (rec:3626.735, round:5445.890)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	8679.271 (rec:3566.557, round:5112.714)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	8257.664 (rec:3469.712, round:4787.952)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	7996.524 (rec:3520.424, round:4476.100)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	7701.251 (rec:3525.916, round:4175.335)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	7501.872 (rec:3621.108, round:3880.764)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	7224.353 (rec:3625.557, round:3598.796)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	6974.737 (rec:3650.605, round:3324.131)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	6525.098 (rec:3464.287, round:3060.812)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	6291.541 (rec:3490.745, round:2800.796)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	6076.618 (rec:3524.010, round:2552.609)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	5468.697 (rec:3154.767, round:2313.931)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	5728.922 (rec:3644.902, round:2084.021)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	5218.744 (rec:3356.051, round:1862.693)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	4845.432 (rec:3195.195, round:1650.236)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	5077.509 (rec:3631.038, round:1446.471)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	4822.663 (rec:3568.979, round:1253.684)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	4534.222 (rec:3462.290, round:1071.933)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	4482.320 (rec:3580.510, round:901.810)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	4389.909 (rec:3643.531, round:746.378)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	4098.355 (rec:3492.053, round:606.302)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	3946.606 (rec:3465.640, round:480.967)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	3856.127 (rec:3486.153, round:369.974)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	3420.853 (rec:3147.503, round:273.350)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	3755.674 (rec:3568.069, round:187.605)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_1_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_0_relu_2_post_act_fake_quantizer, layer3_1_conv1, layer3_1_bn1, layer3_1_relu, layer3_1_relu_post_act_fake_quantizer, layer3_1_conv2, layer3_1_bn2, layer3_1_relu_1, layer3_1_relu_1_post_act_fake_quantizer, layer3_1_conv3, layer3_1_bn3, add_8, layer3_1_relu_2, layer3_1_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_0_relu_2_post_act_fake_quantizer):
+    layer3_1_conv1 = getattr(self.layer3, "1").conv1(layer3_0_relu_2_post_act_fake_quantizer)
+    layer3_1_bn1 = getattr(self.layer3, "1").bn1(layer3_1_conv1);  layer3_1_conv1 = None
+    layer3_1_relu = getattr(self.layer3, "1").relu(layer3_1_bn1);  layer3_1_bn1 = None
+    layer3_1_relu_post_act_fake_quantizer = self.layer3_1_relu_post_act_fake_quantizer(layer3_1_relu);  layer3_1_relu = None
+    layer3_1_conv2 = getattr(self.layer3, "1").conv2(layer3_1_relu_post_act_fake_quantizer);  layer3_1_relu_post_act_fake_quantizer = None
+    layer3_1_bn2 = getattr(self.layer3, "1").bn2(layer3_1_conv2);  layer3_1_conv2 = None
+    layer3_1_relu_1 = getattr(self.layer3, "1").relu_dup1(layer3_1_bn2);  layer3_1_bn2 = None
+    layer3_1_relu_1_post_act_fake_quantizer = self.layer3_1_relu_1_post_act_fake_quantizer(layer3_1_relu_1);  layer3_1_relu_1 = None
+    layer3_1_conv3 = getattr(self.layer3, "1").conv3(layer3_1_relu_1_post_act_fake_quantizer);  layer3_1_relu_1_post_act_fake_quantizer = None
+    layer3_1_bn3 = getattr(self.layer3, "1").bn3(layer3_1_conv3);  layer3_1_conv3 = None
+    add_8 = layer3_1_bn3 + layer3_0_relu_2_post_act_fake_quantizer;  layer3_1_bn3 = layer3_0_relu_2_post_act_fake_quantizer = None
+    layer3_1_relu_2 = getattr(self.layer3, "1").relu_dup2(add_8);  add_8 = None
+    layer3_1_relu_2_post_act_fake_quantizer = self.layer3_1_relu_2_post_act_fake_quantizer(layer3_1_relu_2);  layer3_1_relu_2 = None
+    return layer3_1_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_1_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1995.270 (rec:1995.270, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1773.092 (rec:1773.092, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1950.401 (rec:1950.401, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2048.688 (rec:2048.688, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1947.100 (rec:1947.100, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1969.531 (rec:1969.531, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1973.148 (rec:1973.148, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	11878.773 (rec:2023.228, round:9855.545)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	8893.739 (rec:1901.465, round:6992.274)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	8472.002 (rec:1978.018, round:6493.984)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	8106.666 (rec:1972.154, round:6134.512)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	7892.607 (rec:2070.284, round:5822.323)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	7588.037 (rec:2060.553, round:5527.484)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	7241.877 (rec:1999.348, round:5242.530)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	6910.554 (rec:1943.569, round:4966.984)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	6675.851 (rec:1978.506, round:4697.345)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	6467.544 (rec:2033.556, round:4433.989)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	6191.151 (rec:2014.749, round:4176.402)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	5899.548 (rec:1978.166, round:3921.382)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	5636.438 (rec:1962.515, round:3673.924)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	5454.697 (rec:2024.617, round:3430.081)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	5204.772 (rec:2010.609, round:3194.164)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	4934.692 (rec:1969.523, round:2965.169)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	4702.337 (rec:1960.361, round:2741.977)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	4517.761 (rec:1993.081, round:2524.680)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	4212.351 (rec:1896.636, round:2315.714)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	4010.801 (rec:1897.412, round:2113.388)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	3916.529 (rec:2001.610, round:1914.919)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	3686.972 (rec:1961.351, round:1725.621)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	3539.498 (rec:1995.966, round:1543.532)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	3425.350 (rec:2057.590, round:1367.760)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	3072.860 (rec:1873.908, round:1198.952)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	3046.237 (rec:2009.342, round:1036.895)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2777.962 (rec:1894.684, round:883.278)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2822.866 (rec:2085.493, round:737.373)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2717.496 (rec:2115.122, round:602.375)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2370.322 (rec:1891.838, round:478.484)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2455.491 (rec:2089.322, round:366.169)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2294.791 (rec:2030.301, round:264.490)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2291.125 (rec:2115.436, round:175.689)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_2_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_1_relu_2_post_act_fake_quantizer, layer3_2_conv1, layer3_2_bn1, layer3_2_relu, layer3_2_relu_post_act_fake_quantizer, layer3_2_conv2, layer3_2_bn2, layer3_2_relu_1, layer3_2_relu_1_post_act_fake_quantizer, layer3_2_conv3, layer3_2_bn3, add_9, layer3_2_relu_2, layer3_2_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_1_relu_2_post_act_fake_quantizer):
+    layer3_2_conv1 = getattr(self.layer3, "2").conv1(layer3_1_relu_2_post_act_fake_quantizer)
+    layer3_2_bn1 = getattr(self.layer3, "2").bn1(layer3_2_conv1);  layer3_2_conv1 = None
+    layer3_2_relu = getattr(self.layer3, "2").relu(layer3_2_bn1);  layer3_2_bn1 = None
+    layer3_2_relu_post_act_fake_quantizer = self.layer3_2_relu_post_act_fake_quantizer(layer3_2_relu);  layer3_2_relu = None
+    layer3_2_conv2 = getattr(self.layer3, "2").conv2(layer3_2_relu_post_act_fake_quantizer);  layer3_2_relu_post_act_fake_quantizer = None
+    layer3_2_bn2 = getattr(self.layer3, "2").bn2(layer3_2_conv2);  layer3_2_conv2 = None
+    layer3_2_relu_1 = getattr(self.layer3, "2").relu_dup1(layer3_2_bn2);  layer3_2_bn2 = None
+    layer3_2_relu_1_post_act_fake_quantizer = self.layer3_2_relu_1_post_act_fake_quantizer(layer3_2_relu_1);  layer3_2_relu_1 = None
+    layer3_2_conv3 = getattr(self.layer3, "2").conv3(layer3_2_relu_1_post_act_fake_quantizer);  layer3_2_relu_1_post_act_fake_quantizer = None
+    layer3_2_bn3 = getattr(self.layer3, "2").bn3(layer3_2_conv3);  layer3_2_conv3 = None
+    add_9 = layer3_2_bn3 + layer3_1_relu_2_post_act_fake_quantizer;  layer3_2_bn3 = layer3_1_relu_2_post_act_fake_quantizer = None
+    layer3_2_relu_2 = getattr(self.layer3, "2").relu_dup2(add_9);  add_9 = None
+    layer3_2_relu_2_post_act_fake_quantizer = self.layer3_2_relu_2_post_act_fake_quantizer(layer3_2_relu_2);  layer3_2_relu_2 = None
+    return layer3_2_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_2_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1901.539 (rec:1901.539, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	2126.292 (rec:2126.292, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	2200.051 (rec:2200.051, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2155.047 (rec:2155.047, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	2079.289 (rec:2079.289, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	2202.568 (rec:2202.568, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	2230.408 (rec:2230.408, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	11764.021 (rec:2234.657, round:9529.365)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	8328.535 (rec:2133.560, round:6194.975)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	7797.101 (rec:2065.933, round:5731.167)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	7658.887 (rec:2252.991, round:5405.896)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	7188.267 (rec:2066.580, round:5121.688)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	7071.246 (rec:2216.252, round:4854.993)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	6845.433 (rec:2245.496, round:4599.937)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	6584.376 (rec:2229.871, round:4354.505)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	6243.836 (rec:2130.134, round:4113.703)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	6026.357 (rec:2144.340, round:3882.018)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	6040.051 (rec:2387.379, round:3652.672)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	5553.040 (rec:2122.607, round:3430.433)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	5453.593 (rec:2239.224, round:3214.369)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	5204.419 (rec:2201.847, round:3002.572)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	5003.809 (rec:2208.560, round:2795.248)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	4877.021 (rec:2281.531, round:2595.491)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	4540.784 (rec:2140.568, round:2400.216)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	4322.592 (rec:2115.021, round:2207.571)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	4141.302 (rec:2117.494, round:2023.808)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	4085.995 (rec:2237.689, round:1848.306)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	3982.389 (rec:2303.994, round:1678.395)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	3788.952 (rec:2273.695, round:1515.257)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	3609.471 (rec:2251.715, round:1357.757)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	3330.776 (rec:2122.906, round:1207.870)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	3335.535 (rec:2271.513, round:1064.021)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	3110.459 (rec:2181.947, round:928.512)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2826.754 (rec:2024.567, round:802.187)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2804.824 (rec:2120.920, round:683.904)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2829.292 (rec:2255.205, round:574.087)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2589.552 (rec:2115.354, round:474.198)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2758.964 (rec:2374.913, round:384.052)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2612.330 (rec:2311.425, round:300.904)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2477.689 (rec:2255.236, round:222.453)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_3_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_2_relu_2_post_act_fake_quantizer, layer3_3_conv1, layer3_3_bn1, layer3_3_relu, layer3_3_relu_post_act_fake_quantizer, layer3_3_conv2, layer3_3_bn2, layer3_3_relu_1, layer3_3_relu_1_post_act_fake_quantizer, layer3_3_conv3, layer3_3_bn3, add_10, layer3_3_relu_2, layer3_3_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_2_relu_2_post_act_fake_quantizer):
+    layer3_3_conv1 = getattr(self.layer3, "3").conv1(layer3_2_relu_2_post_act_fake_quantizer)
+    layer3_3_bn1 = getattr(self.layer3, "3").bn1(layer3_3_conv1);  layer3_3_conv1 = None
+    layer3_3_relu = getattr(self.layer3, "3").relu(layer3_3_bn1);  layer3_3_bn1 = None
+    layer3_3_relu_post_act_fake_quantizer = self.layer3_3_relu_post_act_fake_quantizer(layer3_3_relu);  layer3_3_relu = None
+    layer3_3_conv2 = getattr(self.layer3, "3").conv2(layer3_3_relu_post_act_fake_quantizer);  layer3_3_relu_post_act_fake_quantizer = None
+    layer3_3_bn2 = getattr(self.layer3, "3").bn2(layer3_3_conv2);  layer3_3_conv2 = None
+    layer3_3_relu_1 = getattr(self.layer3, "3").relu_dup1(layer3_3_bn2);  layer3_3_bn2 = None
+    layer3_3_relu_1_post_act_fake_quantizer = self.layer3_3_relu_1_post_act_fake_quantizer(layer3_3_relu_1);  layer3_3_relu_1 = None
+    layer3_3_conv3 = getattr(self.layer3, "3").conv3(layer3_3_relu_1_post_act_fake_quantizer);  layer3_3_relu_1_post_act_fake_quantizer = None
+    layer3_3_bn3 = getattr(self.layer3, "3").bn3(layer3_3_conv3);  layer3_3_conv3 = None
+    add_10 = layer3_3_bn3 + layer3_2_relu_2_post_act_fake_quantizer;  layer3_3_bn3 = layer3_2_relu_2_post_act_fake_quantizer = None
+    layer3_3_relu_2 = getattr(self.layer3, "3").relu_dup2(add_10);  add_10 = None
+    layer3_3_relu_2_post_act_fake_quantizer = self.layer3_3_relu_2_post_act_fake_quantizer(layer3_3_relu_2);  layer3_3_relu_2 = None
+    return layer3_3_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_3_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_3_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_3_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1818.042 (rec:1818.042, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1825.000 (rec:1825.000, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1881.700 (rec:1881.700, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	1939.916 (rec:1939.916, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1996.362 (rec:1996.362, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1926.753 (rec:1926.753, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1953.324 (rec:1953.324, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	11727.952 (rec:1956.275, round:9771.677)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	8605.203 (rec:1964.261, round:6640.942)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	8222.123 (rec:2062.610, round:6159.513)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	7804.389 (rec:1982.631, round:5821.757)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	7504.356 (rec:1980.178, round:5524.179)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	7260.442 (rec:2016.831, round:5243.611)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	6985.104 (rec:2014.841, round:4970.264)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	6768.419 (rec:2059.318, round:4709.101)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	6381.679 (rec:1926.624, round:4455.055)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	6266.601 (rec:2058.641, round:4207.960)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	6004.474 (rec:2040.869, round:3963.605)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	5733.339 (rec:2007.611, round:3725.728)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	5343.771 (rec:1847.495, round:3496.277)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	5260.591 (rec:1986.542, round:3274.049)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	5063.132 (rec:2009.116, round:3054.017)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	4751.192 (rec:1909.586, round:2841.606)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	4626.983 (rec:1988.925, round:2638.058)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	4578.361 (rec:2138.291, round:2440.070)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	4276.037 (rec:2027.527, round:2248.510)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	4024.279 (rec:1959.799, round:2064.479)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	3892.707 (rec:2006.312, round:1886.395)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	3622.134 (rec:1911.318, round:1710.817)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	3566.936 (rec:2023.536, round:1543.400)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	3368.231 (rec:1987.555, round:1380.676)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	3168.089 (rec:1945.056, round:1223.033)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	3100.999 (rec:2027.598, round:1073.401)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2957.035 (rec:2028.418, round:928.617)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2789.098 (rec:2000.345, round:788.753)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	2560.139 (rec:1903.173, round:656.967)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	2535.434 (rec:2001.516, round:533.918)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2379.875 (rec:1960.537, round:419.338)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2331.336 (rec:2019.691, round:311.645)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2346.710 (rec:2134.390, round:212.320)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_4_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_3_relu_2_post_act_fake_quantizer, layer3_4_conv1, layer3_4_bn1, layer3_4_relu, layer3_4_relu_post_act_fake_quantizer, layer3_4_conv2, layer3_4_bn2, layer3_4_relu_1, layer3_4_relu_1_post_act_fake_quantizer, layer3_4_conv3, layer3_4_bn3, add_11, layer3_4_relu_2, layer3_4_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_3_relu_2_post_act_fake_quantizer):
+    layer3_4_conv1 = getattr(self.layer3, "4").conv1(layer3_3_relu_2_post_act_fake_quantizer)
+    layer3_4_bn1 = getattr(self.layer3, "4").bn1(layer3_4_conv1);  layer3_4_conv1 = None
+    layer3_4_relu = getattr(self.layer3, "4").relu(layer3_4_bn1);  layer3_4_bn1 = None
+    layer3_4_relu_post_act_fake_quantizer = self.layer3_4_relu_post_act_fake_quantizer(layer3_4_relu);  layer3_4_relu = None
+    layer3_4_conv2 = getattr(self.layer3, "4").conv2(layer3_4_relu_post_act_fake_quantizer);  layer3_4_relu_post_act_fake_quantizer = None
+    layer3_4_bn2 = getattr(self.layer3, "4").bn2(layer3_4_conv2);  layer3_4_conv2 = None
+    layer3_4_relu_1 = getattr(self.layer3, "4").relu_dup1(layer3_4_bn2);  layer3_4_bn2 = None
+    layer3_4_relu_1_post_act_fake_quantizer = self.layer3_4_relu_1_post_act_fake_quantizer(layer3_4_relu_1);  layer3_4_relu_1 = None
+    layer3_4_conv3 = getattr(self.layer3, "4").conv3(layer3_4_relu_1_post_act_fake_quantizer);  layer3_4_relu_1_post_act_fake_quantizer = None
+    layer3_4_bn3 = getattr(self.layer3, "4").bn3(layer3_4_conv3);  layer3_4_conv3 = None
+    add_11 = layer3_4_bn3 + layer3_3_relu_2_post_act_fake_quantizer;  layer3_4_bn3 = layer3_3_relu_2_post_act_fake_quantizer = None
+    layer3_4_relu_2 = getattr(self.layer3, "4").relu_dup2(add_11);  add_11 = None
+    layer3_4_relu_2_post_act_fake_quantizer = self.layer3_4_relu_2_post_act_fake_quantizer(layer3_4_relu_2);  layer3_4_relu_2 = None
+    return layer3_4_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_4_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_4_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_4_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1514.867 (rec:1514.867, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1564.774 (rec:1564.774, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1588.915 (rec:1588.915, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	1642.650 (rec:1642.650, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1627.739 (rec:1627.739, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1659.667 (rec:1659.667, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1682.780 (rec:1682.780, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	11081.828 (rec:1633.055, round:9448.773)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	7721.909 (rec:1538.759, round:6183.150)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	7371.750 (rec:1657.788, round:5713.962)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	7022.592 (rec:1642.914, round:5379.678)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	6740.802 (rec:1660.647, round:5080.155)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	6450.803 (rec:1650.896, round:4799.907)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	6179.808 (rec:1650.078, round:4529.729)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	5946.331 (rec:1677.661, round:4268.670)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	5745.337 (rec:1727.568, round:4017.769)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	5395.154 (rec:1624.158, round:3770.996)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	5193.144 (rec:1659.392, round:3533.752)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	4959.102 (rec:1656.545, round:3302.557)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	4683.070 (rec:1606.273, round:3076.797)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	4471.327 (rec:1613.137, round:2858.189)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	4442.188 (rec:1794.391, round:2647.797)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	4096.828 (rec:1651.755, round:2445.073)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	3900.666 (rec:1655.029, round:2245.637)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	3593.737 (rec:1540.993, round:2052.744)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	3595.648 (rec:1728.084, round:1867.564)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	3276.447 (rec:1589.083, round:1687.364)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	3177.932 (rec:1665.360, round:1512.572)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2907.054 (rec:1561.450, round:1345.604)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	2845.905 (rec:1661.452, round:1184.452)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	2643.216 (rec:1612.816, round:1030.400)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	2509.648 (rec:1623.940, round:885.708)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	2362.366 (rec:1612.714, round:749.652)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2247.404 (rec:1623.594, round:623.811)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2160.087 (rec:1650.951, round:509.136)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	1963.775 (rec:1557.171, round:406.604)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	1924.573 (rec:1607.169, round:317.404)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	1864.371 (rec:1624.342, round:240.029)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	1706.483 (rec:1533.679, round:172.803)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	1715.410 (rec:1601.751, round:113.658)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer3_5_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_4_relu_2_post_act_fake_quantizer, layer3_5_conv1, layer3_5_bn1, layer3_5_relu, layer3_5_relu_post_act_fake_quantizer, layer3_5_conv2, layer3_5_bn2, layer3_5_relu_1, layer3_5_relu_1_post_act_fake_quantizer, layer3_5_conv3, layer3_5_bn3, add_12, layer3_5_relu_2, layer3_5_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_4_relu_2_post_act_fake_quantizer):
+    layer3_5_conv1 = getattr(self.layer3, "5").conv1(layer3_4_relu_2_post_act_fake_quantizer)
+    layer3_5_bn1 = getattr(self.layer3, "5").bn1(layer3_5_conv1);  layer3_5_conv1 = None
+    layer3_5_relu = getattr(self.layer3, "5").relu(layer3_5_bn1);  layer3_5_bn1 = None
+    layer3_5_relu_post_act_fake_quantizer = self.layer3_5_relu_post_act_fake_quantizer(layer3_5_relu);  layer3_5_relu = None
+    layer3_5_conv2 = getattr(self.layer3, "5").conv2(layer3_5_relu_post_act_fake_quantizer);  layer3_5_relu_post_act_fake_quantizer = None
+    layer3_5_bn2 = getattr(self.layer3, "5").bn2(layer3_5_conv2);  layer3_5_conv2 = None
+    layer3_5_relu_1 = getattr(self.layer3, "5").relu_dup1(layer3_5_bn2);  layer3_5_bn2 = None
+    layer3_5_relu_1_post_act_fake_quantizer = self.layer3_5_relu_1_post_act_fake_quantizer(layer3_5_relu_1);  layer3_5_relu_1 = None
+    layer3_5_conv3 = getattr(self.layer3, "5").conv3(layer3_5_relu_1_post_act_fake_quantizer);  layer3_5_relu_1_post_act_fake_quantizer = None
+    layer3_5_bn3 = getattr(self.layer3, "5").bn3(layer3_5_conv3);  layer3_5_conv3 = None
+    add_12 = layer3_5_bn3 + layer3_4_relu_2_post_act_fake_quantizer;  layer3_5_bn3 = layer3_4_relu_2_post_act_fake_quantizer = None
+    layer3_5_relu_2 = getattr(self.layer3, "5").relu_dup2(add_12);  add_12 = None
+    layer3_5_relu_2_post_act_fake_quantizer = self.layer3_5_relu_2_post_act_fake_quantizer(layer3_5_relu_2);  layer3_5_relu_2 = None
+    return layer3_5_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer3_5_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_5_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer3_5_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1307.759 (rec:1307.759, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1296.726 (rec:1296.726, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1321.398 (rec:1321.398, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	1447.375 (rec:1447.375, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1314.803 (rec:1314.803, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1316.661 (rec:1316.661, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1319.320 (rec:1319.320, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	10766.596 (rec:1330.240, round:9436.356)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	7070.992 (rec:1277.498, round:5793.495)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	6648.137 (rec:1313.413, round:5334.725)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	6339.254 (rec:1335.232, round:5004.021)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	6067.442 (rec:1352.508, round:4714.934)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	5773.446 (rec:1329.644, round:4443.802)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	5515.396 (rec:1331.851, round:4183.545)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	5266.203 (rec:1333.145, round:3933.058)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	5069.230 (rec:1379.968, round:3689.262)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	4818.082 (rec:1363.814, round:3454.268)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	4650.950 (rec:1425.730, round:3225.220)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	4368.813 (rec:1366.940, round:3001.874)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	4123.960 (rec:1335.511, round:2788.449)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	3950.921 (rec:1367.444, round:2583.477)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	3727.514 (rec:1346.245, round:2381.268)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	3472.051 (rec:1284.423, round:2187.628)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	3374.479 (rec:1371.751, round:2002.728)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	3210.867 (rec:1383.956, round:1826.911)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	3053.052 (rec:1395.242, round:1657.810)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	2883.601 (rec:1388.673, round:1494.928)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	2721.605 (rec:1381.932, round:1339.673)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2509.372 (rec:1320.616, round:1188.755)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	2355.718 (rec:1308.754, round:1046.964)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	2278.401 (rec:1366.970, round:911.431)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	2183.272 (rec:1401.418, round:781.855)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	2000.870 (rec:1340.151, round:660.719)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	1967.948 (rec:1418.323, round:549.625)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	1791.853 (rec:1344.636, round:447.217)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	1699.877 (rec:1344.052, round:355.825)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	1707.250 (rec:1430.872, round:276.378)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	1594.335 (rec:1385.277, round:209.058)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	1520.839 (rec:1368.182, round:152.657)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	1485.337 (rec:1380.985, round:104.352)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer4_0_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer3_5_relu_2_post_act_fake_quantizer, layer4_0_conv1, layer4_0_bn1, layer4_0_relu, layer4_0_relu_post_act_fake_quantizer, layer4_0_conv2, layer4_0_bn2, layer4_0_relu_1, layer4_0_relu_1_post_act_fake_quantizer, layer4_0_conv3, layer4_0_bn3, layer4_0_downsample_0, layer4_0_downsample_1, add_13, layer4_0_relu_2, layer4_0_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer3_5_relu_2_post_act_fake_quantizer):
+    layer4_0_conv1 = getattr(self.layer4, "0").conv1(layer3_5_relu_2_post_act_fake_quantizer)
+    layer4_0_bn1 = getattr(self.layer4, "0").bn1(layer4_0_conv1);  layer4_0_conv1 = None
+    layer4_0_relu = getattr(self.layer4, "0").relu(layer4_0_bn1);  layer4_0_bn1 = None
+    layer4_0_relu_post_act_fake_quantizer = self.layer4_0_relu_post_act_fake_quantizer(layer4_0_relu);  layer4_0_relu = None
+    layer4_0_conv2 = getattr(self.layer4, "0").conv2(layer4_0_relu_post_act_fake_quantizer);  layer4_0_relu_post_act_fake_quantizer = None
+    layer4_0_bn2 = getattr(self.layer4, "0").bn2(layer4_0_conv2);  layer4_0_conv2 = None
+    layer4_0_relu_1 = getattr(self.layer4, "0").relu_dup1(layer4_0_bn2);  layer4_0_bn2 = None
+    layer4_0_relu_1_post_act_fake_quantizer = self.layer4_0_relu_1_post_act_fake_quantizer(layer4_0_relu_1);  layer4_0_relu_1 = None
+    layer4_0_conv3 = getattr(self.layer4, "0").conv3(layer4_0_relu_1_post_act_fake_quantizer);  layer4_0_relu_1_post_act_fake_quantizer = None
+    layer4_0_bn3 = getattr(self.layer4, "0").bn3(layer4_0_conv3);  layer4_0_conv3 = None
+    layer4_0_downsample_0 = getattr(getattr(self.layer4, "0").downsample, "0")(layer3_5_relu_2_post_act_fake_quantizer);  layer3_5_relu_2_post_act_fake_quantizer = None
+    layer4_0_downsample_1 = getattr(getattr(self.layer4, "0").downsample, "1")(layer4_0_downsample_0);  layer4_0_downsample_0 = None
+    add_13 = layer4_0_bn3 + layer4_0_downsample_1;  layer4_0_bn3 = layer4_0_downsample_1 = None
+    layer4_0_relu_2 = getattr(self.layer4, "0").relu_dup2(add_13);  add_13 = None
+    layer4_0_relu_2_post_act_fake_quantizer = self.layer4_0_relu_2_post_act_fake_quantizer(layer4_0_relu_2);  layer4_0_relu_2 = None
+    return layer4_0_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer4_0_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	2248.930 (rec:2248.930, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	2539.221 (rec:2539.221, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	2130.874 (rec:2130.874, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	2180.724 (rec:2180.724, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	2213.729 (rec:2213.729, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	2317.574 (rec:2317.574, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	2272.166 (rec:2272.166, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	57766.496 (rec:2452.019, round:55314.477)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	38523.395 (rec:2371.198, round:36152.195)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	36136.281 (rec:2377.146, round:33759.137)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	34588.230 (rec:2465.236, round:32122.996)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	33317.508 (rec:2618.259, round:30699.250)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	32058.537 (rec:2702.802, round:29355.736)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	30473.641 (rec:2442.759, round:28030.883)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	29068.836 (rec:2345.144, round:26723.691)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	27876.949 (rec:2448.868, round:25428.082)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	26541.428 (rec:2396.146, round:24145.281)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	25311.188 (rec:2452.909, round:22858.279)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	24051.543 (rec:2462.491, round:21589.051)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	22672.738 (rec:2344.104, round:20328.635)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	21628.633 (rec:2548.617, round:19080.016)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	20372.193 (rec:2521.546, round:17850.648)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	19291.535 (rec:2644.415, round:16647.121)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	18046.162 (rec:2578.631, round:15467.531)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	16828.938 (rec:2512.532, round:14316.406)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	15669.237 (rec:2476.788, round:13192.449)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	14590.756 (rec:2491.709, round:12099.046)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	13501.576 (rec:2467.499, round:11034.077)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	12404.326 (rec:2411.836, round:9992.490)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	11425.407 (rec:2452.390, round:8973.018)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	10697.856 (rec:2723.780, round:7974.076)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	9660.059 (rec:2666.664, round:6993.395)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	8539.055 (rec:2498.226, round:6040.828)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	7576.853 (rec:2469.523, round:5107.330)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	6927.908 (rec:2729.282, round:4198.626)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	5804.332 (rec:2475.459, round:3328.873)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	5278.606 (rec:2773.460, round:2505.146)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	4249.649 (rec:2505.899, round:1743.750)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	3762.483 (rec:2681.980, round:1080.502)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	2950.524 (rec:2371.990, round:578.534)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer4_1_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer4_0_relu_2_post_act_fake_quantizer, layer4_1_conv1, layer4_1_bn1, layer4_1_relu, layer4_1_relu_post_act_fake_quantizer, layer4_1_conv2, layer4_1_bn2, layer4_1_relu_1, layer4_1_relu_1_post_act_fake_quantizer, layer4_1_conv3, layer4_1_bn3, add_14, layer4_1_relu_2, layer4_1_relu_2_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer4_0_relu_2_post_act_fake_quantizer):
+    layer4_1_conv1 = getattr(self.layer4, "1").conv1(layer4_0_relu_2_post_act_fake_quantizer)
+    layer4_1_bn1 = getattr(self.layer4, "1").bn1(layer4_1_conv1);  layer4_1_conv1 = None
+    layer4_1_relu = getattr(self.layer4, "1").relu(layer4_1_bn1);  layer4_1_bn1 = None
+    layer4_1_relu_post_act_fake_quantizer = self.layer4_1_relu_post_act_fake_quantizer(layer4_1_relu);  layer4_1_relu = None
+    layer4_1_conv2 = getattr(self.layer4, "1").conv2(layer4_1_relu_post_act_fake_quantizer);  layer4_1_relu_post_act_fake_quantizer = None
+    layer4_1_bn2 = getattr(self.layer4, "1").bn2(layer4_1_conv2);  layer4_1_conv2 = None
+    layer4_1_relu_1 = getattr(self.layer4, "1").relu_dup1(layer4_1_bn2);  layer4_1_bn2 = None
+    layer4_1_relu_1_post_act_fake_quantizer = self.layer4_1_relu_1_post_act_fake_quantizer(layer4_1_relu_1);  layer4_1_relu_1 = None
+    layer4_1_conv3 = getattr(self.layer4, "1").conv3(layer4_1_relu_1_post_act_fake_quantizer);  layer4_1_relu_1_post_act_fake_quantizer = None
+    layer4_1_bn3 = getattr(self.layer4, "1").bn3(layer4_1_conv3);  layer4_1_conv3 = None
+    add_14 = layer4_1_bn3 + layer4_0_relu_2_post_act_fake_quantizer;  layer4_1_bn3 = layer4_0_relu_2_post_act_fake_quantizer = None
+    layer4_1_relu_2 = getattr(self.layer4, "1").relu_dup2(add_14);  add_14 = None
+    layer4_1_relu_2_post_act_fake_quantizer = self.layer4_1_relu_2_post_act_fake_quantizer(layer4_1_relu_2);  layer4_1_relu_2 = None
+    return layer4_1_relu_2_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer4_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer4_1_relu_2_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	1289.280 (rec:1289.280, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	1258.577 (rec:1258.577, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	1192.860 (rec:1192.860, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	1112.367 (rec:1112.367, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	1213.158 (rec:1213.158, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	1094.010 (rec:1094.010, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	1287.464 (rec:1287.464, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	42050.566 (rec:1254.729, round:40795.836)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	28479.129 (rec:1221.757, round:27257.373)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	26785.512 (rec:1279.578, round:25505.934)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	25488.016 (rec:1151.087, round:24336.930)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	24415.002 (rec:1077.682, round:23337.320)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	23506.586 (rec:1100.122, round:22406.463)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	22605.285 (rec:1097.382, round:21507.902)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	21768.355 (rec:1137.877, round:20630.479)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	20854.883 (rec:1095.832, round:19759.051)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	20060.697 (rec:1161.944, round:18898.754)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	19124.498 (rec:1085.306, round:18039.191)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	18263.732 (rec:1082.178, round:17181.555)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	17415.252 (rec:1085.328, round:16329.924)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	16555.859 (rec:1069.677, round:15486.184)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	15722.903 (rec:1082.330, round:14640.573)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	15009.615 (rec:1205.489, round:13804.126)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	14047.010 (rec:1076.731, round:12970.279)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	13155.312 (rec:1012.854, round:12142.458)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	12298.124 (rec:978.869, round:11319.255)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	11765.937 (rec:1266.047, round:10499.890)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	10762.975 (rec:1078.494, round:9684.480)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	10095.084 (rec:1224.606, round:8870.479)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	9204.597 (rec:1144.983, round:8059.613)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	8369.564 (rec:1123.226, round:7246.339)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	7474.231 (rec:1034.168, round:6440.063)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	6693.322 (rec:1062.845, round:5630.477)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	5893.188 (rec:1069.136, round:4824.053)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	5119.759 (rec:1100.281, round:4019.479)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	4281.732 (rec:1060.349, round:3221.383)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	3650.308 (rec:1200.127, round:2450.181)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	2789.858 (rec:1072.055, round:1717.803)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	2122.569 (rec:1062.451, round:1060.118)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	1568.522 (rec:1035.030, round:533.492)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for layer4_2_conv1
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [layer4_1_relu_2_post_act_fake_quantizer, layer4_2_conv1, layer4_2_bn1, layer4_2_relu, layer4_2_relu_post_act_fake_quantizer, layer4_2_conv2, layer4_2_bn2, layer4_2_relu_1, layer4_2_relu_1_post_act_fake_quantizer, layer4_2_conv3, layer4_2_bn3, add_15, layer4_2_relu_2, avgpool, flatten, flatten_post_act_fake_quantizer]
+[MQBENCH] INFO: 
+
+
+def forward(self, layer4_1_relu_2_post_act_fake_quantizer):
+    layer4_2_conv1 = getattr(self.layer4, "2").conv1(layer4_1_relu_2_post_act_fake_quantizer)
+    layer4_2_bn1 = getattr(self.layer4, "2").bn1(layer4_2_conv1);  layer4_2_conv1 = None
+    layer4_2_relu = getattr(self.layer4, "2").relu(layer4_2_bn1);  layer4_2_bn1 = None
+    layer4_2_relu_post_act_fake_quantizer = self.layer4_2_relu_post_act_fake_quantizer(layer4_2_relu);  layer4_2_relu = None
+    layer4_2_conv2 = getattr(self.layer4, "2").conv2(layer4_2_relu_post_act_fake_quantizer);  layer4_2_relu_post_act_fake_quantizer = None
+    layer4_2_bn2 = getattr(self.layer4, "2").bn2(layer4_2_conv2);  layer4_2_conv2 = None
+    layer4_2_relu_1 = getattr(self.layer4, "2").relu_dup1(layer4_2_bn2);  layer4_2_bn2 = None
+    layer4_2_relu_1_post_act_fake_quantizer = self.layer4_2_relu_1_post_act_fake_quantizer(layer4_2_relu_1);  layer4_2_relu_1 = None
+    layer4_2_conv3 = getattr(self.layer4, "2").conv3(layer4_2_relu_1_post_act_fake_quantizer);  layer4_2_relu_1_post_act_fake_quantizer = None
+    layer4_2_bn3 = getattr(self.layer4, "2").bn3(layer4_2_conv3);  layer4_2_conv3 = None
+    add_15 = layer4_2_bn3 + layer4_1_relu_2_post_act_fake_quantizer;  layer4_2_bn3 = layer4_1_relu_2_post_act_fake_quantizer = None
+    layer4_2_relu_2 = getattr(self.layer4, "2").relu_dup2(add_15);  add_15 = None
+    avgpool = self.avgpool(layer4_2_relu_2);  layer4_2_relu_2 = None
+    flatten = torch.flatten(avgpool, 1);  avgpool = None
+    flatten_post_act_fake_quantizer = self.flatten_post_act_fake_quantizer(flatten);  flatten = None
+    return flatten_post_act_fake_quantizer
+    
+[MQBENCH] INFO: learn the scale for layer4_2_relu_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for layer4_2_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: learn the scale for flatten_post_act_fake_quantizer
+Init alpha to be FP32
+Init alpha to be FP32
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	56.102 (rec:56.102, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	46.688 (rec:46.688, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	60.857 (rec:60.857, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	49.571 (rec:49.571, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	53.593 (rec:53.593, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	45.455 (rec:45.455, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	47.161 (rec:47.161, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	41046.137 (rec:57.802, round:40988.336)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	22929.570 (rec:77.013, round:22852.557)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	21283.168 (rec:46.242, round:21236.926)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	20187.375 (rec:40.926, round:20146.449)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	19258.695 (rec:66.230, round:19192.465)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	18334.934 (rec:49.894, round:18285.039)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	17450.381 (rec:41.416, round:17408.965)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	16619.375 (rec:76.497, round:16542.877)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	15747.220 (rec:62.846, round:15684.374)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	14884.265 (rec:53.104, round:14831.160)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	14057.970 (rec:81.260, round:13976.710)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	13187.981 (rec:52.235, round:13135.746)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	12358.531 (rec:57.744, round:12300.787)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	11533.267 (rec:56.944, round:11476.323)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	10708.682 (rec:38.379, round:10670.302)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	9920.854 (rec:39.746, round:9881.108)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	9144.984 (rec:37.648, round:9107.336)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	8404.103 (rec:46.777, round:8357.325)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	7674.807 (rec:40.896, round:7633.912)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	6982.917 (rec:50.528, round:6932.389)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	6309.729 (rec:56.926, round:6252.802)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	5634.618 (rec:42.240, round:5592.378)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	5005.085 (rec:53.110, round:4951.975)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	4387.375 (rec:58.252, round:4329.122)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	3766.794 (rec:40.495, round:3726.299)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	3222.328 (rec:78.418, round:3143.911)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	2631.222 (rec:47.975, round:2583.247)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	2102.024 (rec:51.924, round:2050.100)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	1609.407 (rec:57.904, round:1551.503)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	1136.071 (rec:35.780, round:1100.291)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	752.192 (rec:45.650, round:706.542)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	456.877 (rec:56.253, round:400.624)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	244.440 (rec:51.243, round:193.197)	b=2.00	count=20000
+[MQBENCH] INFO: prepare block reconstruction for fc
+[MQBENCH] INFO: the node list is below!
+[MQBENCH] INFO: [flatten_post_act_fake_quantizer, fc]
+[MQBENCH] INFO: 
+
+
+def forward(self, flatten_post_act_fake_quantizer):
+    fc = self.fc(flatten_post_act_fake_quantizer);  flatten_post_act_fake_quantizer = None
+    return fc
+    
+Init alpha to be FP32
+[MQBENCH] INFO: The world size is 1.
+[MQBENCH] INFO: start tuning by adaround
+[MQBENCH] INFO: Total loss:	73.010 (rec:73.010, round:0.000)	b=20.00	count=500
+[MQBENCH] INFO: Total loss:	119.848 (rec:119.848, round:0.000)	b=20.00	count=1000
+[MQBENCH] INFO: Total loss:	72.213 (rec:72.213, round:0.000)	b=20.00	count=1500
+[MQBENCH] INFO: Total loss:	147.107 (rec:147.107, round:0.000)	b=20.00	count=2000
+[MQBENCH] INFO: Total loss:	150.623 (rec:150.623, round:0.000)	b=20.00	count=2500
+[MQBENCH] INFO: Total loss:	119.353 (rec:119.353, round:0.000)	b=20.00	count=3000
+[MQBENCH] INFO: Total loss:	102.615 (rec:102.615, round:0.000)	b=20.00	count=3500
+[MQBENCH] INFO: Total loss:	18613.240 (rec:98.284, round:18514.957)	b=20.00	count=4000
+[MQBENCH] INFO: Total loss:	10607.691 (rec:148.835, round:10458.856)	b=19.44	count=4500
+[MQBENCH] INFO: Total loss:	9835.426 (rec:148.518, round:9686.908)	b=18.88	count=5000
+[MQBENCH] INFO: Total loss:	9283.096 (rec:141.503, round:9141.593)	b=18.31	count=5500
+[MQBENCH] INFO: Total loss:	8755.890 (rec:102.468, round:8653.421)	b=17.75	count=6000
+[MQBENCH] INFO: Total loss:	8271.024 (rec:70.296, round:8200.729)	b=17.19	count=6500
+[MQBENCH] INFO: Total loss:	7855.228 (rec:106.204, round:7749.023)	b=16.62	count=7000
+[MQBENCH] INFO: Total loss:	7491.236 (rec:187.921, round:7303.315)	b=16.06	count=7500
+[MQBENCH] INFO: Total loss:	6968.412 (rec:109.132, round:6859.280)	b=15.50	count=8000
+[MQBENCH] INFO: Total loss:	6540.526 (rec:112.978, round:6427.547)	b=14.94	count=8500
+[MQBENCH] INFO: Total loss:	6159.522 (rec:146.544, round:6012.978)	b=14.38	count=9000
+[MQBENCH] INFO: Total loss:	5752.574 (rec:150.030, round:5602.543)	b=13.81	count=9500
+[MQBENCH] INFO: Total loss:	5296.731 (rec:96.952, round:5199.779)	b=13.25	count=10000
+[MQBENCH] INFO: Total loss:	4965.372 (rec:155.422, round:4809.950)	b=12.69	count=10500
+[MQBENCH] INFO: Total loss:	4577.297 (rec:146.710, round:4430.588)	b=12.12	count=11000
+[MQBENCH] INFO: Total loss:	4211.437 (rec:146.703, round:4064.734)	b=11.56	count=11500
+[MQBENCH] INFO: Total loss:	3785.775 (rec:75.583, round:3710.192)	b=11.00	count=12000
+[MQBENCH] INFO: Total loss:	3522.354 (rec:140.711, round:3381.643)	b=10.44	count=12500
+[MQBENCH] INFO: Total loss:	3139.833 (rec:79.636, round:3060.196)	b=9.88	count=13000
+[MQBENCH] INFO: Total loss:	2864.045 (rec:112.872, round:2751.172)	b=9.31	count=13500
+[MQBENCH] INFO: Total loss:	2549.812 (rec:100.618, round:2449.194)	b=8.75	count=14000
+[MQBENCH] INFO: Total loss:	2274.255 (rec:116.663, round:2157.593)	b=8.19	count=14500
+[MQBENCH] INFO: Total loss:	1950.163 (rec:70.741, round:1879.422)	b=7.62	count=15000
+[MQBENCH] INFO: Total loss:	1710.328 (rec:101.630, round:1608.698)	b=7.06	count=15500
+[MQBENCH] INFO: Total loss:	1439.307 (rec:90.397, round:1348.910)	b=6.50	count=16000
+[MQBENCH] INFO: Total loss:	1199.379 (rec:98.845, round:1100.534)	b=5.94	count=16500
+[MQBENCH] INFO: Total loss:	957.518 (rec:98.793, round:858.725)	b=5.38	count=17000
+[MQBENCH] INFO: Total loss:	727.103 (rec:93.387, round:633.716)	b=4.81	count=17500
+[MQBENCH] INFO: Total loss:	504.937 (rec:75.213, round:429.724)	b=4.25	count=18000
+[MQBENCH] INFO: Total loss:	402.997 (rec:149.483, round:253.514)	b=3.69	count=18500
+[MQBENCH] INFO: Total loss:	190.402 (rec:70.810, round:119.592)	b=3.12	count=19000
+[MQBENCH] INFO: Total loss:	111.281 (rec:75.194, round:36.086)	b=2.56	count=19500
+[MQBENCH] INFO: Total loss:	114.875 (rec:107.965, round:6.910)	b=2.00	count=20000
+[MQBENCH] INFO: Disable observer and Disable quantize.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node x_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node maxpool in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node maxpool_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_0_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_0_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.downsample.0 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.downsample.1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.0.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_0_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_1_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_1_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.1.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_1_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_2_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_2_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1.2.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer1_2_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_0_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_0_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.downsample.0 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.downsample.1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.0.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_0_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_1_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_1_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.1.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_1_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_2_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_2_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.2.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_2_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_3_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_3_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2.3.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer2_3_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_0_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_0_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.downsample.0 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.downsample.1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.0.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_0_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_1_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_1_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.1.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_1_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_2_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_2_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.2.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_2_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_3_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_3_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.3.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_3_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_4_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_4_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.4.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_4_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_5_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_5_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3.5.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer3_5_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_0_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_0_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.downsample.0 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.downsample.1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.0.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_0_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_1_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_1_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.1.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_1_relu_2_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.conv1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.bn1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.relu in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_2_relu_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.conv2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.bn2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.relu_dup1 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4_2_relu_1_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.conv3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.bn3 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node layer4.2.relu_dup2 in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node avgpool in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node flatten_post_act_fake_quantizer in quant
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] INFO: set the node fc in quant
+2025-08-18 12:35:09,859 | INFO | ✔ END: advanced PTQ reconstruction (elapsed 3562.24s)
+2025-08-18 12:35:09,864 | INFO | ▶ START: enable_quantization (simulate INT8)
+[MQBENCH] INFO: Disable observer and Enable quantize.
+2025-08-18 12:35:09,867 | INFO | ✔ END: enable_quantization (simulate INT8) (elapsed 0.00s)
+2025-08-18 12:35:09,868 | INFO | ✔ END: prepare_by_platform(Academic) (elapsed 3572.58s)
+2025-08-18 12:35:09,869 | INFO | ▶ START: evaluate INT8-sim
+2025-08-18 12:35:13,012 | INFO | [EVAL_INT8] progress: 50 batches, running top1=24.56%
+2025-08-18 12:35:15,374 | INFO | [EVAL_INT8] progress: 100 batches, running top1=12.28%
+2025-08-18 12:35:17,733 | INFO | [EVAL_INT8] progress: 150 batches, running top1=8.19%
+2025-08-18 12:35:20,071 | INFO | [EVAL_INT8] progress: 200 batches, running top1=6.14%
+2025-08-18 12:35:22,527 | INFO | [EVAL_INT8] progress: 250 batches, running top1=4.91%
+2025-08-18 12:35:24,933 | INFO | [EVAL_INT8] progress: 300 batches, running top1=4.09%
+2025-08-18 12:35:27,349 | INFO | [EVAL_INT8] progress: 350 batches, running top1=3.51%
+2025-08-18 12:35:29,740 | INFO | [EVAL_INT8] progress: 400 batches, running top1=3.07%
+2025-08-18 12:35:32,130 | INFO | [EVAL_INT8] progress: 450 batches, running top1=2.73%
+2025-08-18 12:35:34,496 | INFO | [EVAL_INT8] progress: 500 batches, running top1=2.46%
+2025-08-18 12:35:36,836 | INFO | [EVAL_INT8] progress: 550 batches, running top1=2.23%
+2025-08-18 12:35:39,213 | INFO | [EVAL_INT8] progress: 600 batches, running top1=2.05%
+2025-08-18 12:35:41,583 | INFO | [EVAL_INT8] progress: 650 batches, running top1=1.89%
+2025-08-18 12:35:43,897 | INFO | [EVAL_INT8] progress: 700 batches, running top1=1.75%
+2025-08-18 12:35:46,230 | INFO | [EVAL_INT8] progress: 750 batches, running top1=1.64%
+2025-08-18 12:35:47,766 | INFO | [EVAL_INT8] done: 782 batches in 37.90s, top1=1.57%
+2025-08-18 12:35:47,766 | INFO | [PTQ][resnet50][Academic] [ADV] Top-1 = 1.57%
+2025-08-18 12:35:47,766 | INFO | ✔ END: evaluate INT8-sim (elapsed 37.90s)
+2025-08-18 12:35:47,766 | INFO | ▶ START: evaluate FP32 baseline
+2025-08-18 12:35:50,384 | INFO | [EVAL_FP32] progress: 50 batches, running top1=85.19%
+2025-08-18 12:35:52,568 | INFO | [EVAL_FP32] progress: 100 batches, running top1=86.30%
+2025-08-18 12:35:54,580 | INFO | [EVAL_FP32] progress: 150 batches, running top1=86.50%
+2025-08-18 12:35:56,580 | INFO | [EVAL_FP32] progress: 200 batches, running top1=85.77%
+2025-08-18 12:35:58,784 | INFO | [EVAL_FP32] progress: 250 batches, running top1=85.56%
+2025-08-18 12:36:00,780 | INFO | [EVAL_FP32] progress: 300 batches, running top1=85.64%
+2025-08-18 12:36:02,788 | INFO | [EVAL_FP32] progress: 350 batches, running top1=84.79%
+2025-08-18 12:36:05,004 | INFO | [EVAL_FP32] progress: 400 batches, running top1=83.59%
+2025-08-18 12:36:07,090 | INFO | [EVAL_FP32] progress: 450 batches, running top1=83.21%
+2025-08-18 12:36:09,057 | INFO | [EVAL_FP32] progress: 500 batches, running top1=82.49%
+2025-08-18 12:36:11,105 | INFO | [EVAL_FP32] progress: 550 batches, running top1=82.07%
+2025-08-18 12:36:13,128 | INFO | [EVAL_FP32] progress: 600 batches, running top1=81.73%
+2025-08-18 12:36:15,258 | INFO | [EVAL_FP32] progress: 650 batches, running top1=81.40%
+2025-08-18 12:36:17,106 | INFO | [EVAL_FP32] progress: 700 batches, running top1=80.99%
+2025-08-18 12:36:19,167 | INFO | [EVAL_FP32] progress: 750 batches, running top1=80.96%
+2025-08-18 12:36:20,486 | INFO | [EVAL_FP32] done: 782 batches in 32.72s, top1=80.84%
+2025-08-18 12:36:20,486 | INFO | [FP32] Top-1 = 80.84% (expected ~None)
+2025-08-18 12:36:20,486 | INFO | ✔ END: evaluate FP32 baseline (elapsed 32.72s)
+2025-08-18 12:36:20,486 | INFO | ▶ START: extract model logits
+2025-08-18 12:36:20,488 | INFO | Extracting logits from both models...
+
+============================================================
+BASELINE ACCURACIES (Before Clustering)
+============================================================
+  FP32 Model: 80.84%
+  Baseline PTQ: 1.57%
+  PTQ Degradation: 79.27%
+============================================================
+Extracting logits from quantized and full-precision models...
+2025-08-18 12:36:24,503 | INFO | Processed 5 batches
+2025-08-18 12:36:26,052 | INFO | Processed 10 batches
+2025-08-18 12:36:28,341 | INFO | Extracted logits: Q=torch.Size([640, 1000]), FP=torch.Size([640, 1000])
+Logits extraction complete.
+Quantized logits shape: torch.Size([640, 1000])
+Full-precision logits shape: torch.Size([640, 1000])
+🔍 Parameter ranges to test:
+  Alpha values: [0.2, 0.4, 0.6, 0.8, 1.0]
+  Cluster numbers: [8, 16, 32, 64]
+  PCA dimensions: [25, 50, 100]
+  Total combinations: 60
+🚀 Running all 60 combinations...
+
+🔄 [1/60] Running with alpha=0.2, num_clusters=8, pca_dim=25
+[Alpha=0.20] Top-1 Accuracy: 1.56%
+[Alpha=0.20] Top-5 Accuracy: 2.84%
+✅ Result: Top-1: 1.56%, Top-5: 2.84%
+
+🔄 [2/60] Running with alpha=0.2, num_clusters=8, pca_dim=50
+[Alpha=0.20] Top-1 Accuracy: 1.57%
+[Alpha=0.20] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.57%, Top-5: 2.85%
+
+🔄 [3/60] Running with alpha=0.2, num_clusters=8, pca_dim=100
+[Alpha=0.20] Top-1 Accuracy: 1.57%
+[Alpha=0.20] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.57%, Top-5: 2.85%
+
+🔄 [4/60] Running with alpha=0.2, num_clusters=16, pca_dim=25
+[Alpha=0.20] Top-1 Accuracy: 1.56%
+[Alpha=0.20] Top-5 Accuracy: 2.84%
+✅ Result: Top-1: 1.56%, Top-5: 2.84%
+
+🔄 [5/60] Running with alpha=0.2, num_clusters=16, pca_dim=50
+[Alpha=0.20] Top-1 Accuracy: 1.53%
+[Alpha=0.20] Top-5 Accuracy: 2.82%
+✅ Result: Top-1: 1.53%, Top-5: 2.82%
+💾 Saving intermediate results... (5 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_124147.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [6/60] Running with alpha=0.2, num_clusters=16, pca_dim=100
+[Alpha=0.20] Top-1 Accuracy: 1.57%
+[Alpha=0.20] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.57%, Top-5: 2.85%
+
+🔄 [7/60] Running with alpha=0.2, num_clusters=32, pca_dim=25
+[Alpha=0.20] Top-1 Accuracy: 1.55%
+[Alpha=0.20] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.55%, Top-5: 2.85%
+
+🔄 [8/60] Running with alpha=0.2, num_clusters=32, pca_dim=50
+[Alpha=0.20] Top-1 Accuracy: 1.48%
+[Alpha=0.20] Top-5 Accuracy: 2.84%
+✅ Result: Top-1: 1.48%, Top-5: 2.84%
+
+🔄 [9/60] Running with alpha=0.2, num_clusters=32, pca_dim=100
+[Alpha=0.20] Top-1 Accuracy: 1.48%
+[Alpha=0.20] Top-5 Accuracy: 2.78%
+✅ Result: Top-1: 1.48%, Top-5: 2.78%
+
+🔄 [10/60] Running with alpha=0.2, num_clusters=64, pca_dim=25
+[Alpha=0.20] Top-1 Accuracy: 1.38%
+[Alpha=0.20] Top-5 Accuracy: 2.70%
+✅ Result: Top-1: 1.38%, Top-5: 2.70%
+💾 Saving intermediate results... (10 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_124814.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [11/60] Running with alpha=0.2, num_clusters=64, pca_dim=50
+[Alpha=0.20] Top-1 Accuracy: 1.48%
+[Alpha=0.20] Top-5 Accuracy: 2.81%
+✅ Result: Top-1: 1.48%, Top-5: 2.81%
+
+🔄 [12/60] Running with alpha=0.2, num_clusters=64, pca_dim=100
+[Alpha=0.20] Top-1 Accuracy: 1.45%
+[Alpha=0.20] Top-5 Accuracy: 2.83%
+✅ Result: Top-1: 1.45%, Top-5: 2.83%
+
+🔄 [13/60] Running with alpha=0.4, num_clusters=8, pca_dim=25
+[Alpha=0.40] Top-1 Accuracy: 1.54%
+[Alpha=0.40] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.54%, Top-5: 2.85%
+
+🔄 [14/60] Running with alpha=0.4, num_clusters=8, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 1.54%
+[Alpha=0.40] Top-5 Accuracy: 2.83%
+✅ Result: Top-1: 1.54%, Top-5: 2.83%
+
+🔄 [15/60] Running with alpha=0.4, num_clusters=8, pca_dim=100
+[Alpha=0.40] Top-1 Accuracy: 1.55%
+[Alpha=0.40] Top-5 Accuracy: 2.85%
+✅ Result: Top-1: 1.55%, Top-5: 2.85%
+💾 Saving intermediate results... (15 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_125334.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [16/60] Running with alpha=0.4, num_clusters=16, pca_dim=25
+[Alpha=0.40] Top-1 Accuracy: 1.53%
+[Alpha=0.40] Top-5 Accuracy: 2.82%
+✅ Result: Top-1: 1.53%, Top-5: 2.82%
+
+🔄 [17/60] Running with alpha=0.4, num_clusters=16, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 1.50%
+[Alpha=0.40] Top-5 Accuracy: 2.76%
+✅ Result: Top-1: 1.50%, Top-5: 2.76%
+
+🔄 [18/60] Running with alpha=0.4, num_clusters=16, pca_dim=100
+[Alpha=0.40] Top-1 Accuracy: 1.52%
+[Alpha=0.40] Top-5 Accuracy: 2.81%
+✅ Result: Top-1: 1.52%, Top-5: 2.81%
+
+🔄 [19/60] Running with alpha=0.4, num_clusters=32, pca_dim=25
+[Alpha=0.40] Top-1 Accuracy: 1.41%
+[Alpha=0.40] Top-5 Accuracy: 2.77%
+✅ Result: Top-1: 1.41%, Top-5: 2.77%
+
+🔄 [20/60] Running with alpha=0.4, num_clusters=32, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 1.36%
+[Alpha=0.40] Top-5 Accuracy: 2.74%
+✅ Result: Top-1: 1.36%, Top-5: 2.74%
+💾 Saving intermediate results... (20 total combinations)
+Results saved to: brecq_fixed_resnet50_20250818_113451/ptq_results_20250818_125850.csv
+💾 Recovery checkpoint saved: brecq_fixed_resnet50_20250818_113451/recovery_checkpoint.json
+
+🔄 [21/60] Running with alpha=0.4, num_clusters=32, pca_dim=100
+[Alpha=0.40] Top-1 Accuracy: 1.39%
+[Alpha=0.40] Top-5 Accuracy: 2.69%
+✅ Result: Top-1: 1.39%, Top-5: 2.69%
+
+🔄 [22/60] Running with alpha=0.4, num_clusters=64, pca_dim=25
+[Alpha=0.40] Top-1 Accuracy: 1.19%
+[Alpha=0.40] Top-5 Accuracy: 2.55%
+✅ Result: Top-1: 1.19%, Top-5: 2.55%
+
+🔄 [23/60] Running with alpha=0.4, num_clusters=64, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 1.11%
+[Alpha=0.40] Top-5 Accuracy: 2.60%
+✅ Result: Top-1: 1.11%, Top-5: 2.60%
+
+🔄 [24/60] Running with alpha=0.4, num_clusters=64, pca_dim=100

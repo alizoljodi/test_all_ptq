@@ -1,0 +1,13 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,best_alpha,num_clusters,pca_dim,best_top1_accuracy,best_top5_accuracy,improvement_over_baseline,improvement_over_fp32
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.6,8,25,28.48,53.544,4.260000000000002,-43.672
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.6,8,50,28.368,53.21,4.148,-43.784000000000006
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.6,8,100,28.458,53.65,4.2379999999999995,-43.694
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,16,25,27.96,52.792,3.740000000000002,-44.192
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,16,50,27.514,52.222,3.2940000000000005,-44.638000000000005
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,16,100,28.034,52.41,3.814,-44.118
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,32,25,27.106,51.468,2.886000000000003,-45.046
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,32,50,27.18,51.854,2.960000000000001,-44.972
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.4,32,100,26.842,51.472,2.622,-45.31
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.2,64,25,26.132,49.854,1.9120000000000026,-46.019999999999996
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.2,64,50,25.738,49.684,1.5180000000000007,-46.414
+20250818_125033,mobilenet_v2,DEFAULT,64,32,224,4,4,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,24.22,0.2,64,100,25.944,49.914,1.7240000000000002,-46.208

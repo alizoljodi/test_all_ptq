@@ -1,0 +1,6 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_120421,mobilenet_v2,DEFAULT,64,32,224,2,2,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.338,0.2,8,25,0.358,1.196,True,10
+20250818_120421,mobilenet_v2,DEFAULT,64,32,224,2,2,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.338,0.2,8,50,0.346,1.18,True,10
+20250818_120421,mobilenet_v2,DEFAULT,64,32,224,2,2,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.338,0.2,8,100,0.342,1.192,True,10
+20250818_120421,mobilenet_v2,DEFAULT,64,32,224,2,2,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.338,0.2,16,25,0.34,1.198,True,10
+20250818_120421,mobilenet_v2,DEFAULT,64,32,224,2,2,learnable,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.338,0.2,16,50,0.338,1.184,True,10

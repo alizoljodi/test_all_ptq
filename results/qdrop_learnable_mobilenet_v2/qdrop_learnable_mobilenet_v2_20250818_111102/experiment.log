@@ -28,3 +28,51 @@
 Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
   float(total_loss), float(rec_loss), float(round_loss), b, self.count))
 
+2025-08-18 11:57:51,941 | INFO | ✔ END: advanced PTQ reconstruction (elapsed 2770.85s)
+2025-08-18 11:57:51,945 | INFO | ▶ START: enable_quantization (simulate INT8)
+2025-08-18 11:57:51,949 | INFO | ✔ END: enable_quantization (simulate INT8) (elapsed 0.00s)
+2025-08-18 11:57:51,949 | INFO | ✔ END: prepare_by_platform(Academic) (elapsed 2787.80s)
+2025-08-18 11:57:51,951 | INFO | ▶ START: evaluate INT8-sim
+2025-08-18 11:57:54,642 | INFO | [EVAL_INT8] progress: 50 batches, running top1=53.31%
+2025-08-18 11:57:56,662 | INFO | [EVAL_INT8] progress: 100 batches, running top1=43.48%
+2025-08-18 11:57:58,626 | INFO | [EVAL_INT8] progress: 150 batches, running top1=36.57%
+2025-08-18 11:58:04,908 | INFO | [EVAL_INT8] progress: 200 batches, running top1=29.27%
+2025-08-18 11:58:12,472 | INFO | [EVAL_INT8] progress: 250 batches, running top1=26.91%
+2025-08-18 11:58:21,089 | INFO | [EVAL_INT8] progress: 300 batches, running top1=26.29%
+2025-08-18 11:58:28,908 | INFO | [EVAL_INT8] progress: 350 batches, running top1=25.76%
+2025-08-18 11:58:35,032 | INFO | [EVAL_INT8] progress: 400 batches, running top1=25.13%
+2025-08-18 11:58:42,029 | INFO | [EVAL_INT8] progress: 450 batches, running top1=24.83%
+2025-08-18 11:58:47,452 | INFO | [EVAL_INT8] progress: 500 batches, running top1=24.42%
+2025-08-18 11:58:54,592 | INFO | [EVAL_INT8] progress: 550 batches, running top1=24.26%
+2025-08-18 11:59:01,303 | INFO | [EVAL_INT8] progress: 600 batches, running top1=24.05%
+2025-08-18 11:59:08,267 | INFO | [EVAL_INT8] progress: 650 batches, running top1=24.12%
+2025-08-18 11:59:16,274 | INFO | [EVAL_INT8] progress: 700 batches, running top1=23.78%
+2025-08-18 11:59:25,985 | INFO | [EVAL_INT8] progress: 750 batches, running top1=23.93%
+2025-08-18 11:59:30,214 | INFO | [EVAL_INT8] done: 782 batches in 98.26s, top1=24.22%
+2025-08-18 11:59:30,214 | INFO | [PTQ][mobilenet_v2][Academic] [ADV] Top-1 = 24.22%
+2025-08-18 11:59:30,214 | INFO | ✔ END: evaluate INT8-sim (elapsed 98.26s)
+2025-08-18 11:59:30,214 | INFO | ▶ START: evaluate FP32 baseline
+2025-08-18 11:59:32,833 | INFO | [EVAL_FP32] progress: 50 batches, running top1=78.28%
+2025-08-18 11:59:34,775 | INFO | [EVAL_FP32] progress: 100 batches, running top1=79.39%
+2025-08-18 11:59:36,950 | INFO | [EVAL_FP32] progress: 150 batches, running top1=78.90%
+2025-08-18 11:59:38,731 | INFO | [EVAL_FP32] progress: 200 batches, running top1=78.18%
+2025-08-18 11:59:40,935 | INFO | [EVAL_FP32] progress: 250 batches, running top1=78.02%
+2025-08-18 11:59:42,807 | INFO | [EVAL_FP32] progress: 300 batches, running top1=78.35%
+2025-08-18 11:59:45,020 | INFO | [EVAL_FP32] progress: 350 batches, running top1=77.30%
+2025-08-18 11:59:46,875 | INFO | [EVAL_FP32] progress: 400 batches, running top1=75.82%
+2025-08-18 11:59:48,934 | INFO | [EVAL_FP32] progress: 450 batches, running top1=75.21%
+2025-08-18 11:59:50,750 | INFO | [EVAL_FP32] progress: 500 batches, running top1=74.27%
+2025-08-18 11:59:52,732 | INFO | [EVAL_FP32] progress: 550 batches, running top1=73.65%
+2025-08-18 11:59:54,724 | INFO | [EVAL_FP32] progress: 600 batches, running top1=73.09%
+2025-08-18 11:59:56,673 | INFO | [EVAL_FP32] progress: 650 batches, running top1=72.71%
+2025-08-18 11:59:58,502 | INFO | [EVAL_FP32] progress: 700 batches, running top1=72.16%
+2025-08-18 12:00:00,591 | INFO | [EVAL_FP32] progress: 750 batches, running top1=72.19%
+2025-08-18 12:00:01,727 | INFO | [EVAL_FP32] done: 782 batches in 31.51s, top1=72.15%
+2025-08-18 12:00:01,727 | INFO | [FP32] Top-1 = 72.15% (expected ~None)
+2025-08-18 12:00:01,727 | INFO | ✔ END: evaluate FP32 baseline (elapsed 31.51s)
+2025-08-18 12:00:01,727 | INFO | ▶ START: extract model logits
+2025-08-18 12:00:01,729 | INFO | Extracting logits from both models...
+2025-08-18 12:00:04,685 | INFO | Processed 5 batches
+2025-08-18 12:00:07,032 | INFO | Processed 10 batches
+2025-08-18 12:00:09,523 | INFO | Extracted logits: Q=torch.Size([640, 1000]), FP=torch.Size([640, 1000])
+2025-08-18 12:50:33,340 | INFO | ✔ END: extract model logits (elapsed 3031.61s)
