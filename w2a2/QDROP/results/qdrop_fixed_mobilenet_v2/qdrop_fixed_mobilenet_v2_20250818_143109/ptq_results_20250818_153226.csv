@@ -1,0 +1,16 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,8,25,0.274,1.05,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,8,50,0.27,1.042,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,8,100,0.264,1.042,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,16,25,0.27,1.048,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,16,50,0.272,1.044,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,16,100,0.288,1.058,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,32,25,0.282,1.048,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,32,50,0.264,1.06,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,32,100,0.26,1.036,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,64,25,0.256,0.988,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,64,50,0.238,1.014,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.2,64,100,0.248,1.01,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.4,8,25,0.274,1.06,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.4,8,50,0.288,1.064,True,10
+20250818_153226,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,72.152,0.262,0.4,8,100,0.276,1.06,True,10

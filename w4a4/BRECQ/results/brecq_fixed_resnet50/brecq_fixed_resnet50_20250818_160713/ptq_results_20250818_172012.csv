@@ -1,0 +1,11 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,8,25,1.562,2.844,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,8,50,1.568,2.852,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,8,100,1.568,2.846,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,16,25,1.56,2.844,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,16,50,1.534,2.818,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,16,100,1.568,2.846,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,32,25,1.546,2.848,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,32,50,1.476,2.84,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,32,100,1.484,2.784,True,10
+20250818_172012,resnet50,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,1.572,0.2,64,25,1.382,2.696,True,10

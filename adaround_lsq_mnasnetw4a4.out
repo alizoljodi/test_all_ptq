@@ -1905,3 +1905,322 @@ Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_1
 ✅ Result: Top-1: 0.65%, Top-5: 2.49%
 
 🔄 [20/60] Running with alpha=0.4, num_clusters=32, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 0.62%
+[Alpha=0.40] Top-5 Accuracy: 2.50%
+✅ Result: Top-1: 0.62%, Top-5: 2.50%
+💾 Saving intermediate results... (20 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_134143.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [21/60] Running with alpha=0.4, num_clusters=32, pca_dim=100
+[Alpha=0.40] Top-1 Accuracy: 0.65%
+[Alpha=0.40] Top-5 Accuracy: 2.46%
+✅ Result: Top-1: 0.65%, Top-5: 2.46%
+
+🔄 [22/60] Running with alpha=0.4, num_clusters=64, pca_dim=25
+[Alpha=0.40] Top-1 Accuracy: 0.59%
+[Alpha=0.40] Top-5 Accuracy: 2.31%
+✅ Result: Top-1: 0.59%, Top-5: 2.31%
+
+🔄 [23/60] Running with alpha=0.4, num_clusters=64, pca_dim=50
+[Alpha=0.40] Top-1 Accuracy: 0.61%
+[Alpha=0.40] Top-5 Accuracy: 2.44%
+✅ Result: Top-1: 0.61%, Top-5: 2.44%
+
+🔄 [24/60] Running with alpha=0.4, num_clusters=64, pca_dim=100
+[Alpha=0.40] Top-1 Accuracy: 0.53%
+[Alpha=0.40] Top-5 Accuracy: 2.20%
+✅ Result: Top-1: 0.53%, Top-5: 2.20%
+
+🔄 [25/60] Running with alpha=0.6, num_clusters=8, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.68%
+[Alpha=0.60] Top-5 Accuracy: 2.75%
+✅ Result: Top-1: 0.68%, Top-5: 2.75%
+💾 Saving intermediate results... (25 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_134533.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [26/60] Running with alpha=0.6, num_clusters=8, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.67%
+[Alpha=0.60] Top-5 Accuracy: 2.61%
+✅ Result: Top-1: 0.67%, Top-5: 2.61%
+
+🔄 [27/60] Running with alpha=0.6, num_clusters=8, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 0.68%
+[Alpha=0.60] Top-5 Accuracy: 2.67%
+✅ Result: Top-1: 0.68%, Top-5: 2.67%
+
+🔄 [28/60] Running with alpha=0.6, num_clusters=16, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.64%
+[Alpha=0.60] Top-5 Accuracy: 2.62%
+✅ Result: Top-1: 0.64%, Top-5: 2.62%
+
+🔄 [29/60] Running with alpha=0.6, num_clusters=16, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.69%
+[Alpha=0.60] Top-5 Accuracy: 2.50%
+✅ Result: Top-1: 0.69%, Top-5: 2.50%
+
+🔄 [30/60] Running with alpha=0.6, num_clusters=16, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 0.63%
+[Alpha=0.60] Top-5 Accuracy: 2.54%
+✅ Result: Top-1: 0.63%, Top-5: 2.54%
+💾 Saving intermediate results... (30 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_134922.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [31/60] Running with alpha=0.6, num_clusters=32, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.55%
+[Alpha=0.60] Top-5 Accuracy: 2.18%
+✅ Result: Top-1: 0.55%, Top-5: 2.18%
+
+🔄 [32/60] Running with alpha=0.6, num_clusters=32, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.54%
+[Alpha=0.60] Top-5 Accuracy: 2.29%
+✅ Result: Top-1: 0.54%, Top-5: 2.29%
+
+🔄 [33/60] Running with alpha=0.6, num_clusters=32, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 0.53%
+[Alpha=0.60] Top-5 Accuracy: 2.13%
+✅ Result: Top-1: 0.53%, Top-5: 2.13%
+
+🔄 [34/60] Running with alpha=0.6, num_clusters=64, pca_dim=25
+[Alpha=0.60] Top-1 Accuracy: 0.55%
+[Alpha=0.60] Top-5 Accuracy: 2.06%
+✅ Result: Top-1: 0.55%, Top-5: 2.06%
+
+🔄 [35/60] Running with alpha=0.6, num_clusters=64, pca_dim=50
+[Alpha=0.60] Top-1 Accuracy: 0.56%
+[Alpha=0.60] Top-5 Accuracy: 2.09%
+✅ Result: Top-1: 0.56%, Top-5: 2.09%
+💾 Saving intermediate results... (35 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_135312.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [36/60] Running with alpha=0.6, num_clusters=64, pca_dim=100
+[Alpha=0.60] Top-1 Accuracy: 0.45%
+[Alpha=0.60] Top-5 Accuracy: 1.97%
+✅ Result: Top-1: 0.45%, Top-5: 1.97%
+
+🔄 [37/60] Running with alpha=0.8, num_clusters=8, pca_dim=25
+[Alpha=0.80] Top-1 Accuracy: 0.55%
+[Alpha=0.80] Top-5 Accuracy: 2.39%
+✅ Result: Top-1: 0.55%, Top-5: 2.39%
+
+🔄 [38/60] Running with alpha=0.8, num_clusters=8, pca_dim=50
+[Alpha=0.80] Top-1 Accuracy: 0.58%
+[Alpha=0.80] Top-5 Accuracy: 2.32%
+✅ Result: Top-1: 0.58%, Top-5: 2.32%
+
+🔄 [39/60] Running with alpha=0.8, num_clusters=8, pca_dim=100
+[Alpha=0.80] Top-1 Accuracy: 0.54%
+[Alpha=0.80] Top-5 Accuracy: 2.28%
+✅ Result: Top-1: 0.54%, Top-5: 2.28%
+
+🔄 [40/60] Running with alpha=0.8, num_clusters=16, pca_dim=25
+[Alpha=0.80] Top-1 Accuracy: 0.56%
+[Alpha=0.80] Top-5 Accuracy: 2.25%
+✅ Result: Top-1: 0.56%, Top-5: 2.25%
+💾 Saving intermediate results... (40 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_135702.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [41/60] Running with alpha=0.8, num_clusters=16, pca_dim=50
+[Alpha=0.80] Top-1 Accuracy: 0.60%
+[Alpha=0.80] Top-5 Accuracy: 2.16%
+✅ Result: Top-1: 0.60%, Top-5: 2.16%
+
+🔄 [42/60] Running with alpha=0.8, num_clusters=16, pca_dim=100
+[Alpha=0.80] Top-1 Accuracy: 0.58%
+[Alpha=0.80] Top-5 Accuracy: 2.27%
+✅ Result: Top-1: 0.58%, Top-5: 2.27%
+
+🔄 [43/60] Running with alpha=0.8, num_clusters=32, pca_dim=25
+[Alpha=0.80] Top-1 Accuracy: 0.46%
+[Alpha=0.80] Top-5 Accuracy: 1.95%
+✅ Result: Top-1: 0.46%, Top-5: 1.95%
+
+🔄 [44/60] Running with alpha=0.8, num_clusters=32, pca_dim=50
+[Alpha=0.80] Top-1 Accuracy: 0.45%
+[Alpha=0.80] Top-5 Accuracy: 2.03%
+✅ Result: Top-1: 0.45%, Top-5: 2.03%
+
+🔄 [45/60] Running with alpha=0.8, num_clusters=32, pca_dim=100
+[Alpha=0.80] Top-1 Accuracy: 0.46%
+[Alpha=0.80] Top-5 Accuracy: 1.84%
+✅ Result: Top-1: 0.46%, Top-5: 1.84%
+💾 Saving intermediate results... (45 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_140050.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [46/60] Running with alpha=0.8, num_clusters=64, pca_dim=25
+[Alpha=0.80] Top-1 Accuracy: 0.47%
+[Alpha=0.80] Top-5 Accuracy: 1.87%
+✅ Result: Top-1: 0.47%, Top-5: 1.87%
+
+🔄 [47/60] Running with alpha=0.8, num_clusters=64, pca_dim=50
+[Alpha=0.80] Top-1 Accuracy: 0.49%
+[Alpha=0.80] Top-5 Accuracy: 1.87%
+✅ Result: Top-1: 0.49%, Top-5: 1.87%
+
+🔄 [48/60] Running with alpha=0.8, num_clusters=64, pca_dim=100
+[Alpha=0.80] Top-1 Accuracy: 0.41%
+[Alpha=0.80] Top-5 Accuracy: 1.70%
+✅ Result: Top-1: 0.41%, Top-5: 1.70%
+
+🔄 [49/60] Running with alpha=1.0, num_clusters=8, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.50%
+[Alpha=1.00] Top-5 Accuracy: 2.08%
+✅ Result: Top-1: 0.50%, Top-5: 2.08%
+
+🔄 [50/60] Running with alpha=1.0, num_clusters=8, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.50%
+[Alpha=1.00] Top-5 Accuracy: 1.90%
+✅ Result: Top-1: 0.50%, Top-5: 1.90%
+💾 Saving intermediate results... (50 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_140439.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [51/60] Running with alpha=1.0, num_clusters=8, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.46%
+[Alpha=1.00] Top-5 Accuracy: 1.83%
+✅ Result: Top-1: 0.46%, Top-5: 1.83%
+
+🔄 [52/60] Running with alpha=1.0, num_clusters=16, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.49%
+[Alpha=1.00] Top-5 Accuracy: 1.92%
+✅ Result: Top-1: 0.49%, Top-5: 1.92%
+
+🔄 [53/60] Running with alpha=1.0, num_clusters=16, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.50%
+[Alpha=1.00] Top-5 Accuracy: 1.91%
+✅ Result: Top-1: 0.50%, Top-5: 1.91%
+
+🔄 [54/60] Running with alpha=1.0, num_clusters=16, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.52%
+[Alpha=1.00] Top-5 Accuracy: 1.96%
+✅ Result: Top-1: 0.52%, Top-5: 1.96%
+
+🔄 [55/60] Running with alpha=1.0, num_clusters=32, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.41%
+[Alpha=1.00] Top-5 Accuracy: 1.67%
+✅ Result: Top-1: 0.41%, Top-5: 1.67%
+💾 Saving intermediate results... (55 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_140827.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+🔄 [56/60] Running with alpha=1.0, num_clusters=32, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.42%
+[Alpha=1.00] Top-5 Accuracy: 1.82%
+✅ Result: Top-1: 0.42%, Top-5: 1.82%
+
+🔄 [57/60] Running with alpha=1.0, num_clusters=32, pca_dim=100
+[Alpha=1.00] Top-1 Accuracy: 0.41%
+[Alpha=1.00] Top-5 Accuracy: 1.62%
+✅ Result: Top-1: 0.41%, Top-5: 1.62%
+
+🔄 [58/60] Running with alpha=1.0, num_clusters=64, pca_dim=25
+[Alpha=1.00] Top-1 Accuracy: 0.43%
+[Alpha=1.00] Top-5 Accuracy: 1.65%
+✅ Result: Top-1: 0.43%, Top-5: 1.65%
+
+🔄 [59/60] Running with alpha=1.0, num_clusters=64, pca_dim=50
+[Alpha=1.00] Top-1 Accuracy: 0.45%
+[Alpha=1.00] Top-5 Accuracy: 1.73%
+✅ Result: Top-1: 0.45%, Top-5: 1.73%
+
+🔄 [60/60] Running with alpha=1.0, num_clusters=64, pca_dim=100
+2025-08-18 14:12:17,924 | INFO | ✔ END: extract model logits (elapsed 2739.49s)
+[Alpha=1.00] Top-1 Accuracy: 0.35%
+[Alpha=1.00] Top-5 Accuracy: 1.55%
+✅ Result: Top-1: 0.35%, Top-5: 1.55%
+💾 Saving intermediate results... (60 total combinations)
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_141217.csv
+💾 Recovery checkpoint saved: adaround_lsq_mnasnet0_5_20250818_124546/recovery_checkpoint.json
+
+================================================================================
+SUMMARY OF ALL RESULTS
+================================================================================
+Alpha    Clusters   PCA_dim    Top-1      Top-5     
+--------------------------------------------------
+0.20     8          25         0.66       2.56      
+0.20     8          50         0.64       2.48      
+0.20     8          100        0.66       2.50      
+0.20     16         25         0.67       2.56      
+0.20     16         50         0.65       2.51      
+0.20     16         100        0.67       2.52      
+0.20     32         25         0.66       2.47      
+0.20     32         50         0.68       2.48      
+0.20     32         100        0.71       2.55      
+0.20     64         25         0.65       2.35      
+0.20     64         50         0.69       2.46      
+0.20     64         100        0.62       2.38      
+0.40     8          25         0.78       2.77      
+0.40     8          50         0.71       2.64      
+0.40     8          100        0.72       2.74      
+0.40     16         25         0.71       2.75      
+0.40     16         50         0.70       2.72      
+0.40     16         100        0.67       2.78      
+0.40     32         25         0.65       2.49      
+0.40     32         50         0.62       2.50      
+0.40     32         100        0.65       2.46      
+0.40     64         25         0.59       2.31      
+0.40     64         50         0.61       2.44      
+0.40     64         100        0.53       2.20      
+0.60     8          25         0.68       2.75      
+0.60     8          50         0.67       2.61      
+0.60     8          100        0.68       2.67      
+0.60     16         25         0.64       2.62      
+0.60     16         50         0.69       2.50      
+0.60     16         100        0.63       2.54      
+0.60     32         25         0.55       2.18      
+0.60     32         50         0.54       2.29      
+0.60     32         100        0.53       2.13      
+0.60     64         25         0.55       2.06      
+0.60     64         50         0.56       2.09      
+0.60     64         100        0.45       1.97      
+0.80     8          25         0.55       2.39      
+0.80     8          50         0.58       2.32      
+0.80     8          100        0.54       2.28      
+0.80     16         25         0.56       2.25      
+0.80     16         50         0.60       2.16      
+0.80     16         100        0.58       2.27      
+0.80     32         25         0.46       1.95      
+0.80     32         50         0.45       2.03      
+0.80     32         100        0.46       1.84      
+0.80     64         25         0.47       1.87      
+0.80     64         50         0.49       1.87      
+0.80     64         100        0.41       1.70      
+1.00     8          25         0.50       2.08      
+1.00     8          50         0.50       1.90      
+1.00     8          100        0.46       1.83      
+1.00     16         25         0.49       1.92      
+1.00     16         50         0.50       1.91      
+1.00     16         100        0.52       1.96      
+1.00     32         25         0.41       1.67      
+1.00     32         50         0.42       1.82      
+1.00     32         100        0.41       1.62      
+1.00     64         25         0.43       1.65      
+1.00     64         50         0.45       1.73      
+1.00     64         100        0.35       1.55      
+
+BEST RESULT:
+  Alpha: 0.4
+  Clusters: 8
+  PCA_dim: 25
+  Top-1 Accuracy: 0.78%
+  Top-5 Accuracy: 2.77%
+
+ACCURACY COMPARISON:
+  FP32 Model: 67.76%
+  Baseline PTQ: 0.65%
+  Best Clustering: 0.78%
+  PTQ Degradation: 67.12%
+  Clustering Recovery: 0.13%
+  Final Gap to FP32: 66.98%
+Results saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_results_20250818_141217.csv
+Summary saved to: adaround_lsq_mnasnet0_5_20250818_124546/ptq_summary_20250818_141217.csv
+✅ Experiment completed successfully!
+Results saved in: adaround_lsq_mnasnet0_5_20250818_124546
+------------------------------------------
+🎉 Experiment finished!
+Results directory: adaround_lsq_mnasnet0_5_20250818_124546

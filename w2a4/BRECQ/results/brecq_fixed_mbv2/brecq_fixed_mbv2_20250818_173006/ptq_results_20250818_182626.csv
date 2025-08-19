@@ -1,0 +1,11 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,8,25,0.412,1.624,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,8,50,0.402,1.61,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,8,100,0.396,1.594,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,16,25,0.404,1.65,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,16,50,0.398,1.624,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,16,100,0.414,1.642,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,32,25,0.396,1.66,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,32,50,0.404,1.67,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,32,100,0.418,1.618,True,10
+20250818_182626,mobilenet_v2,DEFAULT,64,32,224,2,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,72.152,0.36,0.2,64,25,0.41,1.666,True,10

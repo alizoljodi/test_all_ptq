@@ -1,0 +1,11 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,8,25,0.35,1.306,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,8,50,0.35,1.306,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,8,100,0.354,1.31,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,16,25,0.352,1.316,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,16,50,0.352,1.306,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,16,100,0.356,1.31,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,32,25,0.348,1.322,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,32,50,0.346,1.324,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,32,100,0.354,1.316,True,10
+20250818_175254,mnasnet0_5,DEFAULT,64,32,224,2,4,fixed,True,adaround,20000,0.2,0.01,1.0,False,67.764,0.326,0.2,64,25,0.36,1.336,True,10

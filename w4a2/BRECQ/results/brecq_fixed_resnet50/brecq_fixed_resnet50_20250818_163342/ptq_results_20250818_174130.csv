@@ -1,0 +1,6 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_174130,resnet50,DEFAULT,64,32,224,4,2,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,0.13,0.2,8,25,0.122,0.552,True,10
+20250818_174130,resnet50,DEFAULT,64,32,224,4,2,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,0.13,0.2,8,50,0.122,0.568,True,10
+20250818_174130,resnet50,DEFAULT,64,32,224,4,2,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,0.13,0.2,8,100,0.118,0.574,True,10
+20250818_174130,resnet50,DEFAULT,64,32,224,4,2,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,0.13,0.2,16,25,0.1,0.532,True,10
+20250818_174130,resnet50,DEFAULT,64,32,224,4,2,fixed,True,brecq,20000,0.2,0.01,1.0,False,80.84,0.13,0.2,16,50,0.102,0.548,True,10

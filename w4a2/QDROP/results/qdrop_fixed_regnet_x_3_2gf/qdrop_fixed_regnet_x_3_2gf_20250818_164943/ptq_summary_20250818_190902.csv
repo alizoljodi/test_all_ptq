@@ -1,0 +1,13 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,best_alpha,num_clusters,pca_dim,best_top1_accuracy,best_top5_accuracy,improvement_over_baseline,improvement_over_fp32
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.6,8,25,0.158,0.676,0.0,-81.022
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.4,8,50,0.174,0.668,0.015999999999999986,-81.006
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.4,8,100,0.158,0.674,0.0,-81.022
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,16,25,0.162,0.684,0.0040000000000000036,-81.018
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.6,16,50,0.166,0.674,0.008000000000000007,-81.01400000000001
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,16,100,0.164,0.692,0.006000000000000005,-81.016
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,32,25,0.158,0.684,0.0,-81.022
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,32,50,0.16,0.71,0.0020000000000000018,-81.02000000000001
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,32,100,0.15,0.674,-0.008000000000000007,-81.03
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.4,64,25,0.158,0.614,0.0,-81.022
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,64,50,0.144,0.72,-0.014000000000000012,-81.036
+20250818_190902,regnet_x_3_2gf,DEFAULT,64,32,224,4,2,fixed,True,qdrop,20000,0.2,0.01,1.0,False,81.18,0.158,0.2,64,100,0.146,0.692,-0.01200000000000001,-81.034

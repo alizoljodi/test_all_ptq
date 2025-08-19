@@ -1,0 +1,16 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,alpha,num_clusters,pca_dim,top1_accuracy,top5_accuracy,extract_logits,logits_batches
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,8,25,0.842,1.856,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,8,50,0.836,1.852,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,8,100,0.846,1.86,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,16,25,0.848,1.846,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,16,50,0.804,1.842,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,16,100,0.836,1.86,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,32,25,0.712,1.826,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,32,50,0.792,1.792,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,32,100,0.71,1.706,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,64,25,0.736,1.768,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,64,50,0.648,1.662,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.2,64,100,0.652,1.592,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.4,8,25,0.834,1.898,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.4,8,50,0.838,1.856,True,10
+20250818_174238,regnet_x_3_2gf,DEFAULT,64,32,224,4,4,fixed,True,brecq,20000,0.2,0.01,1.0,False,81.18,0.842,0.4,8,100,0.866,1.904,True,10

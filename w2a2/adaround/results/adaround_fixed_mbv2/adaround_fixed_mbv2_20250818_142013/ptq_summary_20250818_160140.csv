@@ -1,0 +1,13 @@
+timestamp,model,weights,batch_size,calib_batches,img_size,w_bits,a_bits,quant_model,advanced,adv_mode,adv_steps,adv_warmup,adv_lambda,adv_prob,keep_gpu,fp32_accuracy,baseline_ptq_acc,best_alpha,num_clusters,pca_dim,best_top1_accuracy,best_top5_accuracy,improvement_over_baseline,improvement_over_fp32
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.6,8,25,0.274,1.07,0.03400000000000003,-71.878
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.8,8,50,0.276,1.172,0.03600000000000003,-71.876
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.6,8,100,0.26,1.09,0.020000000000000018,-71.892
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.6,16,25,0.274,1.078,0.03400000000000003,-71.878
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.4,16,50,0.26,0.99,0.020000000000000018,-71.892
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.6,16,100,0.26,1.15,0.020000000000000018,-71.892
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.4,32,25,0.244,1.034,0.0040000000000000036,-71.908
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.4,32,50,0.262,1.042,0.02200000000000002,-71.89
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.2,32,100,0.244,0.992,0.0040000000000000036,-71.908
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.2,64,25,0.216,0.98,-0.023999999999999994,-71.936
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.2,64,50,0.216,0.944,-0.023999999999999994,-71.936
+20250818_160140,mobilenet_v2,DEFAULT,64,32,224,2,2,fixed,True,adaround,20000,0.2,0.01,1.0,False,72.152,0.24,0.2,64,100,0.208,0.904,-0.032,-71.944
